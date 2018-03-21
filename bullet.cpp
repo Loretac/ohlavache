@@ -22,6 +22,7 @@ void Bullet::move()
     // move the bullet up
     setPos(x(),y()-10);
 
+    // delete the bullets after they go off the screen
     if(pos().y() + rect().height() < 0){ // off the screen
         scene()->removeItem(this);
         delete this;

@@ -12,7 +12,9 @@
  * QGraphicsView
  *
  *
- *
+ * Created based on tutorial from Abdullah Aghazadah
+ * Youtube channel:
+ * https://www.youtube.com/channel/UClzV7jGJREjvCTzfGTrdrkQ
  *
  * */
 
@@ -48,7 +50,8 @@ int main(int argc, char *argv[])
     view->setFixedSize(800,600);
     scene->setSceneRect(0,0,800,600);
 
-    player->setPos(view->width()/2,view->height()-player->rect().height());
+    // initialize player at the bottom
+    player->setPos(view->width()/2 - player->rect().width()/2,view->height()-player->rect().height());
 
 
     return a.exec();
