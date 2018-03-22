@@ -3,6 +3,8 @@
 #include "myrect.h"
 #include <QGraphicsView>
 
+// because we want to connect a timer to a function that constantly creates enemies
+#include <QTimer>
 
 
 
@@ -52,6 +54,11 @@ int main(int argc, char *argv[])
 
     // initialize player at the bottom
     player->setPos(view->width()/2 - player->rect().width()/2,view->height()-player->rect().height());
+
+    // spawn enemies
+    QTimer *timer = new QTimer();
+    QObject::connect(timer, SIGNAL(timeout()),player,SLOT(spawn()));
+    timer->start(2000); // new enemy created every 2000 ms (2 seconds)
 
 
     return a.exec();
