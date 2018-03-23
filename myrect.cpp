@@ -9,23 +9,23 @@ void MyRect::keyPressEvent(QKeyEvent *event){
     // check what key was pressed
     if(event->key() == Qt::Key_Left){
         if(pos().x() > 0){
-            setPos(x()-10,y());
+            setPos(x()-40,y());
         }
     }
     else if(event->key() == Qt::Key_Right){
         if(pos().x() +100 < 800){
-            setPos(x()+10,y());
+            setPos(x()+40,y());
         }
     }
     else if(event->key() == Qt::Key_Up){
         if(pos().y() > 0){
-            setPos(x(),y()-10);
+            setPos(x(),y()-40);
         }
 
     }
     else if(event->key() == Qt::Key_Down){
         if(pos().y() +100 < 600){
-            setPos(x(),y()+10);
+            setPos(x(),y()+40);
         }
 
     }

@@ -32,8 +32,8 @@ void Enemy::move()
     // move the enemy down
     setPos(x(),y()+5);
 
-    // delete the bullets
-    if(pos().y() + rect().height() < 0){ // off the screen
+    // delete the enemies
+    if(pos().y() > 600){ // off the screen
         scene()->removeItem(this);
         delete this;
     }
