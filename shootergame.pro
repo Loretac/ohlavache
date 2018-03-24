@@ -27,12 +27,14 @@ SOURCES += \
         main.cpp \
     bullet.cpp \
     myrect.cpp \
-    enemy.cpp
+    enemy.cpp \
+    game.cpp
 
 HEADERS += \
     bullet.h \
     myrect.h \
-    enemy.h
+    enemy.h \
+    game.h
 
 FORMS += \
         mainwindow.ui

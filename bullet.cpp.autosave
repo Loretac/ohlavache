@@ -5,13 +5,6 @@
 #include "enemy.h"
 #include "game.h"
 
-
-
-
-
-
-
-
 extern Game * game; // there is an external global object called game
 
 // bullet constructor
