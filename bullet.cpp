@@ -5,14 +5,9 @@
 #include "enemy.h"
 #include "game.h"
 
-
-
-
-
-
-
-
-extern Game * game; // there is an external global object called game
+// there is an external global object called game, so we can increase score
+// score is part of the game class.
+extern Game * game;
 
 // bullet constructor
 Bullet::Bullet()
@@ -40,6 +35,11 @@ void Bullet::move()
     //traverse to see if bullet is colliding with enemy
     for(int i = 0, n = colliding_items.size(); i < n; ++i){
         if(typeid(*(colliding_items[i])) == typeid(Enemy)){
+           // increase the score
+           game->score->increase();
+
+
+
             // remove them both
             scene()->removeItem((colliding_items[i]));
             scene()->removeItem(this);

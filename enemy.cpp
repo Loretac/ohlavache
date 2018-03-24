@@ -5,6 +5,7 @@
 #include "game.h"
 
 extern Game * game; // there is an external global object called game
+// used to decrease health after enemy crosses screen
 
 // bullet constructor
 Enemy::Enemy()
@@ -35,8 +36,11 @@ void Enemy::move()
     // move the enemy down
     setPos(x(),y()+5);
 
-    // delete the enemies
+    // delete the enemies and decrease score
     if(pos().y() > 600){ // off the screen
+        // decrease the health
+        game->health->decrease();
+
         scene()->removeItem(this);
         delete this;
     }

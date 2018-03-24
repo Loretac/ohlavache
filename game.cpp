@@ -46,11 +46,22 @@ Game::Game(QWidget *parent){
     // initialize the player at the bottom
     player->setPos(350,500); // TODO generalize to always be in the middle bottom of screen
 
+    // create the score and health
+    score = new Score();
+    health = new Health();
+
+    // add the score to the scene
+    scene->addItem(score);
+
+    health->setPos(health->x(),health->y()+25);
+    scene->addItem(health);
 
     // spawn enemies
     QTimer *timer = new QTimer();
     QObject::connect(timer,SIGNAL(timeout()),player,SLOT(spawn()));
     timer->start(2000); // new enemy created every 2000 ms (2 seconds)
+
+
 
     show();
 
