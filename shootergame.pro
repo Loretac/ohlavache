@@ -27,19 +27,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
     bullet.cpp \
-    myrect.cpp \
     enemy.cpp \
     game.cpp \
     score.cpp \
-    health.cpp
+    health.cpp \
+    player.cpp
 
 HEADERS += \
     bullet.h \
-    myrect.h \
     enemy.h \
     game.h \
     score.h \
-    health.h
+    health.h \
+    player.h
 
 FORMS += \
         mainwindow.ui

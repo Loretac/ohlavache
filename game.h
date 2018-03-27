@@ -5,7 +5,7 @@
 #include <QWidget>
 #include <QGraphicsScene>
 
-#include "myrect.h"
+#include "player.h"
 #include "score.h"
 #include "health.h"
 
@@ -15,7 +15,7 @@ class Game: public QGraphicsView{
     Game(QWidget *parent = 0);
 
     QGraphicsScene *scene;
-    MyRect *player;
+    Player *player;
     Score *score;
     Health *health;
 

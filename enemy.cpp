@@ -20,7 +20,7 @@ Enemy::Enemy()
 
 
     // draw the rect
-    setRect(0,0,100,100);
+    setPixmap(QPixmap(":/images/ufo.png"));
 
     // connect to slot
     QTimer *timer = new QTimer();

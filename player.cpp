@@ -1,11 +1,18 @@
-#include "myrect.h"
+#include "player.h"
 #include <QGraphicsScene>
 #include <QKeyEvent>
 #include "bullet.h"
 #include "enemy.h"
 
 
-void MyRect::keyPressEvent(QKeyEvent *event){
+Player::Player(QGraphicsItem *parent): QGraphicsPixmapItem(parent){
+    setPixmap(QPixmap(":/images/jet.png"));
+    //QPixmap::scaled()
+    //QPixmap::scaledToWidth(100,Qt::FastTransformation);
+
+}
+
+void Player::keyPressEvent(QKeyEvent *event){
     // check what key was pressed
     if(event->key() == Qt::Key_Left){
         if(pos().x() > 0){
@@ -39,7 +46,9 @@ void MyRect::keyPressEvent(QKeyEvent *event){
     }
 }
 
-void MyRect::spawn()
+
+
+void Player::spawn()
 {
     // create an enemy
     Enemy *enemy = new Enemy();

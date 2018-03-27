@@ -7,7 +7,7 @@
 
 #include "game.h"
 #include "enemy.h"
-#include "myrect.h"
+#include "player.h"
 
 
 Game::Game(QWidget *parent){
@@ -18,10 +18,12 @@ Game::Game(QWidget *parent){
 
     // create an item to put into the scene
     // by default, length and width are 0
-    player = new MyRect();
+    player = new Player();
 
     // change rectangle to 100x100 pix
-    player->setRect(0,0,100,100);
+
+    // player->setRect(0,0,100,100);
+    // player->setPixmap(QPixmap(":/images/jet.png"));
 
     // make rect focusable
     player->setFlag(QGraphicsItem::ItemIsFocusable);

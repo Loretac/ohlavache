@@ -13,7 +13,7 @@ extern Game * game;
 Bullet::Bullet()
 {
     // draw the rect
-    setRect(45,0,10,50);
+    setPixmap(QPixmap(":/images/missile.png"));
 
     // connect to slot
     QTimer *timer = new QTimer();
@@ -58,7 +58,7 @@ void Bullet::move()
     setPos(x(),y()-10);
 
     // delete the bullets
-    if(pos().y() + rect().height() < 0){ // off the screen
+    if(pos().y() + pixmap().height() < 0){ // off the screen
         scene()->removeItem(this);
         delete this;
     }
