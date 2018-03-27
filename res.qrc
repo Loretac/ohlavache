@@ -7,5 +7,6 @@
         <file>jet.png</file>
         <file>ufo.png</file>
         <file>missile.png</file>
+        <file>skybackground.png</file>
     </qresource>
 </RCC>

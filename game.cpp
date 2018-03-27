@@ -2,6 +2,9 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 
+// for scene background
+#include <QImage>
+
 // because we want to connect a timer to a function that constantly creates enemies
 #include <QTimer>
 
@@ -15,6 +18,11 @@ Game::Game(QWidget *parent){
 
     // create a scene
     scene = new QGraphicsScene();
+    // make the scene 800x600 instead of infinity by infinity (default)
+    scene->setSceneRect(0,0,800,600);
+
+    // make the background an image
+    setBackgroundBrush(QBrush(QImage(":/images/skybackground.png")));
 
     // create an item to put into the scene
     // by default, length and width are 0
@@ -34,8 +42,7 @@ Game::Game(QWidget *parent){
     // add the item to the scene
     scene->addItem(player);
 
-    // make the scene 800x600 instead of infinity by infinity (default)
-    scene->setSceneRect(0,0,800,600);
+
 
     // make the newly created scene the scene to visualize (since Game is a QGraphicsView Widget,
     // it can be used to visualize scenes)

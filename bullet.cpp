@@ -5,6 +5,8 @@
 #include "enemy.h"
 #include "game.h"
 
+#include <QGraphicsPixmapItem>
+
 // there is an external global object called game, so we can increase score
 // score is part of the game class.
 extern Game * game;
@@ -12,8 +14,10 @@ extern Game * game;
 // bullet constructor
 Bullet::Bullet()
 {
-    // draw the rect
+    // draw the bullet
     setPixmap(QPixmap(":/images/missile.png"));
+
+
 
     // connect to slot
     QTimer *timer = new QTimer();
