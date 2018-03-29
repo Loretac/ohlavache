@@ -7,13 +7,13 @@
 extern Game * game; // there is an external global object called game
 // used to decrease health after enemy crosses screen
 
-// bullet constructor
+// enemy constructor
 Enemy::Enemy()
 {
     // set random position
 
 
-    int random_number = rand() % 700; // 100 less than width of screen so enemeis won't be cut off
+    int random_number = rand() % 700; // 100 less than width of screen so enemies won't be cut off
     setPos(random_number,0);
 
 

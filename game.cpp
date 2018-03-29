@@ -70,6 +70,11 @@ Game::Game(QWidget *parent){
     QObject::connect(timer,SIGNAL(timeout()),player,SLOT(spawn()));
     timer->start(2000); // new enemy created every 2000 ms (2 seconds)
 
+    //player movement
+    QTimer *movementTimer = new QTimer();
+    QObject::connect(movementTimer,SIGNAL(timeout()),player,SLOT(movePlayer()));
+    movementTimer->start(2);
+
 
 
     show();
