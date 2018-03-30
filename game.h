@@ -11,6 +11,7 @@
 #include "lives.h"
 
 
+
 class Game: public QGraphicsView{
     Q_OBJECT
   public:
@@ -24,6 +25,15 @@ class Game: public QGraphicsView{
     Player *player;
     Score *score;
     Health *health;
+
+    Lives *lifeArray[3];
+    int numLives = 3; // begin game with 3 lives
+
+    //std::vector <Lives> numLives(3); // vector of 3 "lives" objects
+
+
+
+
     Lives *lives;
 
     QTimer *timer;

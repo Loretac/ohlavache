@@ -81,6 +81,11 @@ void Game::death()
     scene->addItem(player);
 
     player->setPos(350,500);
+
+
+    delete(lifeArray[numLives-1]);
+    numLives--;
+
 }
 
 void Game::start()
@@ -121,10 +126,21 @@ void Game::start()
 
 
 
-    //add lives
-    lives = new Lives();
-    lives->setPos(lives->x()+10,lives->y()+550);
-    scene->addItem(lives);
+
+
+
+
+    // display the lives to the screen
+    for(int i = 0; i < numLives; i++){
+        lifeArray[i] = new Lives;
+        // bottom left corner, from left to right
+        lifeArray[i]->setPos(lifeArray[i]->x()+40*i + 10,lifeArray[i]->y()+550);
+        scene->addItem(lifeArray[i]);
+    }
+
+
+
+
 
     // spawn enemies
     timer = new QTimer();
