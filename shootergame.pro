@@ -30,7 +30,6 @@ SOURCES += \
     enemy.cpp \
     game.cpp \
     score.cpp \
-    health.cpp \
     player.cpp \
     lives.cpp \
     button.cpp
@@ -40,7 +39,6 @@ HEADERS += \
     enemy.h \
     game.h \
     score.h \
-    health.h \
     player.h \
     lives.h \
     button.h

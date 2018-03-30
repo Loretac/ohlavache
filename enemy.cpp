@@ -63,24 +63,11 @@ void Enemy::move()
                 }
             }
 
-
-
-
-
-
-
-
-
-
-
-
-
             // move the enemy down
             setPos(x(),y()+2);
 
             // delete the enemy
             if(pos().y() > 600){ // off the screen
-                // decrease the health
 
                 scene()->removeItem(this);
                 delete this;

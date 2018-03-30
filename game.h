@@ -7,7 +7,7 @@
 
 #include "player.h"
 #include "score.h"
-#include "health.h"
+//#include "health.h"
 #include "lives.h"
 
 
@@ -24,17 +24,9 @@ class Game: public QGraphicsView{
     QGraphicsScene *scene;
     Player *player;
     Score *score;
-    Health *health;
 
     Lives *lifeArray[3];
     int numLives = 3; // begin game with 3 lives
-
-    //std::vector <Lives> numLives(3); // vector of 3 "lives" objects
-
-
-
-
-    Lives *lives;
 
     QTimer *timer;
 

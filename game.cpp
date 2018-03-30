@@ -69,7 +69,6 @@ void Game::displayMainMenu()
 
 void Game::death()
 {
-    health->decrease();
     delete(player);
 
 
@@ -85,6 +84,10 @@ void Game::death()
 
     delete(lifeArray[numLives-1]);
     numLives--;
+
+    if(numLives<=0){
+        gameOver();
+    }
 
 }
 
@@ -114,21 +117,13 @@ void Game::start()
     // initialize the player at the bottom
     player->setPos(350,500); // TODO generalize to always be in the middle bottom of screen
 
-    // create the score and health
+    // create the score
     score = new Score();
-    health = new Health();
 
     // add the score to the scene
     scene->addItem(score);
 
-    health->setPos(health->x(),health->y()+25);
-    scene->addItem(health);
-
-
-
-
-
-
+    numLives = 3;
 
     // display the lives to the screen
     for(int i = 0; i < numLives; i++){
@@ -168,8 +163,11 @@ void Game::restartGame()
 {
     delete(player);
     delete(score);
-    delete(health);
-    delete(lives);
+
+
+
+
+
     start();
 }
 
