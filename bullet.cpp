@@ -24,46 +24,50 @@ Bullet::Bullet()
     connect(timer,SIGNAL(timeout()),this, SLOT(move()));
 
     // every 50 ms, timeout signal emitted and bullet moves
-    timer->start(50);
+    timer->start(5);
 
 }
 
 void Bullet::move()
 {
-    // before moving bullet, check if colliding with enemy
-    // if bullet collides with enemy, destroy both
-    QList<QGraphicsItem *> colliding_items = collidingItems();
-    // collidingItems() member function returns list of pointers to all the QGraphics items
-    // that the bullet is colliding with
+    if(game->paused == false){
+        // before moving bullet, check if colliding with enemy
+        // if bullet collides with enemy, destroy both
+        QList<QGraphicsItem *> colliding_items = collidingItems();
+        // collidingItems() member function returns list of pointers to all the QGraphics items
+        // that the bullet is colliding with
 
-    //traverse to see if bullet is colliding with enemy
-    for(int i = 0, n = colliding_items.size(); i < n; ++i){
-        if(typeid(*(colliding_items[i])) == typeid(Enemy)){
-           // increase the score
-           game->score->increase();
+        //traverse to see if bullet is colliding with enemy
+        for(int i = 0, n = colliding_items.size(); i < n; ++i){
+            if(typeid(*(colliding_items[i])) == typeid(Enemy)){
+               // increase the score
+               game->score->increase();
 
 
 
-            // remove them both
-            scene()->removeItem((colliding_items[i]));
+                // remove them both
+                scene()->removeItem((colliding_items[i]));
+                scene()->removeItem(this);
+
+                //then, delete them both
+                delete colliding_items[i];
+                delete this;
+
+                // exit
+                return;
+            }
+        }
+
+
+        // move the bullet up
+        setPos(x(),y()-5);
+
+        // delete the bullets
+        if(pos().y() + pixmap().height() < 0){ // off the screen
             scene()->removeItem(this);
-
-            //then, delete them both
-            delete colliding_items[i];
             delete this;
-
-            // exit
-            return;
         }
     }
 
 
-    // move the bullet up
-    setPos(x(),y()-10);
-
-    // delete the bullets
-    if(pos().y() + pixmap().height() < 0){ // off the screen
-        scene()->removeItem(this);
-        delete this;
-    }
 }

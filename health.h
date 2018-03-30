@@ -11,6 +11,9 @@ public:
     void decrease();
     int getHealth();
 
+signals:
+    void dead();
+
 private:
     int health;
 

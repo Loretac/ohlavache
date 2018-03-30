@@ -1,8 +1,9 @@
 #include "health.h"
+#include "game.h"
 #include <QFont>
 
 
-
+extern Game * game;
 
 Health::Health(QGraphicsItem *parent)
 {
@@ -26,6 +27,10 @@ void Health::decrease()
 
     // update the text
     setPlainText(QString("Health: ") + QString::number(health));
+
+
+    if ( health == 0 )
+        game->gameOver();
 
 
 }

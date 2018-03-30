@@ -31,7 +31,9 @@ SOURCES += \
     game.cpp \
     score.cpp \
     health.cpp \
-    player.cpp
+    player.cpp \
+    lives.cpp \
+    button.cpp
 
 HEADERS += \
     bullet.h \
@@ -39,7 +41,9 @@ HEADERS += \
     game.h \
     score.h \
     health.h \
-    player.h
+    player.h \
+    lives.h \
+    button.h
 
 FORMS += \
         mainwindow.ui

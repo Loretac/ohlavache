@@ -9,7 +9,6 @@
 
 class Player:public QObject, public QGraphicsPixmapItem{
     Q_OBJECT
-    // Q_PROPERTY(QRectF geometry READ geometry WRITE setGeometry)
 public:
     bool keyLeft = false, keyRight = false, keyUp = false, keyDown = false, keySpace = false; // test
 
@@ -17,12 +16,17 @@ public:
 
     Player(QGraphicsItem *parent=0);
     void keyPressEvent(QKeyEvent *event);
-    void keyReleaseEvent(QKeyEvent *event); // test
-    //void timerEvent(QTimerEvent *event); // test
+    void keyReleaseEvent(QKeyEvent *event);
+
+    int getNumLives() const;
+    void setNumLives(int value);
 
 public slots:
-    void movePlayer(); // test
+    void movePlayer();
     void spawn(); // connected to timer so that we can periodically spawn enemies
+
+private:
+    int numLives;
 };
 
 #endif // MYRECT_H

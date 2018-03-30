@@ -3,8 +3,11 @@
 #include <QKeyEvent>
 #include "bullet.h"
 #include "enemy.h"
+#include "game.h"
 
 #include <QDebug>
+
+extern Game * game;
 
 /*********************************************************************
  ** Constructor. Sets the image of the player.
@@ -88,25 +91,33 @@ void Player::keyReleaseEvent(QKeyEvent *event){
  ** adjusts player movement accordingly.
  *********************************************************************/
 void Player::movePlayer(){
-    if(keyLeft && keyRight){
-        // no x-axis movement
-    }
-    if (keyLeft && (pos().x() > 0)) {
-        setPos(x()-5,y());
-    }
-    else if(keyRight && (pos().x() < 740)){
-        setPos(x()+5,y());
+
+
+    if(game->paused == false){
+        if(keyLeft && keyRight){
+            // no x-axis movement
+        }
+        if (keyLeft && (pos().x() > 0)) {
+            setPos(x()-5,y());
+        }
+        else if(keyRight && (pos().x() < 740)){
+            setPos(x()+5,y());
+        }
+
+        if(keyUp && keyDown){
+            // no y-axis movement
+        }
+        else if(keyUp && (pos().y() > 0)){
+            setPos(x(),y()-5);
+        }
+        else if(keyDown && (pos().y() < 500)){
+            setPos(x(),y()+5);
+        }
     }
 
-    if(keyUp && keyDown){
-        // no y-axis movement
-    }
-    else if(keyUp && (pos().y() > 0)){
-        setPos(x(),y()-5);
-    }
-    else if(keyDown && (pos().y() < 500)){
-        setPos(x(),y()+5);
-    }
+
+
+
 }
 
 /*********************************************************************
@@ -119,4 +130,14 @@ void Player::spawn()
 
     // add to the scene
     scene()->addItem(enemy);
+}
+
+int Player::getNumLives() const
+{
+    return numLives;
+}
+
+void Player::setNumLives(int value)
+{
+    numLives = value;
 }
