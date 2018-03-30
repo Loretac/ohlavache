@@ -6,6 +6,7 @@
 #include "game.h"
 
 #include <QDebug>
+#include <QTimer>
 
 extern Game * game;
 
@@ -14,6 +15,17 @@ extern Game * game;
  *********************************************************************/
 Player::Player(QGraphicsItem *parent): QGraphicsPixmapItem(parent){
     setPixmap(QPixmap(":/images/jet.png"));
+
+
+
+
+
+    //player movement
+    QTimer *movementTimer = new QTimer();
+    QObject::connect(movementTimer,SIGNAL(timeout()),this,SLOT(movePlayer()));
+    movementTimer->start(2);
+
+
 }
 
 /*********************************************************************
@@ -120,24 +132,5 @@ void Player::movePlayer(){
 
 }
 
-/*********************************************************************
- ** Spawns enemies based on timer in game.cpp
- *********************************************************************/
-void Player::spawn()
-{
-    // create an enemy
-    Enemy *enemy = new Enemy();
 
-    // add to the scene
-    scene()->addItem(enemy);
-}
 
-int Player::getNumLives() const
-{
-    return numLives;
-}
-
-void Player::setNumLives(int value)
-{
-    numLives = value;
-}

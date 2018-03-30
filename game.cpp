@@ -67,6 +67,22 @@ void Game::displayMainMenu()
     connect(playButton, SIGNAL(clicked()),this,SLOT(start()));
 }
 
+void Game::death()
+{
+    health->decrease();
+    delete(player);
+
+
+    player = new Player();
+
+    player->setFlag(QGraphicsItem::ItemIsFocusable);
+    player->setFocus();
+
+    scene->addItem(player);
+
+    player->setPos(350,500);
+}
+
 void Game::start()
 {
     // clear the screen
@@ -78,11 +94,9 @@ void Game::start()
     // by default, length and width are 0
     player = new Player();
 
-
     // make rect focusable
     player->setFlag(QGraphicsItem::ItemIsFocusable);
     player->setFocus();
-
 
     // add the item to the scene
     scene->addItem(player);
@@ -114,13 +128,17 @@ void Game::start()
 
     // spawn enemies
     timer = new QTimer();
-    QObject::connect(timer,SIGNAL(timeout()),player,SLOT(spawn()));
+    QObject::connect(timer,SIGNAL(timeout()),this,SLOT(spawn()));
     timer->start(2000); // new enemy created every 2000 ms (2 seconds)
 
+
+
+    /*
     //player movement
     QTimer *movementTimer = new QTimer();
     QObject::connect(movementTimer,SIGNAL(timeout()),player,SLOT(movePlayer()));
     movementTimer->start(2);
+    */
 
     // connect dead signal to game end
     //connect( health, SIGNAL(dead()), this, SLOT(end()) );
@@ -137,6 +155,20 @@ void Game::restartGame()
     delete(health);
     delete(lives);
     start();
+}
+
+/*********************************************************************
+ ** Spawns enemies based on timer in game.cpp
+ *********************************************************************/
+void Game::spawn()
+{
+        // create an enemy
+        Enemy *enemy = new Enemy();
+
+        // add to the scene
+        scene->addItem(enemy);
+
+
 }
 
 void Game::gameOver()

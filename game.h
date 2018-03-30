@@ -18,9 +18,7 @@ class Game: public QGraphicsView{
 
     // public methods
     void displayMainMenu();
-
-
-
+    void death();
 
     QGraphicsScene *scene;
     Player *player;
@@ -39,6 +37,7 @@ class Game: public QGraphicsView{
 public slots:
     void start();
     void restartGame();
+    void spawn(); // connected to timer so that we can periodically spawn enemies
 
 
 private:

@@ -46,18 +46,17 @@ void Enemy::move()
             //traverse to see if enemy is colliding with player
             for(int i = 0, n = colliding_items.size(); i < n; ++i){
                 if(typeid(*(colliding_items[i])) == typeid(Player)){
-                   // increase the score
-                   game->health->decrease();
-
-
-
-                    // remove them both
-                    //scene()->removeItem((colliding_items[i]));
-                    scene()->removeItem(this); // remove the enemy
-
-                    //then, delete them both
-                    //delete colliding_items[i];
+                    // remove and delete the enemy
+                    scene()->removeItem(this);
                     delete this;
+
+                    // call game death function
+                    game->death();
+
+
+
+
+
 
                     // exit
                     return;
@@ -79,10 +78,9 @@ void Enemy::move()
             // move the enemy down
             setPos(x(),y()+2);
 
-            // delete the enemies and decrease score
+            // delete the enemy
             if(pos().y() > 600){ // off the screen
                 // decrease the health
-                game->health->decrease();
 
                 scene()->removeItem(this);
                 delete this;
