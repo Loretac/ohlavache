@@ -11,23 +11,31 @@
 // score is part of the game class.
 extern Game * game;
 
-// bullet constructor
+/*********************************************************************
+ ** Bullet constructor. Bullets are created each time the player
+ ** shoots. This constructor draws the bullet and connects it to the
+ ** move function.
+ *********************************************************************/
 Bullet::Bullet()
 {
     // draw the bullet
     setPixmap(QPixmap(":/images/missile.png"));
 
-
+    // move the bullet:
 
     // connect to slot
     QTimer *timer = new QTimer();
     connect(timer,SIGNAL(timeout()),this, SLOT(move()));
 
-    // every 50 ms, timeout signal emitted and bullet moves
+    // every 5 ms, timeout signal emitted and bullet moves
     timer->start(5);
 
 }
 
+/*********************************************************************
+ ** This function moves the player's bullet towards the enemies.
+ ** It runs on a timer in the Bullet constructor above.
+ *********************************************************************/
 void Bullet::move()
 {
     if(game->paused == false){
@@ -43,13 +51,11 @@ void Bullet::move()
                // increase the score
                game->score->increase();
 
-
-
-                // remove them both
+                // remove both the bullet and enemy
                 scene()->removeItem((colliding_items[i]));
                 scene()->removeItem(this);
 
-                //then, delete them both
+                //then, delete both
                 delete colliding_items[i];
                 delete this;
 
@@ -58,16 +64,13 @@ void Bullet::move()
             }
         }
 
-
         // move the bullet up
         setPos(x(),y()-5);
 
-        // delete the bullets
+        // delete the bullets after they leave the screen
         if(pos().y() + pixmap().height() < 0){ // off the screen
             scene()->removeItem(this);
             delete this;
         }
     }
-
-
 }

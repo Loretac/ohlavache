@@ -11,21 +11,16 @@
 extern Game * game;
 
 /*********************************************************************
- ** Constructor. Sets the image of the player.
+ ** Player constructor. Sets the image of the player and connects
+ ** to movement timer.
  *********************************************************************/
 Player::Player(QGraphicsItem *parent): QGraphicsPixmapItem(parent){
     setPixmap(QPixmap(":/images/jet.png"));
-
-
-
-
 
     //player movement
     QTimer *movementTimer = new QTimer();
     QObject::connect(movementTimer,SIGNAL(timeout()),this,SLOT(movePlayer()));
     movementTimer->start(2);
-
-
 }
 
 /*********************************************************************
@@ -104,7 +99,6 @@ void Player::keyReleaseEvent(QKeyEvent *event){
  *********************************************************************/
 void Player::movePlayer(){
 
-
     if(game->paused == false){
         if(keyLeft && keyRight){
             // no x-axis movement
@@ -126,10 +120,6 @@ void Player::movePlayer(){
             setPos(x(),y()+5);
         }
     }
-
-
-
-
 }
 
 

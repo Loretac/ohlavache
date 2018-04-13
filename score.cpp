@@ -3,7 +3,9 @@
 
 
 
-
+/*********************************************************************
+ ** Score constructor.
+ *********************************************************************/
 Score::Score(QGraphicsItem *parent)
 {
     // initialize score to zero
@@ -15,10 +17,11 @@ Score::Score(QGraphicsItem *parent)
 
     setDefaultTextColor(Qt::blue); // make text blue
     setFont(QFont("times", 16)); // font family and size
-
 }
 
-
+/*********************************************************************
+ ** Increases the score.
+ *********************************************************************/
 void Score::increase()
 {
     // increase the score
@@ -31,7 +34,9 @@ void Score::increase()
 }
 
 
-
+/*********************************************************************
+ ** Score getter.
+ *********************************************************************/
 int Score::getScore()
 {
     return score;

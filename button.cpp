@@ -3,6 +3,10 @@
 #include <QGraphicsRectItem>
 #include <QBrush>
 
+
+/*********************************************************************
+ ** Button constructor.
+ *********************************************************************/
 Button::Button(QString name, QGraphicsItem *parent):QGraphicsRectItem(parent)
 {
     // draw the rectangle
@@ -27,12 +31,17 @@ Button::Button(QString name, QGraphicsItem *parent):QGraphicsRectItem(parent)
 
 }
 
+/*********************************************************************
+ ** Intercept the mousePressEvent function with clicked() signal.
+ *********************************************************************/
 void Button::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    //isClicked = true;
     emit clicked();
 }
 
+/*********************************************************************
+ ** Intercept the hoverEnterEvent to change color if active
+ *********************************************************************/
 void Button::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
     // change color when hovered
@@ -42,6 +51,9 @@ void Button::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
     setBrush(brush);
 }
 
+/*********************************************************************
+ ** Intercept the hoverLeaveEvent to default color when active
+ *********************************************************************/
 void Button::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 {
     // change the color back to default

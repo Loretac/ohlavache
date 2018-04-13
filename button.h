@@ -17,7 +17,6 @@ public:
     void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
 
-    bool isClicked = false;
 
 signals:
     void clicked();
