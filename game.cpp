@@ -13,6 +13,7 @@
 #include "player.h"
 #include "lives.h"
 #include "button.h"
+#include "levels.h"
 
 /*********************************************************************
  ** Game constructor. This function runs only once, as each time
@@ -142,12 +143,23 @@ void Game::start()
     }
 
 
-    // spawn enemies
-    timer = new QTimer();
-    QObject::connect(timer,SIGNAL(timeout()),this,SLOT(spawn()));
-    timer->start(400); // new enemy created every 2000 ms (2 seconds)
-
     show();
+
+    // spawn enemies
+    //QTimer::singleShot(400, this, SLOT(spawn()));
+    //QTimer::singleShot(800, this, SLOT(spawn()));
+
+    levels *mylevels = new levels();
+    //mylevels->level1();
+
+
+    // spawn enemies
+    //timer = new QTimer();
+    //QObject::connect(timer,SIGNAL(timeout()),this,SLOT(spawn()));
+    //timer->start(400); // new enemy created every x ms
+
+
+
 }
 
 /*********************************************************************
@@ -166,14 +178,14 @@ void Game::restartGame()
 /*********************************************************************
  ** Spawns enemies based on timer in game.cpp
  *********************************************************************/
-void Game::spawn()
-{
-        // create an enemy
-        Enemy *enemy = new Enemy();
+//void Game::spawn()
+//{
+//        // create an enemy
+//        Enemy *enemy = new Enemy();
 
-        // add to the scene
-        scene->addItem(enemy);
-}
+//        // add to the scene
+//        scene->addItem(enemy);
+//}
 
 /*********************************************************************
  ** Runs when player has run out of lives.

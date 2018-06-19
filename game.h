@@ -38,7 +38,7 @@ class Game: public QGraphicsView{
 public slots:
     void start();
     void restartGame();
-    void spawn(); // connected to timer so that we can periodically spawn enemies
+    //void spawn(); // connected to timer so that we can periodically spawn enemies
 
 
 private:
