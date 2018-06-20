@@ -8,6 +8,7 @@
 #include "player.h"
 #include "score.h"
 #include "lives.h"
+#include "levels.h"
 
 
 
@@ -24,10 +25,12 @@ class Game: public QGraphicsView{
     Player *player;
     Score *score;
 
+    levels *myLevels;
+
     Lives *lifeArray[3];
     int numLives = 3; // begin game with 3 lives
 
-    QTimer *timer;
+    //QTimer *timer;
 
     bool paused = false;
 

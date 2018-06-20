@@ -5,6 +5,8 @@
 // for scene background
 #include <QImage>
 
+#include <QtDebug>
+
 // because we want to connect a timer to a function that constantly creates enemies
 #include <QTimer>
 
@@ -78,6 +80,7 @@ void Game::displayMainMenu()
  *********************************************************************/
 void Game::death()
 {
+    //qDebug() << "Death.";
     // delete the player
     delete(player);
 
@@ -93,6 +96,8 @@ void Game::death()
     // decrease lives
     delete(lifeArray[numLives-1]);
     numLives--;
+
+    qDebug() << "Death. Checking lives...";
 
     // if no more lives, game over
     if(numLives<=0){
@@ -149,7 +154,10 @@ void Game::start()
     //QTimer::singleShot(400, this, SLOT(spawn()));
     //QTimer::singleShot(800, this, SLOT(spawn()));
 
-    levels *mylevels = new levels();
+    //levels *mylevels = new levels();
+
+    myLevels = new levels();
+
     //mylevels->level1();
 
 
@@ -169,6 +177,7 @@ void Game::restartGame()
 {
     delete(player);
     delete(score);
+    delete(myLevels);
 
     // no need to delete lives... at this point there are none
 
@@ -192,11 +201,16 @@ void Game::restartGame()
  *********************************************************************/
 void Game::gameOver()
 {
+
+
     // pause all movement on the screen
     paused = true;
 
-    // stop spawning enemies
-    timer->stop();
+    qDebug() << "Game paused.";
+
+
+
+    qDebug() << "Timer stopped.";
 
     // disable all scene items
     for(size_t i = 0, n = scene->items().size(); i < n; i++){
@@ -205,6 +219,8 @@ void Game::gameOver()
 
     QString message= "Game Over!";
     displayGameOverWindow(message);
+
+    qDebug() << "This message does not show.";
 }
 
 /*********************************************************************
