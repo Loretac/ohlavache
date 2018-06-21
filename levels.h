@@ -10,11 +10,12 @@ class levels : public QObject
 public:
     levels();
     void level1();
-    void level2();
+
 
 public slots:
     void spawn1();
     void spawn2();
+    void level2();
 };
 
 #endif // LEVELS_H

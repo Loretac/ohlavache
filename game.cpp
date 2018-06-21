@@ -150,11 +150,6 @@ void Game::start()
 
     show();
 
-    // spawn enemies
-    //QTimer::singleShot(400, this, SLOT(spawn()));
-    //QTimer::singleShot(800, this, SLOT(spawn()));
-
-    //levels *mylevels = new levels();
 
     myLevels = new levels();
 

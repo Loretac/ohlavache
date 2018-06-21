@@ -15,6 +15,9 @@ public:
     bool moveLeft = false;
     int health;
 
+signals:
+    void bossDead();
+
 public slots:
     void move1();
     void move2();

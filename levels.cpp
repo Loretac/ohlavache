@@ -14,7 +14,6 @@ extern Game * game;
 levels::levels()
 {
     level1();
-    //level2();
 }
 
 void levels::spawn1()
@@ -23,9 +22,14 @@ void levels::spawn1()
     game->scene->addItem(enemy); // add to the scene
 }
 
+// boss for level 1
 void levels::spawn2()
 {
     Enemy *enemy = new Enemy(2,2);
+    connect(enemy,SIGNAL(bossDead()),
+            this,SLOT(level2())
+    );
+
     game->scene->addItem(enemy); // add to the scene
 }
 
@@ -43,16 +47,10 @@ void levels::level1()
 
     QTimer::singleShot(7400, this, SLOT(spawn2()));
 
-
-
-    //QTimer::singleShot(1600, this, SLOT(spawn2()));
-    //QTimer::singleShot(2000, this, SLOT(spawn2()));
-    //QTimer::singleShot(2400, this, SLOT(spawn2()));
-    //QTimer::singleShot(2800, this, SLOT(spawn2()));
-    //QTimer::singleShot(3200, this, SLOT(spawn2()));
 }
+
 
 void levels::level2()
 {
-   // QTimer::singleShot(400, this, SLOT(spawn2()));
+   QTimer::singleShot(400, this, SLOT(spawn1()));
 }
