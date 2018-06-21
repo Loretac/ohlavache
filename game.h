@@ -30,8 +30,6 @@ class Game: public QGraphicsView{
     Lives *lifeArray[3];
     int numLives = 3; // begin game with 3 lives
 
-    //QTimer *timer;
-
     bool paused = false;
 
     void gameOver();

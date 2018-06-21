@@ -5,6 +5,8 @@
 #include "enemy.h"
 #include "game.h"
 
+#include <QDebug>
+
 #include <QGraphicsPixmapItem>
 
 // there is an external global object called game, so we can increase score
@@ -51,12 +53,14 @@ void Bullet::move()
                // increase the score
                game->score->increase();
 
-                // remove both the bullet and enemy
-                scene()->removeItem((colliding_items[i]));
+               // typecast from QGraphicsItem* to Enemy*
+               Enemy *enemy = dynamic_cast<Enemy *>(colliding_items[i]);
+               enemy->damage(); // Call damage function on enemy
+
+                // remove the bullet from the scene
                 scene()->removeItem(this);
 
-                //then, delete both
-                delete colliding_items[i];
+                //then, delete the bullet
                 delete this;
 
                 // exit

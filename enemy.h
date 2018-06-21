@@ -9,8 +9,11 @@
 class Enemy: public QObject, public QGraphicsPixmapItem{
     Q_OBJECT
 public:
-    Enemy(int);
+    Enemy(int, int);
+    void checkCollision();
+    void damage();
     bool moveLeft = false;
+    int health;
 
 public slots:
     void move1();

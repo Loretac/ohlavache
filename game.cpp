@@ -202,15 +202,8 @@ void Game::restartGame()
 void Game::gameOver()
 {
 
-
     // pause all movement on the screen
     paused = true;
-
-    qDebug() << "Game paused.";
-
-
-
-    qDebug() << "Timer stopped.";
 
     // disable all scene items
     for(size_t i = 0, n = scene->items().size(); i < n; i++){
@@ -220,7 +213,6 @@ void Game::gameOver()
     QString message= "Game Over!";
     displayGameOverWindow(message);
 
-    qDebug() << "This message does not show.";
 }
 
 /*********************************************************************

@@ -13,8 +13,10 @@ extern Game * game; // there is an external global object called game
  ** The enemy constructor is called each time spawn() in game.cpp
  ** is called.
  *********************************************************************/
-Enemy::Enemy(int type)
+Enemy::Enemy(int type, int hp)
 {
+    health = hp;
+
     if(type == 1){
         int random_number = rand() % 700; // 100 less than width of screen so enemies won't be cut off
         setPos(random_number,-100); // set random position
@@ -37,7 +39,7 @@ Enemy::Enemy(int type)
         QPixmap bgPixmap(":/images/boss1.png");
 
         // created a resized copy
-        QPixmap scaled = bgPixmap.scaled(QSize(164,164));
+        QPixmap scaled = bgPixmap.scaled(QSize(84,84));
 
         // set to the resized object
         setPixmap(scaled);
@@ -53,32 +55,65 @@ Enemy::Enemy(int type)
 }
 
 /*********************************************************************
+ ** Checks if colliding with player
+ *********************************************************************/
+void Enemy::checkCollision()
+{
+    QList<QGraphicsItem *> colliding_items = collidingItems();
+
+    for(int i = 0, n = colliding_items.size(); i < n; ++i){
+        if(typeid(*(colliding_items[i])) == typeid(Player)){
+
+            health--;
+
+            game->death();
+
+            // exit
+            return;
+        }
+    }
+}
+
+void Enemy::damage()
+{
+    health--;
+    return;
+}
+
+/*********************************************************************
  ** This function moves the enemy.
  *********************************************************************/
 void Enemy::move1()
 {
     if(game->paused == false){
 
-            // before moving enemy, check if colliding with player
-            // if enemy collides with player, destroy enemy and decrease health/lives
-            QList<QGraphicsItem *> colliding_items = collidingItems();
-            // collidingItems() member function returns list of pointers to all the QGraphics items
-            // that the enemy is colliding with
+//            // before moving enemy, check if colliding with player
+//            // if enemy collides with player, destroy enemy and decrease health/lives
+//            QList<QGraphicsItem *> colliding_items = collidingItems();
+//            // collidingItems() member function returns list of pointers to all the QGraphics items
+//            // that the enemy is colliding with
 
-            //traverse to see if enemy is colliding with player
-            for(int i = 0, n = colliding_items.size(); i < n; ++i){
-                if(typeid(*(colliding_items[i])) == typeid(Player)){
-                    // remove and delete the enemy
-                    scene()->removeItem(this);
-                    delete this;
+//            //traverse to see if enemy is colliding with player
+//            for(int i = 0, n = colliding_items.size(); i < n; ++i){
+//                if(typeid(*(colliding_items[i])) == typeid(Player)){
+//                    // remove and delete the enemy
+//                    scene()->removeItem(this);
+//                    delete this;
 
-                    // call game death function
-                    game->death();
+//                    // call game death function
+//                    game->death();
 
-                    // exit
-                    return;
-                }
-            }
+//                    // exit
+//                    return;
+//                }
+//            }
+
+        checkCollision();
+
+        if(health <= 0){
+            scene()->removeItem(this);
+            delete this;
+           }
 
             // if not colliding with player:
 
@@ -97,52 +132,52 @@ void Enemy::move2()
 {
     if(game->paused == false){
 
-            // before moving enemy, check if colliding with player
-            // if enemy collides with player, destroy enemy and decrease health/lives
-            QList<QGraphicsItem *> colliding_items = collidingItems();
-            // collidingItems() member function returns list of pointers to all the QGraphics items
-            // that the enemy is colliding with
+//            // before moving enemy, check if colliding with player
+//            // if enemy collides with player, destroy enemy and decrease health/lives
+//            QList<QGraphicsItem *> colliding_items = collidingItems();
+//            // collidingItems() member function returns list of pointers to all the QGraphics items
+//            // that the enemy is colliding with
 
-            //traverse to see if enemy is colliding with player
-            for(int i = 0, n = colliding_items.size(); i < n; ++i){
-                if(typeid(*(colliding_items[i])) == typeid(Player)){
-                    // remove and delete the enemy
-                    scene()->removeItem(this);
-                    delete this;
+//            //traverse to see if enemy is colliding with player
+//            for(int i = 0, n = colliding_items.size(); i < n; ++i){
+//                if(typeid(*(colliding_items[i])) == typeid(Player)){
+//                    // remove and delete the enemy
+//                    scene()->removeItem(this);
+//                    delete this;
 
-                    // call game death function
-                    game->death();
+//                    // call game death function
+//                    game->death();
 
-                    // exit
-                    return;
-                }
-            }
+//                    // exit
+//                    return;
+//                }
+//            }
+
+        checkCollision();
+
+        if(health <= 0){
+            scene()->removeItem(this);
+            delete this;
+           }
 
             // if not colliding with player:
 
-            // move the enemy down
-            if(x() < 700 && !moveLeft){
-                setPos(x()+11,y()+2);
+            // move the enemy down...
+            if(y() < 10){
+                setPos(x(),y()+2);
             }
-            else if(x() >= 700 && !moveLeft){
+
+            if(((x() < 700 && !moveLeft) || (x() <= 0 && moveLeft))){
                 // change direction
-                setPos(x()-11, y()+2);
+                setPos(x()+11,y());
+                moveLeft = false;
+            }
+            else if(((x() > 0 && moveLeft) || (x() >= 700 && !moveLeft))){
+                // change direction
+                setPos(x()-11, y());
                 // set moveLeft
                 moveLeft = true;
             }
-            else if(x() > 0 && moveLeft){
-                setPos(x()-11, y()+2);
-            }
-            else if(x() <= 0 && moveLeft){
-                // change direction
-                setPos(x()+11,y()+2);
-                moveLeft = false;
-            }
-
-
-//            if(x() < 10 && moveLeft){
-//                moveLeft = false;
-//            }
 
 
             // if off the screen, delete the enemy

@@ -19,13 +19,13 @@ levels::levels()
 
 void levels::spawn1()
 {
-    Enemy *enemy = new Enemy(1);
+    Enemy *enemy = new Enemy(1,1);
     game->scene->addItem(enemy); // add to the scene
 }
 
 void levels::spawn2()
 {
-    Enemy *enemy = new Enemy(2);
+    Enemy *enemy = new Enemy(2,2);
     game->scene->addItem(enemy); // add to the scene
 }
 
@@ -34,12 +34,14 @@ void levels::spawn2()
 void levels::level1()
 {
     QTimer::singleShot(400, this, SLOT(spawn1()));
-    QTimer::singleShot(800, this, SLOT(spawn1()));
+    QTimer::singleShot(1400, this, SLOT(spawn1()));
 
-    QTimer::singleShot(1200, this, SLOT(spawn1()));
-   // QTimer::singleShot(1600, this, SLOT(spawn1()));
-    //QTimer::singleShot(2000, this, SLOT(spawn1()));
-    //QTimer::singleShot(2400, this, SLOT(spawn1()));
+    QTimer::singleShot(2400, this, SLOT(spawn1()));
+    QTimer::singleShot(3400, this, SLOT(spawn1()));
+    QTimer::singleShot(4400, this, SLOT(spawn1()));
+    QTimer::singleShot(5400, this, SLOT(spawn1()));
+
+    QTimer::singleShot(7400, this, SLOT(spawn2()));
 
 
 
