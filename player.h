@@ -22,6 +22,7 @@ public:
 
 public slots:
     void movePlayer();
+    void shoot();
 
 
 

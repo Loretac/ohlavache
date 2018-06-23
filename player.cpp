@@ -15,12 +15,17 @@ extern Game * game;
  ** to movement timer.
  *********************************************************************/
 Player::Player(QGraphicsItem *parent): QGraphicsPixmapItem(parent){
-    setPixmap(QPixmap(":/images/jet.png"));
+    setPixmap(QPixmap(":/images/images/jet.png"));
 
     //player movement
     QTimer *movementTimer = new QTimer();
     QObject::connect(movementTimer,SIGNAL(timeout()),this,SLOT(movePlayer()));
     movementTimer->start(2);
+
+    // player shooting
+    QTimer *shootingTimer = new QTimer();
+    QObject::connect(shootingTimer,SIGNAL(timeout()),this,SLOT(shoot()));
+    shootingTimer->start(350);
 }
 
 /*********************************************************************
@@ -46,12 +51,12 @@ void Player::keyPressEvent(QKeyEvent *event){
         break;
     case Qt::Key_Space:
     {
-        if ( !event->isAutoRepeat() ){
-            Bullet * bullet = new Bullet();
-            bullet->setPos(x()+22,y()); // offset for character
-            scene()->addItem(bullet); // add bullet to scene
-        // play bulletsound?
-        }
+//        if ( !event->isAutoRepeat() ){
+//            Bullet * bullet = new Bullet();
+//            bullet->setPos(x()+22,y()); // offset for character
+//            scene()->addItem(bullet); // add bullet to scene
+//        // play bulletsound?
+//        }
     }
         keySpace = true;
         break;
@@ -93,7 +98,7 @@ void Player::keyReleaseEvent(QKeyEvent *event){
 }
 
 /*********************************************************************
- ** The movePlayer function operates on a timer in game.cpp.
+ ** The movePlayer function operates on a timer in player.cpp
  ** It continuously checks which keys are being pressed down and
  ** adjusts player movement accordingly.
  *********************************************************************/
@@ -118,6 +123,17 @@ void Player::movePlayer(){
         }
         else if(keyDown && (pos().y() < 500)){
             setPos(x(),y()+5);
+        }
+    }
+}
+
+void Player::shoot()
+{
+    if(game->paused == false){
+        if(keySpace){
+            Bullet * bullet = new Bullet();
+            bullet->setPos(x()+26.5,y()); // offset for character
+            scene()->addItem(bullet); // add bullet to scene
         }
     }
 }

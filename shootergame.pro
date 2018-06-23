@@ -33,7 +33,8 @@ SOURCES += \
     player.cpp \
     lives.cpp \
     button.cpp \
-    levels.cpp
+    levels.cpp \
+    enemybullet.cpp
 
 HEADERS += \
     bullet.h \
@@ -43,7 +44,8 @@ HEADERS += \
     player.h \
     lives.h \
     button.h \
-    levels.h
+    levels.h \
+    enemybullet.h
 
 FORMS += \
         mainwindow.ui

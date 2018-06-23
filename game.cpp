@@ -31,7 +31,7 @@ Game::Game(QWidget *parent){
     scene->setSceneRect(0,0,800,600);
 
     // make the background an image
-    setBackgroundBrush(QBrush(QImage(":/images/skybackground.png")));
+    setBackgroundBrush(QBrush(QImage(":/images/images/skybackground.png")));
 
     // make the newly created scene the scene to visualize (since Game is a QGraphicsView Widget,
     // it can be used to visualize scenes)

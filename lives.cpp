@@ -7,7 +7,7 @@
  *********************************************************************/
 Lives::Lives(QGraphicsItem *parent)
 {
-    setPixmap(QPixmap(":/images/life.png"));
+    setPixmap(QPixmap(":/images/images/life.png"));
 
 }
 

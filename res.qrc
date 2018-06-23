@@ -4,10 +4,12 @@
         <file>Laser1.mp3</file>
     </qresource>
     <qresource prefix="/images">
-        <file>ufo.png</file>
-        <file>missile.png</file>
-        <file>skybackground.png</file>
-        <file>jet.png</file>
-        <file>life.png</file>
+        <file>images/bullet.png</file>
+        <file>images/enemybullet.png</file>
+        <file>images/boss1.png</file>
+        <file>images/life.png</file>
+        <file>images/jet.png</file>
+        <file>images/skybackground.png</file>
+        <file>images/ufo.png</file>
     </qresource>
 </RCC>

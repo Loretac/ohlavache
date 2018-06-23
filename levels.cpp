@@ -25,7 +25,7 @@ void levels::spawn1()
 // boss for level 1
 void levels::spawn2()
 {
-    Enemy *enemy = new Enemy(2,2);
+    Enemy *enemy = new Enemy(2,5);
     connect(enemy,SIGNAL(bossDead()),
             this,SLOT(level2())
     );

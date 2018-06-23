@@ -3,6 +3,7 @@
 #include <QGraphicsScene>
 #include <stdlib.h> // rand -> really large int
 #include "game.h"
+#include "enemybullet.h"
 
 extern Game * game; // there is an external global object called game
 // used to decrease health after enemy crosses screen
@@ -22,7 +23,7 @@ Enemy::Enemy(int type, int hp)
         setPos(random_number,-100); // set random position
 
         // draw the enemy
-        setPixmap(QPixmap(":/images/ufo.png"));
+        setPixmap(QPixmap(":/images/images/ufo.png"));
 
         // connect to slot
         QTimer *timer = new QTimer();
@@ -33,13 +34,21 @@ Enemy::Enemy(int type, int hp)
 
         // every 5 ms, timeout signal emitted and enemy moves
         timer->start(5);
+
+//        QTimer *bulletTimer = new QTimer();
+//        connect(
+//            bulletTimer,SIGNAL(timeout()),
+//            this, SLOT(shoot())
+//        );
+
+//        bulletTimer->start(1500);
     }
     else if(type == 2){
         int random_number = rand() % 700; // 100 less than width of screen so enemies won't be cut off
         setPos(random_number,-100); // set random position
 
         // draw the enemy
-        QPixmap bgPixmap(":/images/boss1.png");
+        QPixmap bgPixmap(":/images/images/boss1.png");
 
         // created a resized copy
         QPixmap scaled = bgPixmap.scaled(QSize(84,84));
@@ -53,6 +62,14 @@ Enemy::Enemy(int type, int hp)
 
         // every 5 ms, timeout signal emitted and enemy moves
         timer->start(5);
+
+        QTimer *bulletTimer = new QTimer();
+        connect(
+            bulletTimer,SIGNAL(timeout()),
+            this, SLOT(shoot())
+        );
+
+        bulletTimer->start(500);
     }
 }
 
@@ -84,6 +101,14 @@ void Enemy::damage()
 {
     health--;
     return;
+}
+
+void Enemy::shoot()
+{
+    // create a bullet
+    enemybullet *Bullet = new enemybullet();
+    Bullet->setPos(x()+42,y()+84); // todo: offset for character!
+    scene()->addItem(Bullet);
 }
 
 /*********************************************************************

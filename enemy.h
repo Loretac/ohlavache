@@ -19,6 +19,7 @@ signals:
     void bossDead();
 
 public slots:
+    void shoot();
     void move1();
     void move2();
 };

@@ -21,7 +21,7 @@ extern Game * game;
 Bullet::Bullet()
 {
     // draw the bullet
-    setPixmap(QPixmap(":/images/missile.png"));
+    setPixmap(QPixmap(":/images/images/bullet.png"));
 
     // move the bullet:
 
