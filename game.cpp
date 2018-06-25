@@ -7,13 +7,15 @@
 
 #include <QtDebug>
 
+#include <iostream>
+#include <vector>
+
 // because we want to connect a timer to a function that constantly creates enemies
 #include <QTimer>
 
 #include "game.h"
 #include "enemy.h"
 #include "player.h"
-#include "lives.h"
 #include "button.h"
 #include "levels.h"
 
@@ -93,9 +95,16 @@ void Game::death()
     scene->addItem(player);
     player->setPos(350,500);
 
-    // decrease lives
-    delete(lifeArray[numLives-1]);
     numLives--;
+
+
+    if(numLives > 0){
+        // remove life from screen
+        scene->removeItem(lives.back());
+
+        // erase from vector
+        lives.erase(lives.end()-1);
+    }
 
     qDebug() << "Death. Checking lives...";
 
@@ -135,33 +144,24 @@ void Game::start()
     score = new Score();
 
     // add the score to the scene
-    scene->addItem(score);
+    //scene->addItem(score);
 
     numLives = 3; // initialize lives to 3
 
-    // display the lives to the screen
-    for(int i = 0; i < numLives; i++){
-        lifeArray[i] = new Lives;
-        // bottom left corner, from left to right
-        lifeArray[i]->setPos(lifeArray[i]->x()+40*i + 10,lifeArray[i]->y()+550);
-        scene->addItem(lifeArray[i]);
+
+    for(int i = 0; i < numLives-1; i++){
+        QGraphicsPixmapItem *life = new QGraphicsPixmapItem();
+        life->setPixmap(QPixmap(":/images/images/life.png"));
+        lives.push_back(life);
+
+        lives[i]->setPos(lives[i]->x()+40*i + 10, lives[i]->y()+550);
+        scene->addItem(lives[i]);
     }
 
 
     show();
 
-
     myLevels = new levels();
-
-    //mylevels->level1();
-
-
-    // spawn enemies
-    //timer = new QTimer();
-    //QObject::connect(timer,SIGNAL(timeout()),this,SLOT(spawn()));
-    //timer->start(400); // new enemy created every x ms
-
-
 
 }
 

@@ -31,7 +31,6 @@ SOURCES += \
     game.cpp \
     score.cpp \
     player.cpp \
-    lives.cpp \
     button.cpp \
     levels.cpp \
     enemybullet.cpp
@@ -42,7 +41,6 @@ HEADERS += \
     game.h \
     score.h \
     player.h \
-    lives.h \
     button.h \
     levels.h \
     enemybullet.h

@@ -57,13 +57,6 @@ Enemy::Enemy(int type, int hp)
         // every 5 ms, timeout signal emitted and enemy moves
         timer->start(5);
 
-//        QTimer *bulletTimer = new QTimer();
-//        connect(
-//            bulletTimer,SIGNAL(timeout()),
-//            this, SLOT(shoot())
-//        );
-
-//        bulletTimer->start(1500);
     }
     else if(type == 2){
 
@@ -88,17 +81,12 @@ Enemy::Enemy(int type, int hp)
         //int random_number = rand() % 700; // 100 less than width of screen so enemies won't be cut off
         setPos(randomstart,-100); // set random position
 
-
-
-
-
-
         // connect to slot
         QTimer *timer = new QTimer();
         connect(timer,SIGNAL(timeout()),this, SLOT(move2()));
 
         // every 5 ms, timeout signal emitted and enemy moves
-        timer->start(1);
+        timer->start(5);
 
         QTimer *bulletTimer = new QTimer();
         connect(
@@ -142,17 +130,22 @@ void Enemy::damage()
 {
     health--;
 
+    // save the current position before we make changes
     currXCoord = this->x();
     currYCoord = this->y();
 
+    // update the healthbar
     delete healthPix;
     healthPix = new QGraphicsPixmapItem();
-
     this->addToGroup(healthPix);
 
-    // create a std::string that holds the filename
-    std::string healthbarImage = ":/images/images/" + size + "hb" + std::to_string(health) + ".png";
+    // placeholder... takes rounded decimal or int
+    int hitpoints = health;
 
+    // create a std::string that holds the filename
+    std::string healthbarImage = ":/images/images/" + size + "hb" + std::to_string(hitpoints) + ".png";
+
+    // which enemy type? to offset healthbar
     if(enemyType == 1){
         healthPix->setPos(10,-10);
     }
@@ -162,10 +155,11 @@ void Enemy::damage()
 
     // no healthbar image if health is 0
     if(health > 0){
-        // convert std::string to QString, set as Pixmap
+        // Set image after offsetting; convert to QString
         healthPix->setPixmap(QPixmap(QString::fromStdString(healthbarImage)));
     }
 
+    // set the position last
     this->setPos(currXCoord,currYCoord);
 
     return;
@@ -183,7 +177,7 @@ void Enemy::shoot()
 }
 
 /*********************************************************************
- ** This function moves the enemy.
+ ** Movement for standard UFOs
  *********************************************************************/
 void Enemy::move1()
 {
@@ -210,7 +204,9 @@ void Enemy::move1()
     }
 }
 
-// boss for level 1
+/*********************************************************************
+ ** Movement for Level 1 boss
+ *********************************************************************/
 void Enemy::move2()
 {
     if(game->paused == false){
@@ -241,7 +237,6 @@ void Enemy::move2()
             // set moveLeft
             moveLeft = true;
         }
-
 
         // if off the screen, delete the enemy
         if(pos().y() > 600){

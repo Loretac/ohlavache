@@ -7,9 +7,10 @@
 
 #include "player.h"
 #include "score.h"
-#include "lives.h"
 #include "levels.h"
 
+#include <iostream>
+#include <vector>
 
 
 class Game: public QGraphicsView{
@@ -27,7 +28,7 @@ class Game: public QGraphicsView{
 
     levels *myLevels;
 
-    Lives *lifeArray[3];
+    std::vector<QGraphicsPixmapItem *> lives;
     int numLives = 3; // begin game with 3 lives
 
     bool paused = false;
@@ -39,7 +40,6 @@ class Game: public QGraphicsView{
 public slots:
     void start();
     void restartGame();
-    //void spawn(); // connected to timer so that we can periodically spawn enemies
 
 
 private:
