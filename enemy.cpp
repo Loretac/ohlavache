@@ -5,6 +5,8 @@
 #include "game.h"
 #include "enemybullet.h"
 
+#include <QGraphicsItemGroup>
+
 extern Game * game; // there is an external global object called game
 // used to decrease health after enemy crosses screen
 // or end game
@@ -17,13 +19,29 @@ extern Game * game; // there is an external global object called game
 Enemy::Enemy(int type, int hp)
 {
     health = hp;
+    startingHealth = hp;
+    enemyType = type;
 
     if(type == 1){
-        int random_number = rand() % 700; // 100 less than width of screen so enemies won't be cut off
-        setPos(random_number,-100); // set random position
 
-        // draw the enemy
-        setPixmap(QPixmap(":/images/images/ufo.png"));
+        // Create the pixmaps
+        enemyPix = new QGraphicsPixmapItem();
+        healthPix = new QGraphicsPixmapItem();
+
+        // Add the images
+        enemyPix->setPixmap(QPixmap(":/images/images/ufo.png"));
+        healthPix->setPixmap(QPixmap(":/images/images/Shb2.png"));
+
+        // add to the group
+        this->addToGroup(enemyPix);
+        this->addToGroup(healthPix);
+
+        healthPix->setPos(10,-10);
+
+        // assign a random position to enemy
+        randomstart = rand()%700;
+        //int random_number = rand() % 700; // 100 less than width of screen so enemies won't be cut off
+        setPos(randomstart,-100); // set random position
 
         // connect to slot
         QTimer *timer = new QTimer();
@@ -44,24 +62,37 @@ Enemy::Enemy(int type, int hp)
 //        bulletTimer->start(1500);
     }
     else if(type == 2){
-        int random_number = rand() % 700; // 100 less than width of screen so enemies won't be cut off
-        setPos(random_number,-100); // set random position
 
-        // draw the enemy
-        QPixmap bgPixmap(":/images/images/boss1.png");
+        // Create the pixmaps
+        enemyPix = new QGraphicsPixmapItem();
+        healthPix = new QGraphicsPixmapItem();
 
-        // created a resized copy
-        QPixmap scaled = bgPixmap.scaled(QSize(84,84));
+        // Add the images
+        enemyPix->setPixmap(QPixmap(":/images/images/johnny.png"));
+        healthPix->setPixmap(QPixmap(":/images/images/Mhb4.png"));
 
-        // set to the resized object
-        setPixmap(scaled);
+        // add to the group
+        this->addToGroup(enemyPix);
+        this->addToGroup(healthPix);
+
+        healthPix->setPos(0,-10);
+
+        // assign a random position to enemy
+        randomstart = rand()%700;
+        //int random_number = rand() % 700; // 100 less than width of screen so enemies won't be cut off
+        setPos(randomstart,-100); // set random position
+
+
+
+
+
 
         // connect to slot
         QTimer *timer = new QTimer();
         connect(timer,SIGNAL(timeout()),this, SLOT(move2()));
 
         // every 5 ms, timeout signal emitted and enemy moves
-        timer->start(5);
+        timer->start(1);
 
         QTimer *bulletTimer = new QTimer();
         connect(
@@ -97,9 +128,34 @@ void Enemy::checkCollision()
     }
 }
 
+/*********************************************************************
+ ** The damage function lowers the enemy's health and updates their
+ ** health bar.
+ *********************************************************************/
 void Enemy::damage()
 {
     health--;
+
+    currXCoord = this->x();
+    currYCoord = this->y();
+
+    delete healthPix;
+    healthPix = new QGraphicsPixmapItem();
+
+    this->addToGroup(healthPix);
+
+    if(enemyType == 1){
+        healthPix->setPos(10,-10);
+        healthPix->setPixmap(QPixmap(":/images/images/Shb1.png"));
+    }
+    else if(enemyType == 2){
+        healthPix->setPos(0,-10);
+        healthPix->setPixmap(QPixmap(":/images/images/Mhb3.png"));
+    }
+
+
+    this->setPos(currXCoord,currYCoord);
+
     return;
 }
 
@@ -161,12 +217,12 @@ void Enemy::move2()
 
         if(((x() < 700 && !moveLeft) || (x() <= 0 && moveLeft))){
             // change direction
-            setPos(x()+11,y());
+            setPos(x()+10,y());
             moveLeft = false;
         }
         else if(((x() > 0 && moveLeft) || (x() >= 700 && !moveLeft))){
             // change direction
-            setPos(x()-11, y());
+            setPos(x()-10, y());
             // set moveLeft
             moveLeft = true;
         }

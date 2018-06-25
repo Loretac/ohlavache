@@ -6,10 +6,17 @@
     <qresource prefix="/images">
         <file>images/bullet.png</file>
         <file>images/enemybullet.png</file>
-        <file>images/boss1.png</file>
         <file>images/life.png</file>
         <file>images/jet.png</file>
         <file>images/skybackground.png</file>
         <file>images/ufo.png</file>
+        <file>images/johnny.png</file>
+        <file>images/healthbar.png</file>
+        <file>images/Shb2.png</file>
+        <file>images/Shb1.png</file>
+        <file>images/Mhb1.png</file>
+        <file>images/Mhb3.png</file>
+        <file>images/Mhb2.png</file>
+        <file>images/Mhb4.png</file>
     </qresource>
 </RCC>

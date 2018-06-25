@@ -2,6 +2,9 @@
 #include "enemy.h"
 #include "game.h"
 
+#include <QGraphicsItemGroup>
+#include <QGraphicsPixmapItem>
+
 #include <QtDebug>
 
 // because we want to connect a timer to a function that constantly creates enemies
@@ -18,14 +21,25 @@ levels::levels()
 
 void levels::spawn1()
 {
-    Enemy *enemy = new Enemy(1,1);
-    game->scene->addItem(enemy); // add to the scene
+    // group the items together......
+    Enemy *enemy = new Enemy(1,2);
+
+    //QGraphicsPixmapItem *healthbar = new QGraphicsPixmapItem();
+    //healthbar->setPixmap(QPixmap(":/images/images/Smallhealthbar.png"));
+
+
+    //healthbar->setParentItem(enemy);
+
+    //healthbar->setPos(10,-10);
+
+
+    game->scene->addItem(enemy); // only need to add the parent
 }
 
 // boss for level 1
 void levels::spawn2()
 {
-    Enemy *enemy = new Enemy(2,5);
+    Enemy *enemy = new Enemy(2,4);
     connect(enemy,SIGNAL(bossDead()),
             this,SLOT(level2())
     );
