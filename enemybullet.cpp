@@ -11,9 +11,6 @@ extern Game * game;
 // enemy bullet constructor
 enemybullet::enemybullet()
 {
-    // draw the bullet
-    //setPixmap(QPixmap(":/images/images/enemybullet.png"));
-
     // create the bullet image
     QPixmap bulletMap(":/images/images/enemybullet.png");
 
@@ -47,16 +44,11 @@ void enemybullet::move()
             }
          }
 
-
-
         setPos(x(),y()+5);
-
 
         if(pos().y() + pixmap().height() > 700){
             scene()->removeItem(this);
             delete this;
         }
     }
-
-
 }

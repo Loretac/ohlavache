@@ -7,6 +7,8 @@
 
 #include <QGraphicsItemGroup>
 
+#include <QDebug>
+
 #include <string> // std::string, std::to_string
 
 extern Game * game; // there is an external global object called game
@@ -24,17 +26,18 @@ Enemy::Enemy(int type, int hp)
     startingHealth = hp;
     enemyType = type;
 
+    // Create the pixmaps
+    enemyPix = new QGraphicsPixmapItem();
+    healthPix = new QGraphicsPixmapItem();
+
     if(type == 1){
 
         size = "S";
-
-        // Create the pixmaps
-        enemyPix = new QGraphicsPixmapItem();
-        healthPix = new QGraphicsPixmapItem();
+        barsize = S_BAR_SIZE;
 
         // Add the images
         enemyPix->setPixmap(QPixmap(":/images/images/ufo.png"));
-        healthPix->setPixmap(QPixmap(":/images/images/Shb2.png"));
+        healthPix->setPixmap(QPixmap(":/images/images/Shb2.png")); // needs updating
 
         // add to the group
         this->addToGroup(enemyPix);
@@ -61,10 +64,7 @@ Enemy::Enemy(int type, int hp)
     else if(type == 2){
 
         size = "M";
-
-        // Create the pixmaps
-        enemyPix = new QGraphicsPixmapItem();
-        healthPix = new QGraphicsPixmapItem();
+        barsize = M_BAR_SIZE;
 
         // Add the images
         enemyPix->setPixmap(QPixmap(":/images/images/johnny.png"));
@@ -99,7 +99,7 @@ Enemy::Enemy(int type, int hp)
 }
 
 /*********************************************************************
- ** Checks if colliding with player
+ ** Checks if enemy is colliding with player
  *********************************************************************/
 void Enemy::checkCollision()
 {
@@ -139,11 +139,17 @@ void Enemy::damage()
     healthPix = new QGraphicsPixmapItem();
     this->addToGroup(healthPix);
 
-    // placeholder... takes rounded decimal or int
-    int hitpoints = health;
+    // hp is rounded to nearest int. Add 0.5 to account for truncating
+    double hitpoints = (((float)barsize / startingHealth) * health) + 0.5;
+    int hp = (int)hitpoints;
+
+    // health bar will never show 0
+    if(hp <= 0){
+        hp = 1;
+    }
 
     // create a std::string that holds the filename
-    std::string healthbarImage = ":/images/images/" + size + "hb" + std::to_string(hitpoints) + ".png";
+    std::string healthbarImage = ":/images/images/" + size + "hb" + std::to_string(hp) + ".png";
 
     // which enemy type? to offset healthbar
     if(enemyType == 1){
@@ -191,16 +197,16 @@ void Enemy::move1()
             delete this;
            }
 
-            // if not colliding with player:
+        // if not colliding with player:
 
-            // move the enemy down
-            setPos(x(),y()+2);
+        // move the enemy down
+        setPos(x(),y()+2);
 
-            // if off the screen, delete the enemy
-            if(pos().y() > 600){
-                scene()->removeItem(this);
-                delete this;
-            }
+        // if off the screen, delete the enemy
+        if(pos().y() > 600){
+            scene()->removeItem(this);
+            delete this;
+        }
     }
 }
 

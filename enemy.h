@@ -21,7 +21,14 @@ public:
     int randomstart;
     double currXCoord;
     double currYCoord;
-    std::string size;
+    std::string size; // S, M, etc.
+
+    int barsize;
+
+    // These should reflect # of divisions each size of health bar
+    const int S_BAR_SIZE = 2;
+    const int M_BAR_SIZE = 4;
+
 
 signals:
     void bossDead();

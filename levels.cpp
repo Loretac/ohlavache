@@ -24,15 +24,6 @@ void levels::spawn1()
     // group the items together......
     Enemy *enemy = new Enemy(1,2);
 
-    //QGraphicsPixmapItem *healthbar = new QGraphicsPixmapItem();
-    //healthbar->setPixmap(QPixmap(":/images/images/Smallhealthbar.png"));
-
-
-    //healthbar->setParentItem(enemy);
-
-    //healthbar->setPos(10,-10);
-
-
     game->scene->addItem(enemy); // only need to add the parent
 }
 

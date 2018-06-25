@@ -148,7 +148,6 @@ void Game::start()
 
     numLives = 3; // initialize lives to 3
 
-
     for(int i = 0; i < numLives-1; i++){
         QGraphicsPixmapItem *life = new QGraphicsPixmapItem();
         life->setPixmap(QPixmap(":/images/images/life.png"));
@@ -179,17 +178,6 @@ void Game::restartGame()
     start();
 }
 
-/*********************************************************************
- ** Spawns enemies based on timer in game.cpp
- *********************************************************************/
-//void Game::spawn()
-//{
-//        // create an enemy
-//        Enemy *enemy = new Enemy();
-
-//        // add to the scene
-//        scene->addItem(enemy);
-//}
 
 /*********************************************************************
  ** Runs when player has run out of lives.
@@ -207,7 +195,6 @@ void Game::gameOver()
 
     QString message= "Game Over!";
     displayGameOverWindow(message);
-
 }
 
 /*********************************************************************
