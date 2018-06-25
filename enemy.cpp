@@ -7,6 +7,8 @@
 
 #include <QGraphicsItemGroup>
 
+#include <string> // std::string, std::to_string
+
 extern Game * game; // there is an external global object called game
 // used to decrease health after enemy crosses screen
 // or end game
@@ -23,6 +25,8 @@ Enemy::Enemy(int type, int hp)
     enemyType = type;
 
     if(type == 1){
+
+        size = "S";
 
         // Create the pixmaps
         enemyPix = new QGraphicsPixmapItem();
@@ -62,6 +66,8 @@ Enemy::Enemy(int type, int hp)
 //        bulletTimer->start(1500);
     }
     else if(type == 2){
+
+        size = "M";
 
         // Create the pixmaps
         enemyPix = new QGraphicsPixmapItem();
@@ -144,21 +150,30 @@ void Enemy::damage()
 
     this->addToGroup(healthPix);
 
+    // create a std::string that holds the filename
+    std::string healthbarImage = ":/images/images/" + size + "hb" + std::to_string(health) + ".png";
+
     if(enemyType == 1){
         healthPix->setPos(10,-10);
-        healthPix->setPixmap(QPixmap(":/images/images/Shb1.png"));
     }
     else if(enemyType == 2){
         healthPix->setPos(0,-10);
-        healthPix->setPixmap(QPixmap(":/images/images/Mhb3.png"));
     }
 
+    // no healthbar image if health is 0
+    if(health > 0){
+        // convert std::string to QString, set as Pixmap
+        healthPix->setPixmap(QPixmap(QString::fromStdString(healthbarImage)));
+    }
 
     this->setPos(currXCoord,currYCoord);
 
     return;
 }
 
+/*********************************************************************
+ ** Shoots a bullet straight downwards
+ *********************************************************************/
 void Enemy::shoot()
 {
     // create a bullet

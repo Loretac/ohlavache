@@ -21,6 +21,7 @@ public:
     int randomstart;
     double currXCoord;
     double currYCoord;
+    std::string size;
 
 signals:
     void bossDead();
