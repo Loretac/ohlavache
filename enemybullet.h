@@ -7,12 +7,18 @@
 class enemybullet : public QObject, public QGraphicsPixmapItem{
      Q_OBJECT
 public:
-    enemybullet();
+    enemybullet(int);
     void checkCollision();
-    int xCoord;
-    int yCoord;
+    double xCoord;
+    double yCoord;
+    int type;
+
+    void getX(int);
+    void getY(int);
+
 public slots:
     void move();
+    void move2();
 };
 
 #endif // ENEMYBULLET_H

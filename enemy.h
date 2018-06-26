@@ -31,10 +31,11 @@ public:
 
 
 signals:
-    void bossDead();
+    void boss1Dead();
 
 public slots:
     void shoot();
+    void shoot2();
     void move1();
     void move2();
 };

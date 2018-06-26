@@ -96,6 +96,41 @@ Enemy::Enemy(int type, int hp)
 
         bulletTimer->start(500);
     }
+    else if(type == 3){
+
+        size = "S";
+        barsize = S_BAR_SIZE;
+
+        // Add the images
+        enemyPix->setPixmap(QPixmap(":/images/images/ufo.png"));
+        healthPix->setPixmap(QPixmap(":/images/images/Shb2.png"));
+
+        // add to the group
+        this->addToGroup(enemyPix);
+        this->addToGroup(healthPix);
+
+        healthPix->setPos(10,-10);
+
+        // assign a random position to enemy
+        randomstart = rand()%700;
+        //int random_number = rand() % 700; // 100 less than width of screen so enemies won't be cut off
+        setPos(randomstart,-100); // set random position
+
+        // connect to slot
+        QTimer *timer = new QTimer();
+        connect(timer,SIGNAL(timeout()),this, SLOT(move1()));
+
+        // every 5 ms, timeout signal emitted and enemy moves
+        timer->start(5);
+
+        QTimer *bulletTimer = new QTimer();
+        connect(
+            bulletTimer,SIGNAL(timeout()),
+            this, SLOT(shoot2())
+        );
+
+        bulletTimer->start(1500);
+    }
 }
 
 /*********************************************************************
@@ -158,6 +193,9 @@ void Enemy::damage()
     else if(enemyType == 2){
         healthPix->setPos(0,-10);
     }
+    else if(enemyType == 3){
+        healthPix->setPos(10,-10);
+    }
 
     // no healthbar image if health is 0
     if(health > 0){
@@ -177,8 +215,36 @@ void Enemy::damage()
 void Enemy::shoot()
 {
     // create a bullet
-    enemybullet *Bullet = new enemybullet();
+    enemybullet *Bullet = new enemybullet(1);
     Bullet->setPos(x()+42,y()+84); // todo: offset for character!
+    scene()->addItem(Bullet);
+}
+
+// this function runs once each time a bullet is created
+void Enemy::shoot2()
+{
+
+
+    // create a bullet
+    enemybullet *Bullet = new enemybullet(2);
+
+    // coordinates of bullet's source
+    int xSource = x()+50;
+    int ySource = y()+27;
+
+    // coordinates of center of player
+
+    int xPlayer = game->player->x()+30;
+    int yPlayer = game->player->y()+42;
+
+    Bullet->getX(xPlayer-xSource);
+    Bullet->getY(yPlayer-ySource);
+
+    //qDebug() << xSource << " " << ySource << "    " << xPlayer << yPlayer;
+
+
+
+    Bullet->setPos(xSource,ySource); // todo: offset for character!
     scene()->addItem(Bullet);
 }
 
@@ -200,7 +266,7 @@ void Enemy::move1()
         // if not colliding with player:
 
         // move the enemy down
-        setPos(x(),y()+2);
+        setPos(x(),y()+1.3);
 
         // if off the screen, delete the enemy
         if(pos().y() > 600){
@@ -221,7 +287,7 @@ void Enemy::move2()
 
         if(health <= 0){
             scene()->removeItem(this);
-            emit bossDead(); // emits signal connected to slot in levels
+            emit boss1Dead(); // emits signal connected to slot in levels
             delete this;
         }
 

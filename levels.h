@@ -14,6 +14,7 @@ public:
 
 public slots:
     void spawn1();
+    void spawnBoss1();
     void spawn2();
     void level2();
 };
