@@ -50,7 +50,7 @@ void levels::spawn2()
 
 void levels::spawnBoss2()
 {
-    Enemy *enemy = new Enemy(4,4);
+    Enemy *enemy = new Enemy(4,16);
 
     game->scene->addItem(enemy);
 }

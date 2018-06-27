@@ -232,6 +232,9 @@ void Enemy::damage()
     else if(enemyType == 3){
         healthPix->setPos(10,-10);
     }
+    else if(enemyType == 4){
+        healthPix->setPos(0,-10);
+    }
 
     // no healthbar image if health is 0
     if(health > 0){
