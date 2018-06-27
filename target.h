@@ -13,6 +13,7 @@ public:
 
 public slots:
     void boom();
+    void deleteTarget();
 };
 
 #endif // TARGET_H

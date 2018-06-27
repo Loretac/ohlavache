@@ -22,3 +22,10 @@ void target::boom()
     delete this;
     return;
 }
+
+void target::deleteTarget()
+{
+    game->explosion1(game->player->x(), game->player->y());
+    delete this;
+    return;
+}

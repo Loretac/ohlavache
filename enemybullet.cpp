@@ -69,14 +69,32 @@ enemybullet::enemybullet(int bulletType)
 
         timer->start(5);
     }
+    else if(type == 4){
+        // create the bullet image
+        QPixmap bulletMap(":/images/images/enemybullet.png");
+
+        // create a resized copy
+        QPixmap scaled = bulletMap.scaled(QSize(10,10));
+
+        setPixmap(scaled);
+
+        // connect to slot
+        QTimer *timer = new QTimer();
+        connect(timer,SIGNAL(timeout()),
+                this, SLOT(move2()));
+
+        timer->start(5);
+    }
 
 
 }
 
+
+
 /*********************************************************************
  **
  *********************************************************************/
-void enemybullet::getX(int X)
+void enemybullet::getX(double X)
 {
     xCoord = X;
 }
@@ -84,9 +102,14 @@ void enemybullet::getX(int X)
 /*********************************************************************
  **
  *********************************************************************/
-void enemybullet::getY(int Y)
+void enemybullet::getY(double Y)
 {
     yCoord = Y;
+}
+
+void enemybullet::setSpeed(double newSpeed)
+{
+    speed = newSpeed;
 }
 
 
@@ -154,7 +177,7 @@ void enemybullet::move2()
 
         // if we don't divide by a factor of pythagorean, bullets starting farther
         // from the player will travel faster - not ideal...
-        setPos(x()+(xCoord)/pythagorean*3,y()+(yCoord)/pythagorean*3);
+        setPos(x()+(xCoord)*speed/pythagorean,y()+(yCoord)*speed/pythagorean);
 
 //        counter++;
 
@@ -181,6 +204,7 @@ void enemybullet::move2()
     }
 }
 
+// Trajectory for bombs shot by Level 2 boss.
 void enemybullet::move3()
 {
     if(game->paused == false){
@@ -190,8 +214,9 @@ void enemybullet::move3()
         // Check if the bullet is colliding with the player
         for(int i = 0, n = colliding_items.size(); i < n; ++i){
             if(typeid(*(colliding_items[i])) == typeid(Player)){
-                game->death();
+                emit collide();
                 scene()->removeItem(this);
+                game->death();
                 delete this;
                 return;
             }
@@ -230,3 +255,58 @@ void enemybullet::move3()
         }
     }
 }
+
+// Trajectory of bullets from exploding timebombs
+/*
+void enemybullet::move4()
+{
+    if(game->paused == false){
+
+        QList<QGraphicsItem *> colliding_items = collidingItems();
+
+        // Check if the bullet is colliding with the player
+        for(int i = 0, n = colliding_items.size(); i < n; ++i){
+            if(typeid(*(colliding_items[i])) == typeid(Player)){
+                game->death();
+                scene()->removeItem(this);
+                delete this;
+                return;
+            }
+         }
+
+        // xCoord and yCoord obtained with getters in enemy function upon bullet creation
+
+        // get pythagorean
+        double pythagorean = sqrt((xCoord*xCoord)+(yCoord*yCoord));
+
+        // if we don't divide by a factor of pythagorean, bullets starting farther
+        // from the player will travel faster - not ideal...
+        setPos((x()+(xCoord))/pythagorean,(y()+(yCoord))/pythagorean);
+
+        //qDebug() << xCoord << " " << yCoord;
+
+//        counter++;
+
+//        if(counter >= pythagorean / 3){
+//            emit arrived();
+//            scene()->removeItem(this);
+//            delete this;
+//            return;
+//        }
+
+        // if bullet is anywhere off the screen, delete it
+        if(pos().y() > 600 ||
+                pos().y()+pixmap().height() < -10 ||
+                pos().x()  >800 ||
+                pos().x() + pixmap().width() < 0 ){
+            qDebug() << pos().x() << " " <<  pos().y() << "Deleting bullet.";
+            //qDebug() ;
+            scene()->removeItem(this);
+
+            //emit arrived();
+
+            delete this;
+
+        }
+    }
+}*/

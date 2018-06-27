@@ -296,6 +296,8 @@ void Enemy::boss2Shoot()
     // when the bullet arrives, destroy the target
     connect( Bullet, SIGNAL(arrived()),
               newTarget, SLOT(boom())  );
+    connect( Bullet, SIGNAL(collide()),
+             newTarget, SLOT(deleteTarget()));
 
 
     scene()->addItem(Bullet);
@@ -312,6 +314,8 @@ void Enemy::shoot2()
 {
     // create a bullet
     enemybullet *Bullet = new enemybullet(2);
+
+    Bullet->setSpeed(3);
 
     // coordinates of bullet's source
     int xSource = x()+50;

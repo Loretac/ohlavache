@@ -7,6 +7,10 @@
 
 #include <QtDebug>
 
+#include <math.h> // sin, cos
+
+#include <stdlib.h> // rand
+
 #include <iostream>
 #include <vector>
 
@@ -217,9 +221,20 @@ void Game::displayGameOverWindow(QString textToDisplay)
 void Game::explosion1(double xPos, double yPos)
 {
 
-    enemybullet *Bullet = new enemybullet(1);
-    Bullet->setPos(xPos+25,yPos+25); // todo: offset for character!
-    scene->addItem(Bullet);
+    double angle = rand()%360;
+
+    for(int i = 0; i < 7; i++){
+        enemybullet *Bullet = new enemybullet(4);
+        Bullet->setSpeed(10);
+        Bullet->setPos(xPos+25,yPos+25);
+
+        Bullet->getX(cos(angle*M_PI/180));
+        Bullet->getY(sin(angle*M_PI/180));
+
+        angle += 51.43;
+
+        scene->addItem(Bullet);
+    }
 
 
 }
