@@ -18,5 +18,7 @@
         <file>images/Mhb3.png</file>
         <file>images/Mhb2.png</file>
         <file>images/Mhb4.png</file>
+        <file>images/timebomb.png</file>
+        <file>images/target.png</file>
     </qresource>
 </RCC>

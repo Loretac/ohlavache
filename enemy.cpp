@@ -5,6 +5,8 @@
 #include "game.h"
 #include "enemybullet.h"
 
+#include "target.h"
+
 #include <QGraphicsItemGroup>
 
 #include <QDebug>
@@ -91,7 +93,7 @@ Enemy::Enemy(int type, int hp)
         QTimer *bulletTimer = new QTimer();
         connect(
             bulletTimer,SIGNAL(timeout()),
-            this, SLOT(shoot())
+            this, SLOT(boss1Shoot())
         );
 
         bulletTimer->start(500);
@@ -130,6 +132,40 @@ Enemy::Enemy(int type, int hp)
         );
 
         bulletTimer->start(1500);
+    }
+    else if(type == 4){
+        size = "M";
+        barsize = M_BAR_SIZE;
+
+        // Add the images
+        enemyPix->setPixmap(QPixmap(":/images/images/johnny.png"));
+        healthPix->setPixmap(QPixmap(":/images/images/Mhb4.png"));
+
+        // add to the group
+        this->addToGroup(enemyPix);
+        this->addToGroup(healthPix);
+
+        healthPix->setPos(0,-10);
+
+        // assign a random position to enemy
+        randomstart = rand()%700;
+        //int random_number = rand() % 700; // 100 less than width of screen so enemies won't be cut off
+        setPos(randomstart,-100); // set random position
+
+        // connect to slot
+        QTimer *timer = new QTimer();
+        connect(timer,SIGNAL(timeout()),this, SLOT(move2()));
+
+        // every 5 ms, timeout signal emitted and enemy moves
+        timer->start(5);
+
+        QTimer *bulletTimer = new QTimer();
+        connect(
+            bulletTimer,SIGNAL(timeout()),
+            this, SLOT(boss2Shoot())
+        );
+
+        bulletTimer->start(2500);
     }
 }
 
@@ -210,9 +246,9 @@ void Enemy::damage()
 }
 
 /*********************************************************************
- ** Shoots a bullet straight downwards
+ ** Function for Level 1 Boss shooting
  *********************************************************************/
-void Enemy::shoot()
+void Enemy::boss1Shoot()
 {
     // create a bullet
     enemybullet *Bullet = new enemybullet(1);
@@ -220,11 +256,60 @@ void Enemy::shoot()
     scene()->addItem(Bullet);
 }
 
-// this function runs once each time a bullet is created
+void Enemy::boss2Shoot()
+{
+    // create a bullet
+    enemybullet *Bullet = new enemybullet(3);
+
+    // coordinates of bullet's source
+
+
+    // johnny dimensions: 110x114
+    // timebomb dimensions: 50x50
+    // xsource = x + 110/2 - 50/2
+
+    int xSource = x()+55-25;
+    int ySource = y()+57-25;
+
+    //Bullet->getXSource(x()+60);
+    //Bullet->getYSource(y()+57);
+
+    // coordinates of center of player
+
+    int xPlayer = game->player->x()+5;
+    int yPlayer = game->player->y()+19;
+
+    //Bullet->getXTarget(game->player->x()+30);
+    //Bullet->getYTarget(game->player->y()+42);
+
+
+    Bullet->getX(xPlayer-xSource); // CALC
+    Bullet->getY(yPlayer-ySource); // CALC
+
+    Bullet->setPos(xSource,ySource);
+
+
+    target *newTarget = new target();
+
+    scene()->addItem(newTarget);
+
+    // when the bullet arrives, destroy the target
+    connect( Bullet, SIGNAL(arrived()),
+              newTarget, SLOT(boom())  );
+
+
+    scene()->addItem(Bullet);
+}
+
+/*********************************************************************
+ ** Function for Level 2 minion shooting. The function is run once
+ ** each time a bullet is created. Bullets are directed along the
+ ** path from the bullet's source to the player's position at the time
+ ** of firing. The coordinates are passed through the getter functions
+ ** of the enemybullet class.
+ *********************************************************************/
 void Enemy::shoot2()
 {
-
-
     // create a bullet
     enemybullet *Bullet = new enemybullet(2);
 
@@ -240,11 +325,7 @@ void Enemy::shoot2()
     Bullet->getX(xPlayer-xSource);
     Bullet->getY(yPlayer-ySource);
 
-    //qDebug() << xSource << " " << ySource << "    " << xPlayer << yPlayer;
-
-
-
-    Bullet->setPos(xSource,ySource); // todo: offset for character!
+    Bullet->setPos(xSource,ySource);
     scene()->addItem(Bullet);
 }
 
@@ -277,7 +358,7 @@ void Enemy::move1()
 }
 
 /*********************************************************************
- ** Movement for Level 1 boss
+ ** Movement for Level 1/2? boss
  *********************************************************************/
 void Enemy::move2()
 {

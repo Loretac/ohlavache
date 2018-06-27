@@ -34,7 +34,8 @@ signals:
     void boss1Dead();
 
 public slots:
-    void shoot();
+    void boss1Shoot();
+    void boss2Shoot();
     void shoot2();
     void move1();
     void move2();

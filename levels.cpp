@@ -32,7 +32,7 @@ void levels::spawn1()
 // boss for level 1
 void levels::spawnBoss1()
 {
-    Enemy *enemy = new Enemy(2,4);
+    Enemy *enemy = new Enemy(2,8);
     connect(enemy,SIGNAL(boss1Dead()),
             this,SLOT(level2())
     );
@@ -47,6 +47,15 @@ void levels::spawn2()
 
     game->scene->addItem(enemy);
 }
+
+void levels::spawnBoss2()
+{
+    Enemy *enemy = new Enemy(4,4);
+
+    game->scene->addItem(enemy);
+}
+
+
 
 
 
@@ -73,4 +82,8 @@ void levels::level2()
    QTimer::singleShot(3400, this, SLOT(spawn2()));
    QTimer::singleShot(4400, this, SLOT(spawn2()));
    QTimer::singleShot(5400, this, SLOT(spawn2()));
+
+   QTimer::singleShot(9400, this, SLOT(spawnBoss2()));
+
+    //QTimer::singleShot(400, this, SLOT(spawnBoss2()));
 }

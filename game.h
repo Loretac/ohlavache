@@ -36,6 +36,8 @@ class Game: public QGraphicsView{
     void gameOver();
     void displayGameOverWindow(QString textToDisplay);
 
+    void explosion1(double, double);
+
 
 public slots:
     void start();

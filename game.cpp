@@ -19,6 +19,8 @@
 #include "button.h"
 #include "levels.h"
 
+#include "enemybullet.h"
+
 /*********************************************************************
  ** Game constructor. This function runs only once, as each time
  ** the application opens only one instance of Game is created.
@@ -210,6 +212,16 @@ void Game::displayGameOverWindow(QString textToDisplay)
     playAgain->setPos(410,500);
     scene->addItem(playAgain);
     connect(playAgain,SIGNAL(clicked()),this,SLOT(restartGame()));
+}
+
+void Game::explosion1(double xPos, double yPos)
+{
+
+    enemybullet *Bullet = new enemybullet(1);
+    Bullet->setPos(xPos+25,yPos+25); // todo: offset for character!
+    scene->addItem(Bullet);
+
+
 }
 
 /*********************************************************************
