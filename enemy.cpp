@@ -41,14 +41,20 @@ Enemy::Enemy(int type, int hp)
         enemyPix->setPixmap(QPixmap(":/images/images/ufo.png"));
         healthPix->setPixmap(QPixmap(":/images/images/Shb2.png")); // needs updating
 
+        width = 100;
+        height = 53;
+
+        hbX = 10;
+        hbY = -10;
+
         // add to the group
         this->addToGroup(enemyPix);
         this->addToGroup(healthPix);
 
-        healthPix->setPos(10,-10);
+        healthPix->setPos(hbX,hbY);
 
         // assign a random position to enemy
-        randomstart = rand()%700;
+        int randomstart = rand()%700;
         //int random_number = rand() % 700; // 100 less than width of screen so enemies won't be cut off
         setPos(randomstart,-100); // set random position
 
@@ -72,14 +78,20 @@ Enemy::Enemy(int type, int hp)
         enemyPix->setPixmap(QPixmap(":/images/images/johnny.png"));
         healthPix->setPixmap(QPixmap(":/images/images/Mhb4.png"));
 
+        width = 110;
+        height = 114;
+
+        hbX = 0;
+        hbY = -10;
+
         // add to the group
         this->addToGroup(enemyPix);
         this->addToGroup(healthPix);
 
-        healthPix->setPos(0,-10);
+        healthPix->setPos(hbX,hbY);
 
         // assign a random position to enemy
-        randomstart = rand()%700;
+        int randomstart = rand()%700;
         //int random_number = rand() % 700; // 100 less than width of screen so enemies won't be cut off
         setPos(randomstart,-100); // set random position
 
@@ -107,14 +119,20 @@ Enemy::Enemy(int type, int hp)
         enemyPix->setPixmap(QPixmap(":/images/images/ufo.png"));
         healthPix->setPixmap(QPixmap(":/images/images/Shb2.png"));
 
+        width = 100;
+        height = 53;
+
+        hbX = 10;
+        hbY = -10;
+
         // add to the group
         this->addToGroup(enemyPix);
         this->addToGroup(healthPix);
 
-        healthPix->setPos(10,-10);
+        healthPix->setPos(hbX,hbY);
 
         // assign a random position to enemy
-        randomstart = rand()%700;
+        int randomstart = rand()%700;
         //int random_number = rand() % 700; // 100 less than width of screen so enemies won't be cut off
         setPos(randomstart,-100); // set random position
 
@@ -141,14 +159,20 @@ Enemy::Enemy(int type, int hp)
         enemyPix->setPixmap(QPixmap(":/images/images/johnny.png"));
         healthPix->setPixmap(QPixmap(":/images/images/Mhb4.png"));
 
+        width = 110;
+        height = 114;
+
+        hbX = 0;
+        hbY = -10;
+
         // add to the group
         this->addToGroup(enemyPix);
         this->addToGroup(healthPix);
 
-        healthPix->setPos(0,-10);
+        healthPix->setPos(hbX,hbY);
 
         // assign a random position to enemy
-        randomstart = rand()%700;
+        int randomstart = rand()%700;
         //int random_number = rand() % 700; // 100 less than width of screen so enemies won't be cut off
         setPos(randomstart,-100); // set random position
 
@@ -211,30 +235,21 @@ void Enemy::damage()
     this->addToGroup(healthPix);
 
     // hp is rounded to nearest int. Add 0.5 to account for truncating
-    double hitpoints = (((float)barsize / startingHealth) * health) + 0.5;
-    int hp = (int)hitpoints;
+    double rawHP = (((float)barsize / startingHealth) * health) + 0.5;
+
+    // roundedHP is amount shown in health bar
+    int roundedHP = (int)rawHP;
 
     // health bar will never show 0
-    if(hp <= 0){
-        hp = 1;
+    if(roundedHP <= 0){
+        roundedHP = 1;
     }
 
     // create a std::string that holds the filename
-    std::string healthbarImage = ":/images/images/" + size + "hb" + std::to_string(hp) + ".png";
+    std::string healthbarImage = ":/images/images/" + size + "hb" + std::to_string(roundedHP) + ".png";
 
-    // which enemy type? to offset healthbar
-    if(enemyType == 1){
-        healthPix->setPos(10,-10);
-    }
-    else if(enemyType == 2){
-        healthPix->setPos(0,-10);
-    }
-    else if(enemyType == 3){
-        healthPix->setPos(10,-10);
-    }
-    else if(enemyType == 4){
-        healthPix->setPos(0,-10);
-    }
+    // set position of health bar
+    healthPix->setPos(hbX,hbY);
 
     // no healthbar image if health is 0
     if(health > 0){
@@ -254,8 +269,12 @@ void Enemy::damage()
 void Enemy::boss1Shoot()
 {
     // create a bullet
-    enemybullet *Bullet = new enemybullet(1);
-    Bullet->setPos(x()+42,y()+84); // todo: offset for character!
+    enemybullet *Bullet = new enemybullet(2);
+
+    Bullet->setXtrajectory(0);
+    Bullet->setYtrajectory(1);
+    Bullet->setSpeed(8);
+    Bullet->setPos(x()+width/2,y()+height/2); // todo: offset for character!
     scene()->addItem(Bullet);
 }
 
@@ -264,34 +283,22 @@ void Enemy::boss2Shoot()
     // create a bullet
     enemybullet *Bullet = new enemybullet(3);
 
-    // coordinates of bullet's source
-
-
-    // johnny dimensions: 110x114
-    // timebomb dimensions: 50x50
-    // xsource = x + 110/2 - 50/2
-
-    int xSource = x()+55-25;
-    int ySource = y()+57-25;
-
-    //Bullet->getXSource(x()+60);
-    //Bullet->getYSource(y()+57);
+    // coordinates of origin of bullet
+    int xSource = x() + width/2 - Bullet->getwidth()/2;
+    int ySource = y() + height/2 - Bullet->getheight()/2;
 
     // coordinates of center of player
+    int xPlayer = game->getPlayerXPos() + game->getPlayerWidth()/2 - Bullet->getwidth()/2;
+    int yPlayer = game->getPlayerYPos() + game->getPlayerHeight()/2 - Bullet->getheight()/2;
 
-    int xPlayer = game->player->x()+5;
-    int yPlayer = game->player->y()+19;
+    // set the trajectory of the bullet
+    Bullet->setXtrajectory(xPlayer-xSource);
+    Bullet->setYtrajectory(yPlayer-ySource);
 
-    //Bullet->getXTarget(game->player->x()+30);
-    //Bullet->getYTarget(game->player->y()+42);
-
-
-    Bullet->getX(xPlayer-xSource); // CALC
-    Bullet->getY(yPlayer-ySource); // CALC
-
+    // bullet starts at source we found earlier
     Bullet->setPos(xSource,ySource);
 
-
+    // add a target
     target *newTarget = new target();
 
     scene()->addItem(newTarget);
@@ -321,16 +328,15 @@ void Enemy::shoot2()
     Bullet->setSpeed(3);
 
     // coordinates of bullet's source
-    int xSource = x()+50;
-    int ySource = y()+27;
+    int xSource = x()+width/2;
+    int ySource = y()+height/2;
 
     // coordinates of center of player
+    int xPlayer = game->getPlayerXPos() + game->getPlayerWidth()/2 - Bullet->getwidth()/2;
+    int yPlayer = game->getPlayerYPos() + game->getPlayerHeight()/2 - Bullet->getheight()/2;
 
-    int xPlayer = game->player->x()+30;
-    int yPlayer = game->player->y()+42;
-
-    Bullet->getX(xPlayer-xSource);
-    Bullet->getY(yPlayer-ySource);
+    Bullet->setXtrajectory(xPlayer-xSource);
+    Bullet->setYtrajectory(yPlayer-ySource);
 
     Bullet->setPos(xSource,ySource);
     scene()->addItem(Bullet);

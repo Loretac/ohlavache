@@ -8,8 +8,15 @@ class Bullet: public QObject, public QGraphicsPixmapItem{
     Q_OBJECT
 public:
     Bullet();
+    int getwidth();
+    int getheight();
+
 public slots:
     void move();
+
+private:
+    int height;
+    int width;
 
 };
 

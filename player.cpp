@@ -17,6 +17,9 @@ extern Game * game;
 Player::Player(QGraphicsItem *parent): QGraphicsPixmapItem(parent){
     setPixmap(QPixmap(":/images/images/jet.png"));
 
+    width = 60;
+    height = 83;
+
     //player movement
     QTimer *movementTimer = new QTimer();
     QObject::connect(movementTimer,SIGNAL(timeout()),this,SLOT(movePlayer()));
@@ -95,6 +98,16 @@ void Player::keyReleaseEvent(QKeyEvent *event){
             return;
         }
     }
+}
+
+int Player::getwidth()
+{
+    return width;
+}
+
+int Player::getheight()
+{
+    return height;
 }
 
 /*********************************************************************

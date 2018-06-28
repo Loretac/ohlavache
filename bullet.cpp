@@ -22,6 +22,8 @@ Bullet::Bullet()
 {
     // draw the bullet
     setPixmap(QPixmap(":/images/images/bullet.png"));
+    width = 7;
+    height=25;
 
     // move the bullet:
 
@@ -32,6 +34,16 @@ Bullet::Bullet()
     // every 5 ms, timeout signal emitted and bullet moves
     timer->start(5);
 
+}
+
+int Bullet::getwidth()
+{
+    return width;
+}
+
+int Bullet::getheight()
+{
+    return height;
 }
 
 /*********************************************************************
@@ -69,7 +81,7 @@ void Bullet::move()
         }
 
         // move the bullet up
-        setPos(x(),y()-5);
+        setPos(x(),y()-10);
 
         // delete the bullets after they leave the screen
         if(pos().y() + pixmap().height() < 0){ // off the screen

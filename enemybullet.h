@@ -8,33 +8,39 @@ class enemybullet : public QObject, public QGraphicsPixmapItem{
      Q_OBJECT
 public:
     enemybullet(int); // constructor
-    //enemybullet(double,double); // constructor for bullets from bomb
-    void checkCollision();
 
-    // coordinates for trajectory of bullet
-    double xCoord;
-    double yCoord;
 
-    int type;
+    // setters for trajectory coordinates
+    void setXtrajectory(double);
+    void setYtrajectory(double);
 
-    // getters for trajectory coordinates
-    void getX(double); // should be renamed to setX and setY
-    void getY(double);
-
-    int counter = 0;
-
-    double speed = 10;
     void setSpeed(double);
+
+    int getwidth();
+    int getheight();
 
 signals:
     void arrived();
     void collide();
 
+private:
+    // coordinates for trajectory of bullet
+    double xTrajectory;
+    double yTrajectory;
+
+    int type;
+    int counter = 0;
+
+    double speed = 10;
+    void checkCollision();
+
+    int width;
+    int height;
+
 public slots:
     void move();
     void move2();
     void move3();
-    //void move4();
 };
 
 #endif // ENEMYBULLET_H

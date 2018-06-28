@@ -12,17 +12,20 @@ class Player:public QObject, public QGraphicsPixmapItem{
 public:
     bool keyLeft = false, keyRight = false, keyUp = false, keyDown = false, keySpace = false; // test
 
-
-
     Player(QGraphicsItem *parent=0);
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
 
-
+    int getwidth();
+    int getheight();
 
 public slots:
     void movePlayer();
     void shoot();
+
+private:
+    int width;
+    int height;
 
 
 

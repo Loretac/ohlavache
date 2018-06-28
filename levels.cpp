@@ -29,6 +29,16 @@ void levels::spawn1()
     game->scene->addItem(enemy); // only need to add the parent
 }
 
+
+
+// spawn minions for level 2
+void levels::spawn2()
+{
+    Enemy *enemy = new Enemy(3,2);
+
+    game->scene->addItem(enemy);
+}
+
 // boss for level 1
 void levels::spawnBoss1()
 {
@@ -38,14 +48,6 @@ void levels::spawnBoss1()
     );
 
     game->scene->addItem(enemy); // add to the scene
-}
-
-// spawn minions for level 2
-void levels::spawn2()
-{
-    Enemy *enemy = new Enemy(3,2);
-
-    game->scene->addItem(enemy);
 }
 
 void levels::spawnBoss2()
@@ -70,6 +72,8 @@ void levels::level1()
     QTimer::singleShot(5400, this, SLOT(spawn1()));
 
     QTimer::singleShot(9400, this, SLOT(spawnBoss1()));
+
+    //QTimer::singleShot(400, this, SLOT(spawnBoss1()));
 
 }
 

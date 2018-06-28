@@ -25,7 +25,9 @@ enemybullet::enemybullet(int bulletType)
         QPixmap bulletMap(":/images/images/enemybullet.png");
 
         // create a resized copy
-        QPixmap scaled = bulletMap.scaled(QSize(10,10));
+        width = 10;
+        height = 10;
+        QPixmap scaled = bulletMap.scaled(QSize(width,height));
 
         setPixmap(scaled);
 
@@ -41,7 +43,9 @@ enemybullet::enemybullet(int bulletType)
         QPixmap bulletMap(":/images/images/enemybullet.png");
 
         // create a resized copy
-        QPixmap scaled = bulletMap.scaled(QSize(10,10));
+        width = 10;
+        height = 10;
+        QPixmap scaled = bulletMap.scaled(QSize(width,height));
 
         setPixmap(scaled);
 
@@ -57,9 +61,11 @@ enemybullet::enemybullet(int bulletType)
         QPixmap bulletMap(":/images/images/timebomb.png");
 
         // create a resized copy
-        //QPixmap scaled = bulletMap.scaled(QSize(10,10));
+        width = 50;
+        height = 50;
+        QPixmap scaled = bulletMap.scaled(QSize(width,height));
 
-        setPixmap(bulletMap);
+        setPixmap(scaled);
 
 
         // connect to slot
@@ -74,7 +80,9 @@ enemybullet::enemybullet(int bulletType)
         QPixmap bulletMap(":/images/images/enemybullet.png");
 
         // create a resized copy
-        QPixmap scaled = bulletMap.scaled(QSize(10,10));
+        width = 10;
+        height = 10;
+        QPixmap scaled = bulletMap.scaled(QSize(width,height));
 
         setPixmap(scaled);
 
@@ -94,22 +102,32 @@ enemybullet::enemybullet(int bulletType)
 /*********************************************************************
  **
  *********************************************************************/
-void enemybullet::getX(double X)
+void enemybullet::setXtrajectory(double X)
 {
-    xCoord = X;
+    xTrajectory = X;
 }
 
 /*********************************************************************
  **
  *********************************************************************/
-void enemybullet::getY(double Y)
+void enemybullet::setYtrajectory(double Y)
 {
-    yCoord = Y;
+    yTrajectory = Y;
 }
 
 void enemybullet::setSpeed(double newSpeed)
 {
     speed = newSpeed;
+}
+
+int enemybullet::getwidth()
+{
+    return width;
+}
+
+int enemybullet::getheight()
+{
+    return height;
 }
 
 
@@ -140,7 +158,7 @@ void enemybullet::move()
         // if off the bottom of screen, delete
         if(pos().y()  > 600){
 
-            qDebug() << "bullet deleted";
+            //qDebug() << "bullet deleted";
             scene()->removeItem(this);
             delete this;
         }
@@ -148,11 +166,16 @@ void enemybullet::move()
 }
 
 /*********************************************************************
- ** Move function for directed bullets shot by Level 2 minions.
+ ** Move function for directed bullets. Used by Level 2 minions and
+ ** bullets from exploded bombs shot by Level 2 boss.
+ **
  ** Although the function runs repeatedly to continuously update the
  ** position of the bullet, the x and y coordinates remain the same,
  ** so the bullet always travels in a straight line even if the enemy
  ** or player has moved.
+ **
+ ** xCoord and yCoord must be obtained before running this function
+ ** (speed optional).
  *********************************************************************/
 void enemybullet::move2()
 {
@@ -173,30 +196,19 @@ void enemybullet::move2()
         // xCoord and yCoord obtained with getters in enemy function upon bullet creation
 
         // get pythagorean
-        double pythagorean = sqrt((xCoord*xCoord)+(yCoord*yCoord));
+        double pythagorean = sqrt((xTrajectory*xTrajectory)+(yTrajectory*yTrajectory));
 
         // if we don't divide by a factor of pythagorean, bullets starting farther
         // from the player will travel faster - not ideal...
-        setPos(x()+(xCoord)*speed/pythagorean,y()+(yCoord)*speed/pythagorean);
-
-//        counter++;
-
-//        if(counter >= pythagorean / 3){
-//            emit arrived();
-//            scene()->removeItem(this);
-//            delete this;
-//            return;
-//        }
+        setPos(x()+(xTrajectory)*speed/pythagorean,y()+(yTrajectory)*speed/pythagorean);
 
         // if bullet is anywhere off the screen, delete it
         if(pos().y() > 600 ||
                 pos().y()+pixmap().height() < -10 ||
                 pos().x()  >800 ||
                 pos().x() + pixmap().width() < 0 ){
-            qDebug() << pos().x() << " " <<  pos().y();
+            //qDebug() << pos().x() << " " <<  pos().y();
             scene()->removeItem(this);
-
-            //emit arrived();
 
             delete this;
 
@@ -225,11 +237,11 @@ void enemybullet::move3()
         // xCoord and yCoord obtained with getters in enemy function upon bullet creation
 
         // get pythagorean
-        double pythagorean = sqrt((xCoord*xCoord)+(yCoord*yCoord));
+        double pythagorean = sqrt((xTrajectory*xTrajectory)+(yTrajectory*yTrajectory));
 
         // if we don't divide by a factor of pythagorean, bullets starting farther
         // from the player will travel faster - not ideal...
-        setPos(x()+(xCoord)/pythagorean*3,y()+(yCoord)/pythagorean*3);
+        setPos(x()+(xTrajectory)/pythagorean*3,y()+(yTrajectory)/pythagorean*3);
 
         counter++;
 
@@ -245,7 +257,7 @@ void enemybullet::move3()
                 pos().y()+pixmap().height() < -10 ||
                 pos().x()  >800 ||
                 pos().x() + pixmap().width() < 0 ){
-            qDebug() << pos().x() << " " <<  pos().y();
+            //qDebug() << pos().x() << " " <<  pos().y();
             scene()->removeItem(this);
 
             emit arrived();
@@ -255,58 +267,3 @@ void enemybullet::move3()
         }
     }
 }
-
-// Trajectory of bullets from exploding timebombs
-/*
-void enemybullet::move4()
-{
-    if(game->paused == false){
-
-        QList<QGraphicsItem *> colliding_items = collidingItems();
-
-        // Check if the bullet is colliding with the player
-        for(int i = 0, n = colliding_items.size(); i < n; ++i){
-            if(typeid(*(colliding_items[i])) == typeid(Player)){
-                game->death();
-                scene()->removeItem(this);
-                delete this;
-                return;
-            }
-         }
-
-        // xCoord and yCoord obtained with getters in enemy function upon bullet creation
-
-        // get pythagorean
-        double pythagorean = sqrt((xCoord*xCoord)+(yCoord*yCoord));
-
-        // if we don't divide by a factor of pythagorean, bullets starting farther
-        // from the player will travel faster - not ideal...
-        setPos((x()+(xCoord))/pythagorean,(y()+(yCoord))/pythagorean);
-
-        //qDebug() << xCoord << " " << yCoord;
-
-//        counter++;
-
-//        if(counter >= pythagorean / 3){
-//            emit arrived();
-//            scene()->removeItem(this);
-//            delete this;
-//            return;
-//        }
-
-        // if bullet is anywhere off the screen, delete it
-        if(pos().y() > 600 ||
-                pos().y()+pixmap().height() < -10 ||
-                pos().x()  >800 ||
-                pos().x() + pixmap().width() < 0 ){
-            qDebug() << pos().x() << " " <<  pos().y() << "Deleting bullet.";
-            //qDebug() ;
-            scene()->removeItem(this);
-
-            //emit arrived();
-
-            delete this;
-
-        }
-    }
-}*/

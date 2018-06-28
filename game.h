@@ -38,6 +38,13 @@ class Game: public QGraphicsView{
 
     void explosion1(double, double);
 
+    int getPlayerXPos();
+    int getPlayerYPos();
+
+    int getPlayerWidth();
+    int getPlayerHeight();
+
+
 
 public slots:
     void start();

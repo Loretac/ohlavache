@@ -112,7 +112,7 @@ void Game::death()
         lives.erase(lives.end()-1);
     }
 
-    qDebug() << "Death. Checking lives...";
+    //qDebug() << "Death. Checking lives...";
 
     // if no more lives, game over
     if(numLives<=0){
@@ -228,8 +228,8 @@ void Game::explosion1(double xPos, double yPos)
         Bullet->setSpeed(10);
         Bullet->setPos(xPos+25,yPos+25);
 
-        Bullet->getX(cos(angle*M_PI/180));
-        Bullet->getY(sin(angle*M_PI/180));
+        Bullet->setXtrajectory(cos(angle*M_PI/180));
+        Bullet->setYtrajectory(sin(angle*M_PI/180));
 
         angle += 51.43;
 
@@ -237,6 +237,26 @@ void Game::explosion1(double xPos, double yPos)
     }
 
 
+}
+
+int Game::getPlayerXPos()
+{
+    return player->x();
+}
+
+int Game::getPlayerYPos()
+{
+    return player->y();
+}
+
+int Game::getPlayerWidth()
+{
+    return player->getwidth();
+}
+
+int Game::getPlayerHeight()
+{
+    return player->getheight();
 }
 
 /*********************************************************************
