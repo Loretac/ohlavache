@@ -41,6 +41,7 @@ public slots:
     void move();
     void move2();
     void move3();
+    void move4();
 };
 
 #endif // ENEMYBULLET_H

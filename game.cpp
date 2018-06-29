@@ -224,7 +224,7 @@ void Game::explosion1(double xPos, double yPos)
     double angle = rand()%360;
 
     for(int i = 0; i < 7; i++){
-        enemybullet *Bullet = new enemybullet(4);
+        enemybullet *Bullet = new enemybullet(2);
         Bullet->setSpeed(10);
         Bullet->setPos(xPos+25,yPos+25);
 
@@ -237,6 +237,24 @@ void Game::explosion1(double xPos, double yPos)
     }
 
 
+}
+
+void Game::explosion2(double xPos, double yPos)
+{
+    double angle = rand()%360;
+
+    for(int i = 0; i < 3; i++){
+        enemybullet *Bullet = new enemybullet(2);
+        Bullet->setSpeed(10);
+        Bullet->setPos(xPos+25,yPos+25);
+
+        Bullet->setXtrajectory(cos(angle*M_PI/180));
+        Bullet->setYtrajectory(sin(angle*M_PI/180));
+
+        angle += 120;
+
+        scene->addItem(Bullet);
+    }
 }
 
 int Game::getPlayerXPos()

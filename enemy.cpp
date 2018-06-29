@@ -32,7 +32,7 @@ Enemy::Enemy(int type, int hp)
     enemyPix = new QGraphicsPixmapItem();
     healthPix = new QGraphicsPixmapItem();
 
-    if(type == 1){
+    if(type == 1){ // LEVEL 1 MINIONS
 
         size = "S";
         barsize = S_BAR_SIZE;
@@ -69,7 +69,7 @@ Enemy::Enemy(int type, int hp)
         timer->start(5);
 
     }
-    else if(type == 2){
+    else if(type == 2){ // LEVEL 1 BOSS
 
         size = "M";
         barsize = M_BAR_SIZE;
@@ -110,7 +110,7 @@ Enemy::Enemy(int type, int hp)
 
         bulletTimer->start(500);
     }
-    else if(type == 3){
+    else if(type == 3){ // LEVEL 2 MINIONS
 
         size = "S";
         barsize = S_BAR_SIZE;
@@ -151,7 +151,7 @@ Enemy::Enemy(int type, int hp)
 
         bulletTimer->start(1500);
     }
-    else if(type == 4){
+    else if(type == 4){ // LEVEL 2 BOSS
         size = "M";
         barsize = M_BAR_SIZE;
 
@@ -178,7 +178,7 @@ Enemy::Enemy(int type, int hp)
 
         // connect to slot
         QTimer *timer = new QTimer();
-        connect(timer,SIGNAL(timeout()),this, SLOT(move2()));
+        connect(timer,SIGNAL(timeout()),this, SLOT(move4()));
 
         // every 5 ms, timeout signal emitted and enemy moves
         timer->start(5);
@@ -190,6 +190,86 @@ Enemy::Enemy(int type, int hp)
         );
 
         bulletTimer->start(2500);
+    }
+    else if(type == 5){ // LEVEL 3 MINIONS
+
+        size = "S";
+        barsize = S_BAR_SIZE;
+
+        // Add the images
+        enemyPix->setPixmap(QPixmap(":/images/images/ufo.png"));
+        healthPix->setPixmap(QPixmap(":/images/images/Shb2.png"));
+
+        width = 100;
+        height = 53;
+
+        hbX = 10;
+        hbY = -10;
+
+        // add to the group
+        this->addToGroup(enemyPix);
+        this->addToGroup(healthPix);
+
+        healthPix->setPos(hbX,hbY);
+
+        // assign a random position to enemy
+        int randomstart = rand()%700; // 100 less than width of screen so enemies won't be cut off
+        setPos(randomstart,-100); // set random position
+
+        // connect to slot
+        QTimer *timer = new QTimer();
+        connect(timer,SIGNAL(timeout()),this, SLOT(move1()));
+
+        // every 5 ms, timeout signal emitted and enemy moves
+        timer->start(5);
+
+        QTimer *bulletTimer = new QTimer();
+        connect(
+            bulletTimer,SIGNAL(timeout()),
+            this, SLOT(shoot3M())
+        );
+
+        bulletTimer->start(2500);
+    }
+    else if(type == 6){
+        size = "M";
+        barsize = M_BAR_SIZE;
+
+        // Add the images
+        enemyPix->setPixmap(QPixmap(":/images/images/johnny.png"));
+        healthPix->setPixmap(QPixmap(":/images/images/Mhb4.png"));
+
+        width = 110;
+        height = 114;
+
+        hbX = 0;
+        hbY = -10;
+
+        // add to the group
+        this->addToGroup(enemyPix);
+        this->addToGroup(healthPix);
+
+        healthPix->setPos(hbX,hbY);
+
+        // assign a random position to enemy
+        int randomstart = rand()%700;
+        //int random_number = rand() % 700; // 100 less than width of screen so enemies won't be cut off
+        setPos(randomstart,-100); // set random position
+
+        // connect to slot
+        QTimer *timer = new QTimer();
+        connect(timer,SIGNAL(timeout()),this, SLOT(move6()));
+
+        timer->start(5);
+
+        QTimer *bulletTimer = new QTimer();
+        connect(
+            bulletTimer,SIGNAL(timeout()),
+            this, SLOT(boss1Shoot())
+        );
+
+        bulletTimer->start(500);
+
     }
 }
 
@@ -299,7 +379,7 @@ void Enemy::boss2Shoot()
     Bullet->setPos(xSource,ySource);
 
     // add a target
-    target *newTarget = new target();
+    target *newTarget = new target(1);
 
     scene()->addItem(newTarget);
 
@@ -311,6 +391,11 @@ void Enemy::boss2Shoot()
 
 
     scene()->addItem(Bullet);
+}
+
+void Enemy::boss3Shoot()
+{
+
 }
 
 /*********************************************************************
@@ -342,6 +427,42 @@ void Enemy::shoot2()
     scene()->addItem(Bullet);
 }
 
+// shooting for level 3 minions
+void Enemy::shoot3M()
+{
+    // create a bullet
+    enemybullet *Bullet = new enemybullet(3);
+
+    // coordinates of origin of bullet
+    int xSource = x() + width/2 - Bullet->getwidth()/2;
+    int ySource = y() + height/2 - Bullet->getheight()/2;
+
+    // coordinates of center of player
+    int xPlayer = game->getPlayerXPos() + game->getPlayerWidth()/2 - Bullet->getwidth()/2;
+    int yPlayer = game->getPlayerYPos() + game->getPlayerHeight()/2 - Bullet->getheight()/2;
+
+    // set the trajectory of the bullet
+    Bullet->setXtrajectory(xPlayer-xSource);
+    Bullet->setYtrajectory(yPlayer-ySource);
+
+    // bullet starts at source we found earlier
+    Bullet->setPos(xSource,ySource);
+
+    // add a target
+    target *newTarget = new target(2);
+
+    scene()->addItem(newTarget);
+
+    // when the bullet arrives, destroy the target
+    connect( Bullet, SIGNAL(arrived()),
+              newTarget, SLOT(smallBoom())  );
+    connect( Bullet, SIGNAL(collide()),
+             newTarget, SLOT(deleteTarget()));
+
+
+    scene()->addItem(Bullet);
+}
+
 /*********************************************************************
  ** Movement for standard UFOs
  *********************************************************************/
@@ -355,6 +476,7 @@ void Enemy::move1()
         if(health <= 0){
             scene()->removeItem(this);
             delete this;
+            return;
            }
 
         // if not colliding with player:
@@ -383,6 +505,7 @@ void Enemy::move2()
             scene()->removeItem(this);
             emit boss1Dead(); // emits signal connected to slot in levels
             delete this;
+            return;
         }
 
         // if not colliding with player:
@@ -409,5 +532,111 @@ void Enemy::move2()
             scene()->removeItem(this);
             delete this;
         }
+    }
+}
+
+void Enemy::move4()
+{
+    if(game->paused == false){
+
+        checkCollision();
+
+        if(health <= 0){
+            scene()->removeItem(this);
+            emit boss2Dead(); // emits signal connected to slot in levels
+            delete this;
+            return;
+        }
+
+        // if not colliding with player:
+
+        // move the enemy down...
+        if(y() < 10){
+            setPos(x(),y()+2);
+        }
+
+        if(((x() < 700 && !moveLeft) || (x() <= 0 && moveLeft))){
+            // change direction
+            setPos(x()+10,y());
+            moveLeft = false;
+        }
+        else if(((x() > 0 && moveLeft) || (x() >= 700 && !moveLeft))){
+            // change direction
+            setPos(x()-10, y());
+            // set moveLeft
+            moveLeft = true;
+        }
+
+        // if off the screen, delete the enemy
+        if(pos().y() > 600){
+            scene()->removeItem(this);
+            delete this;
+        }
+    }
+}
+
+void Enemy::move5()
+{
+    if(game->paused == false){
+
+        // check if player colliding with enemy
+        checkCollision();
+
+        if(health <= 0){
+            scene()->removeItem(this);
+            delete this;
+            return;
+           }
+
+        // if not colliding with player:
+
+        // move the enemy down
+        setPos(x(),y()+1.3);
+
+        // if off the screen, delete the enemy
+        if(pos().y() > 600){
+            scene()->removeItem(this);
+            delete this;
+        }
+    }
+}
+
+void Enemy::move6()
+{
+    if(game->paused == false){
+
+        // check if player colliding with enemy
+        checkCollision();
+
+        if(health <= 0){
+            scene()->removeItem(this);
+            delete this;
+        }
+
+        // if not colliding with player:
+
+        // move the enemy down...
+        if(y() < 10){
+            setPos(x(),y()+2);
+        }
+
+        if(((x() < 700 && !moveLeft) || (x() <= 0 && moveLeft))){
+            // change direction
+            setPos(x()+10,y());
+            moveLeft = false;
+        }
+        else if(((x() > 0 && moveLeft) || (x() >= 700 && !moveLeft))){
+            // change direction
+            setPos(x()-10, y());
+            // set moveLeft
+            moveLeft = true;
+        }
+
+        // if off the screen, delete the enemy
+        if(pos().y() > 600){
+            scene()->removeItem(this);
+            delete this;
+        }
+
     }
 }

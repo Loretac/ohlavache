@@ -14,6 +14,7 @@ public:
 
 signals:
     void boss1Dead();
+    void boss2Dead();
 
 private:
     int enemyType;
@@ -42,9 +43,14 @@ private:
 public slots:
     void boss1Shoot();
     void boss2Shoot();
+    void boss3Shoot();
     void shoot2();
+    void shoot3M();
     void move1();
     void move2();
+    void move4();
+    void move5();
+    void move6();
 };
 
 

@@ -56,7 +56,8 @@ enemybullet::enemybullet(int bulletType)
 
         timer->start(5);
     }
-    else if(type == 3){
+
+    else if(type == 3){ // timebomb shot by level 2 boss
         // create the bullet image
         QPixmap bulletMap(":/images/images/timebomb.png");
 
@@ -90,6 +91,25 @@ enemybullet::enemybullet(int bulletType)
         QTimer *timer = new QTimer();
         connect(timer,SIGNAL(timeout()),
                 this, SLOT(move2()));
+
+        timer->start(5);
+    }
+    else if(type == 5){
+        // create the bullet image
+        QPixmap bulletMap(":/images/images/timebomb.png");
+
+        // create a resized copy
+        width = 50;
+        height = 50;
+        QPixmap scaled = bulletMap.scaled(QSize(width,height));
+
+        setPixmap(scaled);
+
+
+        // connect to slot
+        QTimer *timer = new QTimer();
+        connect(timer,SIGNAL(timeout()),
+                this, SLOT(move3()));
 
         timer->start(5);
     }
@@ -264,6 +284,35 @@ void enemybullet::move3()
 
             delete this;
 
+        }
+    }
+}
+
+void enemybullet::move4()
+{
+    if(game->paused == false){
+
+        QList<QGraphicsItem *> colliding_items = collidingItems();
+
+        // Check if the bullet is colliding with the player
+        for(int i = 0, n = colliding_items.size(); i < n; ++i){
+            if(typeid(*(colliding_items[i])) == typeid(Player)){
+                game->death();
+                scene()->removeItem(this);
+                delete this;
+                return;
+            }
+         }
+
+        // if not colliding with player, move downward
+        setPos(x(),y()+5);
+
+        // if off the bottom of screen, delete
+        if(pos().y()  > 600){
+
+            //qDebug() << "bullet deleted";
+            scene()->removeItem(this);
+            delete this;
         }
     }
 }

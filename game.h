@@ -37,6 +37,7 @@ class Game: public QGraphicsView{
     void displayGameOverWindow(QString textToDisplay);
 
     void explosion1(double, double);
+    void explosion2(double,double);
 
     int getPlayerXPos();
     int getPlayerYPos();

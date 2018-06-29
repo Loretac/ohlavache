@@ -17,7 +17,10 @@ public slots:
     void spawnBoss1();
     void spawn2();
     void spawnBoss2();
+    void spawnBoss3();
+    void spawn3();
     void level2();
+    void level3();
 };
 
 #endif // LEVELS_H
