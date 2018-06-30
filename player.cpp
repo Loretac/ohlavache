@@ -1,8 +1,8 @@
 #include "player.h"
 #include <QGraphicsScene>
 #include <QKeyEvent>
-#include "bullet.h"
-#include "enemy.h"
+#include "playerbullet.h"
+//#include "enemytemp.h"
 #include "game.h"
 
 #include <QDebug>
@@ -117,7 +117,7 @@ int Player::getheight()
  *********************************************************************/
 void Player::movePlayer(){
 
-    if(game->paused == false){
+    if(game->isPaused() == false){
         if(keyLeft && keyRight){
             // no x-axis movement
         }
@@ -142,9 +142,9 @@ void Player::movePlayer(){
 
 void Player::shoot()
 {
-    if(game->paused == false){
+    if(game->isPaused() == false){
         if(keySpace){
-            Bullet * bullet = new Bullet();
+            PlayerBullet * bullet = new PlayerBullet();
             bullet->setPos(x()+26.5,y()); // offset for character
             scene()->addItem(bullet); // add bullet to scene
         }

@@ -34,20 +34,27 @@ target::target(int size)
 void target::boom()
 {
     game->explosion1(xCoord, yCoord );
-    delete this;
+    deleteLater();
     return;
 }
 
 void target::smallBoom()
 {
     game->explosion2(xCoord,yCoord);
-    delete this;
+    deleteLater();
     return;
 }
 
-void target::deleteTarget()
+void target::collision()
 {
     game->explosion1(game->player->x(), game->player->y());
-    delete this;
+    deleteLater();
+    return;
+}
+
+void target::smallCollision()
+{
+    game->explosion2(game->getPlayerXPos(),game->getPlayerYPos());
+    deleteLater();
     return;
 }

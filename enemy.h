@@ -1,65 +1,79 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 
-
-
-#include <QGraphicsPixmapItem>
 #include <QObject>
+#include <QGraphicsPixmapItem>
 
-class Enemy: public QObject, public QGraphicsItemGroup{ //QGraphicsPixmapItem{
+#include "game.h"
+
+class enemy : public QObject, public QGraphicsItemGroup
+{
     Q_OBJECT
 public:
-    Enemy(int type, int health);
-    void damage();
+    void setEnemyPix(QPixmap);
+    void setHealthPix(QPixmap);
+
+    QGraphicsPixmapItem* getEnemyPix();
+    QGraphicsPixmapItem* getHealthPix();
+
+    void setDimensions(int width, int height, int hbX, int hbY);
+
+    void setHealth(int);
+    void setStartingHealth(int);
+    int getHealth();
+    int getStartingHealth();
+
+    void positionHealth();
+
+    int getWidth();
+    int getHeight();
+    int getHBX();
+    int getHBY();
+
+    bool isDead();
+    void setMotion();
+
+    void setSize(std::string);
+
+    bool getMoveLeft();
+    void setMoveLeft(bool);
 
 signals:
-    void boss1Dead();
-    void boss2Dead();
+    //virtual void enemyDeath() = 0;
 
 private:
-    int enemyType;
-    void checkCollision();
 
-    bool moveLeft = false;          // boolean to keep track of l/r direction of enemy
-    int health;                     // current amount of health
+    std::string size; // S, M, L, X
     int startingHealth;
-    QGraphicsPixmapItem *enemyPix;  // image of enemy
-    QGraphicsPixmapItem *healthPix; // image of healthbar
+    int health;
+
     double currXCoord;
     double currYCoord;
-    std::string size;               // S, M, etc.
 
-    int width;                      // width of enemy image
-    int height;                     // height of enemy image
+    bool moveLeft = false;
 
-    int hbX;                        // x-position of health bar
-    int hbY;                        // y-position of health bar
+    bool dead = false;
+
+    int width;
+    int height;
+
+    int hbX;
+    int hbY;
+
+    QGraphicsPixmapItem *enemyPix;  // image of enemy
+    QGraphicsPixmapItem *healthPix; // image of healthbar
 
     // These should reflect # of divisions each size of health bar
     const int S_BAR_SIZE = 2;
     const int M_BAR_SIZE = 4;
     int barsize;                    // this enemy's health bar size
 
-public slots:
-    void boss1Shoot();
-    void boss2Shoot();
-    void boss3Shoot();
-    void shoot2();
-    void shoot3M();
-    void move1();
-    void move2();
-    void move4();
-    void move5();
-    void move6();
+protected: // only derived classes can access
+    void checkStatus();
+    void damage(); // may need relocation to public
+
+private slots:
+    virtual void move() = 0; // must be overwritten by derived classes!
 };
 
-
-
-
-
-
-
 #endif // ENEMY_H
-
-
-

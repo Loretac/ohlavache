@@ -1,9 +1,13 @@
-#include "bullet.h"
+#include "playerbullet.h"
 #include <QTimer>
 #include <QGraphicsScene>
 #include <QList>
-#include "enemy.h"
+//#include "enemytemp.h"
 #include "game.h"
+
+#include "enemy.h"
+
+#include "foe1.h"
 
 #include <QDebug>
 
@@ -18,7 +22,7 @@ extern Game * game;
  ** shoots. This constructor draws the bullet and connects it to the
  ** move function.
  *********************************************************************/
-Bullet::Bullet()
+PlayerBullet::PlayerBullet()
 {
     // draw the bullet
     setPixmap(QPixmap(":/images/images/bullet.png"));
@@ -36,12 +40,12 @@ Bullet::Bullet()
 
 }
 
-int Bullet::getwidth()
+int PlayerBullet::getwidth()
 {
     return width;
 }
 
-int Bullet::getheight()
+int PlayerBullet::getheight()
 {
     return height;
 }
@@ -50,43 +54,43 @@ int Bullet::getheight()
  ** This function moves the player's bullet towards the enemies.
  ** It runs on a timer in the Bullet constructor above.
  *********************************************************************/
-void Bullet::move()
+void PlayerBullet::move()
 {
-    if(game->paused == false){
-        // before moving bullet, check if colliding with enemy
-        // if bullet collides with enemy, destroy both
-        QList<QGraphicsItem *> colliding_items = collidingItems();
-        // collidingItems() member function returns list of pointers to all the QGraphics items
-        // that the bullet is colliding with
+    if(game->isPaused() == false){
 
-        //traverse to see if bullet is colliding with enemy
-        for(int i = 0, n = colliding_items.size(); i < n; ++i){
-            if(typeid(*(colliding_items[i])) == typeid(Enemy)){
-               // increase the score
-               game->score->increase();
+//        QList<QGraphicsItem *> colliding_items = collidingItems();
+//        // collidingItems() member function returns list of pointers to all the QGraphics items
+//        // that the bullet is colliding with
 
-               // typecast from QGraphicsItem* to Enemy*
-               Enemy *enemy = dynamic_cast<Enemy *>(colliding_items[i]);
-               enemy->damage(); // Call damage function on enemy
+//        //traverse to see if bullet is colliding with enemy
+//        for(int i = 0, n = colliding_items.size(); i < n; ++i){
+//            if(typeid(*(colliding_items[i])) == typeid(Foe1)){
+//                //qDebug() << "bullet";
+//               // increase the score
+//               //game->score->increase();
 
-                // remove the bullet from the scene
-                scene()->removeItem(this);
+//               // typecast from QGraphicsItem* to Enemy*
+//               Foe1 *enemy = dynamic_cast<Foe1 *>(colliding_items[i]);
+//               enemy->damage(); // Call damage function on enemy
 
-                //then, delete the bullet
-                delete this;
+//                // remove the bullet from the scene
+//               deleteLater();
+//                //scene()->removeItem(this);
 
-                // exit
-                return;
-            }
-        }
+//                //then, delete the bullet
+//                //delete this;
+
+//                // exit
+//                return;
+//            }
+//        }
 
         // move the bullet up
         setPos(x(),y()-10);
 
         // delete the bullets after they leave the screen
         if(pos().y() + pixmap().height() < 0){ // off the screen
-            scene()->removeItem(this);
-            delete this;
+            deleteLater();
         }
     }
 }

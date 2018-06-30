@@ -26,26 +26,44 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-    bullet.cpp \
-    enemy.cpp \
     game.cpp \
     score.cpp \
     player.cpp \
     button.cpp \
     levels.cpp \
+    target.cpp \
+    enemy.cpp \
+    foe1.cpp \
+    boss1.cpp \
+    foe2.cpp \
     enemybullet.cpp \
-    target.cpp
+    bulletsimple.cpp \
+    playerbullet.cpp \
+    bulletdirected.cpp \
+    boss2.cpp \
+    bullettargetedlarge.cpp \
+    foe3.cpp \
+    bullettargetedsmall.cpp
 
 HEADERS += \
-    bullet.h \
-    enemy.h \
     game.h \
     score.h \
     player.h \
     button.h \
     levels.h \
+    target.h \
+    enemy.h \
+    foe1.h \
+    boss1.h \
+    foe2.h \
     enemybullet.h \
-    target.h
+    bulletsimple.h \
+    playerbullet.h \
+    bulletdirected.h \
+    boss2.h \
+    bullettargetedlarge.h \
+    foe3.h \
+    bullettargetedsmall.h
 
 FORMS += \
         mainwindow.ui

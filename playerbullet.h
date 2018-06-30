@@ -4,10 +4,10 @@
 #include <QGraphicsPixmapItem>
 #include <QObject>
 
-class Bullet: public QObject, public QGraphicsPixmapItem{
+class PlayerBullet: public QObject, public QGraphicsPixmapItem{
     Q_OBJECT
 public:
-    Bullet();
+    PlayerBullet();
     int getwidth();
     int getheight();
 

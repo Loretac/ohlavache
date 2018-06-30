@@ -18,12 +18,21 @@
 #include <QTimer>
 
 #include "game.h"
-#include "enemy.h"
+//#include "enemytemp.h"
 #include "player.h"
 #include "button.h"
 #include "levels.h"
 
-#include "enemybullet.h"
+#include "bulletdirected.h"
+
+
+//#include <stdlib.h>     /* srand, rand */
+//#include <time.h>       /* time */
+
+
+
+
+//#include "enemybullettemp.h"
 
 /*********************************************************************
  ** Game constructor. This function runs only once, as each time
@@ -120,6 +129,11 @@ void Game::death()
     }
 }
 
+bool Game::isPaused()
+{
+    return paused;
+}
+
 /*********************************************************************
  ** This function starts the gameplay. It can be called at the
  ** opening of the application, or upon restart after the game is
@@ -127,6 +141,8 @@ void Game::death()
  *********************************************************************/
 void Game::start()
 {
+    //srand (time(NULL));
+
     // clear the screen
     scene->clear();
 
@@ -167,6 +183,8 @@ void Game::start()
     show();
 
     myLevels = new levels();
+
+
 
 }
 
@@ -224,16 +242,16 @@ void Game::explosion1(double xPos, double yPos)
     double angle = rand()%360;
 
     for(int i = 0; i < 7; i++){
-        enemybullet *Bullet = new enemybullet(2);
+        BulletDirected *Bullet = new BulletDirected;
         Bullet->setSpeed(10);
         Bullet->setPos(xPos+25,yPos+25);
 
-        Bullet->setXtrajectory(cos(angle*M_PI/180));
-        Bullet->setYtrajectory(sin(angle*M_PI/180));
+        Bullet->setXTrajectory(cos(angle*M_PI/180));
+        Bullet->setYTrajectory(sin(angle*M_PI/180));
 
         angle += 51.43;
 
-        scene->addItem(Bullet);
+        addToScene(Bullet);
     }
 
 
@@ -244,12 +262,12 @@ void Game::explosion2(double xPos, double yPos)
     double angle = rand()%360;
 
     for(int i = 0; i < 3; i++){
-        enemybullet *Bullet = new enemybullet(2);
+        BulletDirected *Bullet = new BulletDirected();
         Bullet->setSpeed(10);
         Bullet->setPos(xPos+25,yPos+25);
 
-        Bullet->setXtrajectory(cos(angle*M_PI/180));
-        Bullet->setYtrajectory(sin(angle*M_PI/180));
+        Bullet->setXTrajectory(cos(angle*M_PI/180));
+        Bullet->setYTrajectory(sin(angle*M_PI/180));
 
         angle += 120;
 
@@ -277,6 +295,11 @@ int Game::getPlayerHeight()
     return player->getheight();
 }
 
+void Game::addToScene(QGraphicsItem *item)
+{
+    scene->addItem(item);
+}
+
 /*********************************************************************
  ** This function creates an overlay while menus are displaying.
  *********************************************************************/
@@ -293,4 +316,5 @@ void Game::drawPanel(int x, int y, int width, int height, QColor color, double o
 
     scene->addItem(panel);
 }
+
 

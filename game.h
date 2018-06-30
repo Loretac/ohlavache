@@ -22,7 +22,7 @@ class Game: public QGraphicsView{
     void displayMainMenu();
     void death();
 
-    QGraphicsScene *scene;
+
     Player *player;
     Score *score;
 
@@ -31,7 +31,7 @@ class Game: public QGraphicsView{
     std::vector<QGraphicsPixmapItem *> lives;
     int numLives = 3; // begin game with 3 lives
 
-    bool paused = false;
+    bool isPaused();
 
     void gameOver();
     void displayGameOverWindow(QString textToDisplay);
@@ -45,6 +45,8 @@ class Game: public QGraphicsView{
     int getPlayerWidth();
     int getPlayerHeight();
 
+    void addToScene(QGraphicsItem* item);
+
 
 
 public slots:
@@ -54,7 +56,10 @@ public slots:
 
 private:
     void drawPanel(int x, int y, int width, int height, QColor color, double opacity);
+    bool paused = false;
+    QGraphicsScene *scene;
 
+private slots:
 };
 
 #endif // GAME_H

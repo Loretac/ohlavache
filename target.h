@@ -14,7 +14,8 @@ public:
 public slots:
     void boom();
     void smallBoom();
-    void deleteTarget();
+    void collision();
+    void smallCollision();
 
 private:
     int width;
