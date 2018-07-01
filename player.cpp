@@ -122,20 +122,20 @@ void Player::movePlayer(){
             // no x-axis movement
         }
         if (keyLeft && (pos().x() > 0)) {
-            setPos(x()-5,y());
+            setPos(x()-6,y());
         }
         else if(keyRight && (pos().x() < 740)){
-            setPos(x()+5,y());
+            setPos(x()+6,y());
         }
 
         if(keyUp && keyDown){
             // no y-axis movement
         }
         else if(keyUp && (pos().y() > 0)){
-            setPos(x(),y()-5);
+            setPos(x(),y()-6);
         }
         else if(keyDown && (pos().y() < 500)){
-            setPos(x(),y()+5);
+            setPos(x(),y()+6);
         }
     }
 }

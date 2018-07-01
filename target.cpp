@@ -6,8 +6,8 @@ extern Game * game;
 target::target(int size)
 {
 
-    xCoord = game->player->x()+5;
-    yCoord = game->player->y()+20;
+    xCoord = game->getPlayerXPos()+5;
+    yCoord = game->getPlayerYPos()+20;
 
     if(size == 1){
         setPixmap(QPixmap(":/images/images/target.png"));
@@ -47,7 +47,7 @@ void target::smallBoom()
 
 void target::collision()
 {
-    game->explosion1(game->player->x(), game->player->y());
+    game->explosion1(game->getPlayerXPos(), game->getPlayerYPos());
     deleteLater();
     return;
 }

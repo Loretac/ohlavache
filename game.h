@@ -23,7 +23,7 @@ class Game: public QGraphicsView{
     void death();
 
 
-    Player *player;
+
     Score *score;
 
     levels *myLevels;
@@ -38,6 +38,7 @@ class Game: public QGraphicsView{
 
     void explosion1(double, double);
     void explosion2(double,double);
+    void explosion3(double,double);
 
     int getPlayerXPos();
     int getPlayerYPos();
@@ -58,6 +59,7 @@ private:
     void drawPanel(int x, int y, int width, int height, QColor color, double opacity);
     bool paused = false;
     QGraphicsScene *scene;
+    Player *player;
 
 private slots:
 };

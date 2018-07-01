@@ -22,28 +22,15 @@ public slots:
 
     void spawnBoss1();
     void spawnBoss2();
+    void spawnBoss3();
 
 
 
     void level1();
     void level2();
     void level3();
+    void level4();
 
-//    void spawn1();
-
-//    void spawn2();
-//    void spawnBoss2();
-//    void spawnBoss3();
-//    void spawn3();
-
-//    void level3();
-
-private:
-    //std::vector <QObject*> activeItems;
-    //std::forward_list<QObject*> activeItems;
-
-private slots:
-    //void clearInactive();
 };
 
 #endif // LEVELS_H

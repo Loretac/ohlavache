@@ -275,6 +275,26 @@ void Game::explosion2(double xPos, double yPos)
     }
 }
 
+void Game::explosion3(double xPos, double yPos)
+{
+
+    double angle = rand()%360;
+
+    for(int i = 0; i < 15; i++){
+        BulletDirected *Bullet = new BulletDirected;
+        Bullet->setSpeed(10);
+        Bullet->setPos(xPos+25,yPos+25);
+
+        Bullet->setXTrajectory(cos(angle*M_PI/180));
+        Bullet->setYTrajectory(sin(angle*M_PI/180));
+
+        angle += 24;
+
+        addToScene(Bullet);
+    }
+
+}
+
 int Game::getPlayerXPos()
 {
     return player->x();
