@@ -26,6 +26,8 @@ target::target(int size)
     else if(size == 3){
         // create target image
         setPixmap(QPixmap(":/images/images/lasertarget.png"));
+        height = 100;
+        width = 100;
     }
 
 
@@ -33,6 +35,16 @@ target::target(int size)
 
     this->setPos(xCoord,yCoord);
 
+}
+
+int target::getWidth()
+{
+    return width;
+}
+
+int target::getHeight()
+{
+    return height;
 }
 
 void target::boom()

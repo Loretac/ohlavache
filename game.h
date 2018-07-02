@@ -8,6 +8,7 @@
 #include "player.h"
 #include "score.h"
 #include "levels.h"
+#include "target.h"
 
 #include <iostream>
 #include <vector>
@@ -46,6 +47,9 @@ class Game: public QGraphicsView{
     int getPlayerWidth();
     int getPlayerHeight();
 
+    double getTargetedX();
+    double getTargetedY();
+
     void removeFromScene(QGraphicsItem* item);
 
     void addToScene(QGraphicsItem* item);
@@ -55,6 +59,14 @@ class Game: public QGraphicsView{
 public slots:
     void start();
     void restartGame();
+    void laserTargetOn();
+    void laserTargetOff();
+    void targetFollow();
+    void finalTarget();
+    void readyToFire();
+
+signals:
+    void fire();
 
 
 private:
@@ -62,6 +74,10 @@ private:
     bool paused = false;
     QGraphicsScene *scene;
     Player *player;
+    target *laserTarget;
+
+    double targetedXCoord;
+    double targetedYCoord;
 
 private slots:
 };

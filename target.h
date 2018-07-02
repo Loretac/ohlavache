@@ -10,6 +10,9 @@ public:
     target(int size); // 1=Large, 2=Small
     double xCoord;
     double yCoord;
+    int getWidth();
+    int getHeight();
+
 
 public slots:
     void boom();

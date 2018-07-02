@@ -31,14 +31,18 @@ Boss4Left::Boss4Left()
 
     setPos(0,0);
     laser = new Laser();
+    playerTarget = new target(3);
+
+    connect(game,SIGNAL(fire()),
+            this,SLOT(shoot()));
 
     setMotion();
 
+    game->targetFollow();
 
+    //shoot();
 
-    shoot();
-
-    QTimer::singleShot(2400, this, SLOT(laserOff()));
+    //QTimer::singleShot(2400, this, SLOT(laserOff()));
 }
 
 void Boss4Left::move()
@@ -65,7 +69,8 @@ void Boss4Left::move()
         checkStatus();
 
         if(isDead()){
-            emit bossDeath();
+            emit leftBossDeath();
+            laser->deleteLater();
             deleteLater();
         }
     }
@@ -73,13 +78,18 @@ void Boss4Left::move()
 
 void Boss4Left::shoot()
 {
-    target *newTarget = new target(3);
-    newTarget->setPos(50,50);
-    game->addToScene(newTarget);
-
+    targetX = game->getTargetedX() + 43;
+    targetY = game->getTargetedY() + 40;
+    positionLaser();
     game->addToScene(laser);
 
 
+
+}
+
+void Boss4Left::setTarget()
+{
+    game->targetFollow();
 }
 
 void Boss4Left::positionLaser()
@@ -89,8 +99,6 @@ void Boss4Left::positionLaser()
 
         double sourceX = x() + getWidth()/2 - 10;
         double sourceY = y() + getHeight()/2 - 10;
-        targetX = 400;
-        targetY = 400;
 
         double param = (targetY - sourceY)/(targetX - sourceX);
 

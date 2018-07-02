@@ -22,6 +22,7 @@
 #include "player.h"
 #include "button.h"
 #include "levels.h"
+#include "target.h"
 
 #include "bulletdirected.h"
 
@@ -56,6 +57,8 @@ Game::Game(QWidget *parent){
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setFixedSize(800,600);
+
+
 
     displayMainMenu();
 }
@@ -152,6 +155,8 @@ void Game::start()
     // create the player
     player = new Player();
 
+    laserTarget = new target(3);
+
     // make focusable
     player->setFlag(QGraphicsItem::ItemIsFocusable);
     player->setFocus();
@@ -200,6 +205,46 @@ void Game::restartGame()
     // no need to delete lives... at this point there are none
 
     start();
+}
+
+void Game::targetFollow()
+{
+    QTimer::singleShot(0, this, SLOT(laserTargetOn()));
+    QTimer::singleShot(250, this, SLOT(laserTargetOff()));
+    QTimer::singleShot(1250, this, SLOT(laserTargetOn()));
+    QTimer::singleShot(1500, this, SLOT(laserTargetOff()));
+    QTimer::singleShot(2500, this, SLOT(finalTarget()));
+    QTimer::singleShot(3500, this, SLOT(readyToFire()));
+
+
+}
+
+void Game::finalTarget()
+{
+    targetedXCoord = player->x() + player->getwidth()/2 - laserTarget->getWidth()/2;
+    targetedYCoord = player->y() + player->getheight()/2 - laserTarget->getHeight()/2;
+
+    laserTargetOn();
+}
+
+void Game::readyToFire()
+{
+    emit fire();
+    laserTargetOff();
+}
+
+void Game::laserTargetOn()
+{
+    laserTarget->setPos(player->x() + player->getwidth()/2 - laserTarget->getWidth()/2, player->y() + player->getheight()/2 - laserTarget->getHeight()/2);
+
+    //myTarget->setPos(player->x() + game->getPlayerWidth()/2 - playerTarget->getWidth()/2, game->getPlayerYPos() + game->getPlayerHeight()/2 - playerTarget->getHeight()/2);
+    scene->addItem(laserTarget);
+    //qDebug() << "laser target turned on";
+}
+
+void Game::laserTargetOff()
+{
+    scene->removeItem(laserTarget);
 }
 
 
@@ -313,6 +358,16 @@ int Game::getPlayerWidth()
 int Game::getPlayerHeight()
 {
     return player->getheight();
+}
+
+double Game::getTargetedX()
+{
+    return targetedXCoord;
+}
+
+double Game::getTargetedY()
+{
+    return targetedYCoord;
 }
 
 void Game::removeFromScene(QGraphicsItem *item)

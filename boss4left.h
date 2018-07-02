@@ -14,18 +14,20 @@ public:
 private slots:
     virtual void move();
     void shoot();
+    void setTarget();
     void positionLaser();
     void laserOff();
     void laserOn();
 
 signals:
-    void bossDeath();
+    void leftBossDeath();
 
 private:
     bool moveUp = false;
     Laser *laser;
     double targetX;
     double targetY;
+    target *playerTarget;
 };
 
 #endif // BOSS4LEFT_H
