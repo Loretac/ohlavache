@@ -19,10 +19,12 @@ public slots:
     void spawnFoe1();
     void spawnFoe2();
     void spawnFoe3();
+    void spawnFoe4();
 
     void spawnBoss1();
     void spawnBoss2();
     void spawnBoss3();
+    void spawnBoss4();
 
 
 

@@ -13,7 +13,7 @@ target::target(int size)
         setPixmap(QPixmap(":/images/images/target.png"));
     }
     else if(size == 2){
-        // create the bullet image
+        // create the target image
         QPixmap targetMap(":/images/images/target.png");
 
         // create a resized copy
@@ -22,6 +22,10 @@ target::target(int size)
         QPixmap scaled = targetMap.scaled(QSize(width,height));
 
         setPixmap(scaled);
+    }
+    else if(size == 3){
+        // create target image
+        setPixmap(QPixmap(":/images/images/lasertarget.png"));
     }
 
 

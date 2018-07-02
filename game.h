@@ -46,6 +46,8 @@ class Game: public QGraphicsView{
     int getPlayerWidth();
     int getPlayerHeight();
 
+    void removeFromScene(QGraphicsItem* item);
+
     void addToScene(QGraphicsItem* item);
 
 

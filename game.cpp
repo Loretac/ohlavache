@@ -315,6 +315,11 @@ int Game::getPlayerHeight()
     return player->getheight();
 }
 
+void Game::removeFromScene(QGraphicsItem *item)
+{
+    scene->removeItem(item);
+}
+
 void Game::addToScene(QGraphicsItem *item)
 {
     scene->addItem(item);

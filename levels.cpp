@@ -11,10 +11,12 @@
 #include "foe1.h"
 #include "foe2.h"
 #include "foe3.h"
+#include "foe4.h"
 
 #include "boss1.h"
 #include "boss2.h"
 #include "boss3.h"
+#include "boss4left.h"
 
 // because we want to connect a timer to a function that constantly creates enemies
 #include <QTimer>
@@ -25,11 +27,13 @@ extern Game * game;
 
 levels::levels()
 {
-    spawnBoss3();
+    spawnBoss4();
+    //spawnBoss3();
     //level1();
 
     //level2();
     //level3();
+    //level4();
 }
 
 void levels::spawnFoe1()
@@ -48,6 +52,12 @@ void levels::spawnFoe2()
 void levels::spawnFoe3()
 {
     Foe3 *enemy = new Foe3();
+    game->addToScene(enemy);
+}
+
+void levels::spawnFoe4()
+{
+    Foe4 *enemy = new Foe4();
     game->addToScene(enemy);
 }
 
@@ -86,7 +96,9 @@ void levels::level3()
 
 void levels::level4()
 {
-
+    QTimer::singleShot(400, this, SLOT(spawnFoe4()));
+    QTimer::singleShot(2400, this, SLOT(spawnFoe4()));
+    QTimer::singleShot(4400, this, SLOT(spawnFoe4()));
 }
 
 void levels::spawnBoss1()
@@ -115,4 +127,11 @@ void levels::spawnBoss3()
             this,SLOT(level4()));
 
     game->addToScene(enemy);
+}
+
+void levels::spawnBoss4()
+{
+    Boss4Left * enemyLeft = new Boss4Left();
+
+    game->addToScene(enemyLeft);
 }

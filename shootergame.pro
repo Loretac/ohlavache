@@ -45,7 +45,11 @@ SOURCES += \
     foe3.cpp \
     bullettargetedsmall.cpp \
     boss3.cpp \
-    bulletminelarge.cpp
+    bulletminelarge.cpp \
+    foe4.cpp \
+    bulletminesmall.cpp \
+    boss4left.cpp \
+    laser.cpp
 
 HEADERS += \
     game.h \
@@ -67,7 +71,11 @@ HEADERS += \
     foe3.h \
     bullettargetedsmall.h \
     boss3.h \
-    bulletminelarge.h
+    bulletminelarge.h \
+    foe4.h \
+    bulletminesmall.h \
+    boss4left.h \
+    laser.h
 
 FORMS += \
         mainwindow.ui

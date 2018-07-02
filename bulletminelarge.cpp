@@ -21,7 +21,7 @@ void BulletMineLarge::move()
         for(int i = 0, n = colliding_items.size(); i < n; ++i){
             if(typeid(*(colliding_items[i])) == typeid(Player)){
 
-                game->explosion1(game->getPlayerXPos(), game->getPlayerYPos());
+                game->explosion3(game->getPlayerXPos(), game->getPlayerYPos());
 
                 game->death();
                 deleteLater();
