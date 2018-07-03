@@ -50,7 +50,7 @@ void Laser::move()
 
 
             qDebug() << "contact";
-            game->death();
+            //game->death();
 
             break;
 

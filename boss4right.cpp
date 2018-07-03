@@ -1,4 +1,4 @@
-#include "boss4left.h"
+#include "boss4right.h"
 
 #include "laser.h"
 
@@ -12,9 +12,8 @@
 
 extern Game *game;
 
-Boss4Left::Boss4Left()
+Boss4Right::Boss4Right()
 {
-
     setStartingHealth(6);
 
     setEnemyPix(QPixmap(":/images/images/johnny.png"));
@@ -29,36 +28,26 @@ Boss4Left::Boss4Left()
 
     positionHealth();
 
-    setPos(0,0);
+    setPos(800-getWidth(),600-getHeight());
     laser = new Laser();
 
     connect(game,SIGNAL(fire()),
             this,SLOT(shoot()));
 
     setMotion();
-
-    game->targetFollow();
-
-    //shoot();
-
-    //QTimer::singleShot(2400, this, SLOT(laserOff()));
 }
 
-void Boss4Left::move()
+void Boss4Right::move()
 {
     if(game->isPaused() == false){
-        if(x() < 5){
-            setPos(x()+1,y());
-        }
-
         if(((y() < 600-getHeight() && !moveUp) || (y() <= 0 && moveUp))){
             // change direction
-            setPos(x(),y()+3);
+            setPos(x(),y()+6);
             moveUp = false;
         }
         else if(((y() > 0 && moveUp) || (y() >= 600-getHeight() && !moveUp))){
             // change direction
-            setPos(x(), y()-3);
+            setPos(x(), y()-6);
             // set moveLeft
             moveUp = true;
         }
@@ -68,30 +57,29 @@ void Boss4Left::move()
         checkStatus();
 
         if(isDead()){
-            emit leftBossDeath();
+            emit rightBossDeath();
             laser->deleteLater();
             deleteLater();
         }
     }
+
+
 }
 
-void Boss4Left::shoot()
+void Boss4Right::shoot()
 {
     targetX = game->getTargetedX() + 43;
     targetY = game->getTargetedY() + 40;
     positionLaser();
     game->addToScene(laser);
-
-
-
 }
 
-void Boss4Left::setTarget()
+void Boss4Right::setTarget()
 {
     game->targetFollow();
 }
 
-void Boss4Left::positionLaser()
+void Boss4Right::positionLaser()
 {
     if(laser){
         laser->setPos(x() + getWidth()/2 - 3, y() + getHeight()/2 - 3);
@@ -99,26 +87,34 @@ void Boss4Left::positionLaser()
         double sourceX = x() + getWidth()/2 - 10;
         double sourceY = y() + getHeight()/2 - 10;
 
-        double param = (targetY - sourceY)/(targetX - sourceX);
+        /*   angle to rotate:
+        theta = arctan (x/y) + 90deg
+        x = sourceX - targetX
+        y = targetY - sourceY    */
 
-        double result = atan (param) * 180 / M_PI;
+        double y = targetY - sourceY;
+        double x = sourceX - targetX;
 
+        double param = x/y;
+        double result = (atan (param) * 180 / M_PI) + 90;
+
+        if(y < 0){
+            result += 180;
+        }
+
+        qDebug() << result;
         laser->setRotation(result);
-
-
-
     }
-
 }
 
-void Boss4Left::laserOff()
+void Boss4Right::laserOff()
 {
     if(laser){
         game->removeFromScene(laser);
     }
 }
 
-void Boss4Left::laserOn()
+void Boss4Right::laserOn()
 {
     game->addToScene(laser);
 }

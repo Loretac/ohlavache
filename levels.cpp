@@ -17,6 +17,7 @@
 #include "boss2.h"
 #include "boss3.h"
 #include "boss4left.h"
+#include "boss4right.h"
 
 // because we want to connect a timer to a function that constantly creates enemies
 #include <QTimer>
@@ -132,6 +133,8 @@ void levels::spawnBoss3()
 void levels::spawnBoss4()
 {
     Boss4Left * enemyLeft = new Boss4Left();
-
     game->addToScene(enemyLeft);
+
+    Boss4Right *enemyRight = new Boss4Right();
+    game->addToScene(enemyRight);
 }

@@ -1,15 +1,15 @@
-#ifndef BOSS4LEFT_H
-#define BOSS4LEFT_H
+#ifndef BOSS4RIGHT_H
+#define BOSS4RIGHT_H
 
 #include "enemy.h"
 #include "laser.h"
 #include "target.h"
 
-class Boss4Left : public enemy
+class Boss4Right : public enemy
 {
     Q_OBJECT
 public:
-    Boss4Left();
+    Boss4Right();
 
 private slots:
     virtual void move();
@@ -20,7 +20,7 @@ private slots:
     void laserOn();
 
 signals:
-    void leftBossDeath();
+    void rightBossDeath();
 
 private:
     bool moveUp = false;
@@ -29,4 +29,4 @@ private:
     double targetY;
 };
 
-#endif // BOSS4LEFT_H
+#endif // BOSS4RIGHT_H
