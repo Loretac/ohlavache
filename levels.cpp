@@ -144,5 +144,5 @@ void levels::spawnBoss4()
     QTimer *timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),
             game,SLOT(targetFollow()));
-    timer->start(10000);
+    timer->start(6000);
 }

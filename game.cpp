@@ -200,30 +200,39 @@ void Game::restartGame()
 
 void Game::targetFollow()
 {
-    QTimer::singleShot(0, this, SLOT(laserTargetOn()));
-    QTimer::singleShot(250, this, SLOT(laserTargetOff()));
-    QTimer::singleShot(1250, this, SLOT(laserTargetOn()));
-    QTimer::singleShot(1500, this, SLOT(laserTargetOff()));
-    QTimer::singleShot(2500, this, SLOT(finalTarget()));
-    QTimer::singleShot(3500, this, SLOT(readyToFire()));
+    if(!paused){
+        QTimer::singleShot(0, this, SLOT(laserTargetOn()));
+        QTimer::singleShot(250, this, SLOT(laserTargetOff()));
+        QTimer::singleShot(1250, this, SLOT(laserTargetOn()));
+        QTimer::singleShot(1500, this, SLOT(laserTargetOff()));
+        QTimer::singleShot(2500, this, SLOT(finalTarget()));
+        QTimer::singleShot(3500, this, SLOT(readyToFire()));
+    }
+
 
 
 }
 
 void Game::finalTarget()
 {
-    targetedXCoord = player->x() + player->getwidth()/2 - laserTarget->getWidth()/2;
-    targetedYCoord = player->y() + player->getheight()/2 - laserTarget->getHeight()/2;
+    if(!paused){
+        targetedXCoord = player->x() + player->getwidth()/2 - laserTarget->getWidth()/2;
+        targetedYCoord = player->y() + player->getheight()/2 - laserTarget->getHeight()/2;
 
-    laserTargetOn();
+        laserTargetOn();
+    }
+
 }
 
 void Game::readyToFire()
 {
-    emit fire();
-    laserTargetOff();
+    if(!paused){
+        emit fire();
+        laserTargetOff();
 
-    QTimer::singleShot(500, this, SLOT(readyToStop()));
+        QTimer::singleShot(500, this, SLOT(readyToStop()));
+    }
+
 
 }
 
@@ -269,22 +278,25 @@ void Game::resetPlayer()
         gameOver();
     }
 
-    QTimer::singleShot(100, player, SLOT(hideImage()));
-    QTimer::singleShot(200, player, SLOT(showImage()));
-    QTimer::singleShot(300, player, SLOT(hideImage()));
-    QTimer::singleShot(400, player, SLOT(showImage()));
-    QTimer::singleShot(500, player, SLOT(hideImage()));
-    QTimer::singleShot(600, player, SLOT(showImage()));
-    QTimer::singleShot(700, player, SLOT(hideImage()));
-    QTimer::singleShot(800, player, SLOT(showImage()));
-    QTimer::singleShot(900, player, SLOT(hideImage()));
-    QTimer::singleShot(1000, player, SLOT(showImage()));
-    QTimer::singleShot(1100, player, SLOT(hideImage()));
-    QTimer::singleShot(1200, player, SLOT(showImage()));
-    QTimer::singleShot(1300, player, SLOT(hideImage()));
-    QTimer::singleShot(1400, player, SLOT(showImage()));
-    QTimer::singleShot(1500, player, SLOT(hideImage()));
-    QTimer::singleShot(1600, this, SLOT(invincibilityOff()));
+    if(!paused){
+        QTimer::singleShot(100, player, SLOT(hideImage()));
+        QTimer::singleShot(200, player, SLOT(showImage()));
+        QTimer::singleShot(300, player, SLOT(hideImage()));
+        QTimer::singleShot(400, player, SLOT(showImage()));
+        QTimer::singleShot(500, player, SLOT(hideImage()));
+        QTimer::singleShot(600, player, SLOT(showImage()));
+        QTimer::singleShot(700, player, SLOT(hideImage()));
+        QTimer::singleShot(800, player, SLOT(showImage()));
+        QTimer::singleShot(900, player, SLOT(hideImage()));
+        QTimer::singleShot(1000, player, SLOT(showImage()));
+        QTimer::singleShot(1100, player, SLOT(hideImage()));
+        QTimer::singleShot(1200, player, SLOT(showImage()));
+        QTimer::singleShot(1300, player, SLOT(hideImage()));
+        QTimer::singleShot(1400, player, SLOT(showImage()));
+        QTimer::singleShot(1500, player, SLOT(hideImage()));
+        QTimer::singleShot(1600, this, SLOT(invincibilityOff()));
+    }
+
 
 
 }

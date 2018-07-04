@@ -42,7 +42,7 @@ Boss4Left::Boss4Left()
 
     setMotion();
 
-    QTimer *timer = new QTimer(this);
+    //QTimer *timer = new QTimer(this);
 
 
     game->targetFollow();
@@ -125,13 +125,12 @@ void Boss4Left::move()
 
 void Boss4Left::shoot()
 {
-    targetX = game->getTargetedX() + 43;
-    targetY = game->getTargetedY() + 40;
-    positionLaser();
-    game->addToScene(laser);
-
-
-
+    if(game->isPaused() == false){
+        targetX = game->getTargetedX() + 43;
+        targetY = game->getTargetedY() + 40;
+        positionLaser();
+        game->addToScene(laser);
+    }
 }
 
 void Boss4Left::setTarget()
@@ -141,33 +140,32 @@ void Boss4Left::setTarget()
 
 void Boss4Left::positionLaser()
 {
-    if(laser){
-        laser->setPos(x() + getWidth()/2 - 3, y() + getHeight()/2 - 3);
+    if(game->isPaused() == false){
+        if(laser){
+            laser->setPos(x() + getWidth()/2 - 3, y() + getHeight()/2 - 3);
 
 
 
-        double sourceX = x() + getWidth()/2 - 10;
-        double sourceY = y() + getHeight()/2 - 10;
+            double sourceX = x() + getWidth()/2 - 10;
+            double sourceY = y() + getHeight()/2 - 10;
 
-        double x = targetX - sourceX;
-        double y = targetY - sourceY;
-
-
-        double param = y/x;
+            double x = targetX - sourceX;
+            double y = targetY - sourceY;
 
 
-        double result = atan (param) * 180 / M_PI;
+            double param = y/x;
 
-        if(x < 0){
-            result += 180;
+
+            double result = atan (param) * 180 / M_PI;
+
+            if(x < 0){
+                result += 180;
+            }
+
+            laser->setRotation(result);
         }
-
-
-        laser->setRotation(result);
-
-
-
     }
+
 
 }
 

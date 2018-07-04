@@ -43,18 +43,21 @@ Laser::Laser()
 
 void Laser::move()
 {
-    QList<QGraphicsItem *> colliding_items = collidingItems();
+    if(game->isPaused() == false){
+        QList<QGraphicsItem *> colliding_items = collidingItems();
 
-    for(int i = 0, n = colliding_items.size(); i<n; ++i){
-        if(typeid(*(colliding_items[i])) == typeid(Player)){
+        for(int i = 0, n = colliding_items.size(); i<n; ++i){
+            if(typeid(*(colliding_items[i])) == typeid(Player)){
 
 
-            //qDebug() << "contact";
-            game->death();
+                //qDebug() << "contact";
+                game->death();
 
-            break;
+                break;
 
+            }
         }
     }
+
 
 }

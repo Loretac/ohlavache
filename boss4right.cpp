@@ -110,10 +110,12 @@ void Boss4Right::move()
 
 void Boss4Right::shoot()
 {
-    targetX = game->getTargetedX() + 43;
-    targetY = game->getTargetedY() + 40;
-    positionLaser();
-    game->addToScene(laser);
+    if(game->isPaused() == false){
+        targetX = game->getTargetedX() + 43;
+        targetY = game->getTargetedY() + 40;
+        positionLaser();
+        game->addToScene(laser);
+    }
 }
 
 void Boss4Right::setTarget()
@@ -123,30 +125,33 @@ void Boss4Right::setTarget()
 
 void Boss4Right::positionLaser()
 {
-    if(laser){
-        laser->setPos(x() + getWidth()/2 - 3, y() + getHeight()/2 - 3);
+    if(game->isPaused() == false){
+        if(laser){
+            laser->setPos(x() + getWidth()/2 - 3, y() + getHeight()/2 - 3);
 
-        double sourceX = x() + getWidth()/2 - 10;
-        double sourceY = y() + getHeight()/2 - 10;
+            double sourceX = x() + getWidth()/2 - 10;
+            double sourceY = y() + getHeight()/2 - 10;
 
-        /*   angle to rotate:
-        theta = arctan (x/y) + 90deg
-        x = sourceX - targetX
-        y = targetY - sourceY    */
+            /*   angle to rotate:
+            theta = arctan (x/y) + 90deg
+            x = sourceX - targetX
+            y = targetY - sourceY    */
 
-        double y = targetY - sourceY;
-        double x = sourceX - targetX;
+            double y = targetY - sourceY;
+            double x = sourceX - targetX;
 
-        double param = x/y;
-        double result = (atan (param) * 180 / M_PI) + 90;
+            double param = x/y;
+            double result = (atan (param) * 180 / M_PI) + 90;
 
-        if(y < 0){
-            result += 180;
+            if(y < 0){
+                result += 180;
+            }
+
+            //qDebug() << result;
+            laser->setRotation(result);
         }
-
-        //qDebug() << result;
-        laser->setRotation(result);
     }
+
 }
 
 void Boss4Right::laserOff()
