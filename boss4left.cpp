@@ -16,13 +16,12 @@ extern Game *game;
 
 Boss4Left::Boss4Left()
 {
-
     setStartingHealth(6);
 
     setEnemyPix(QPixmap(":/images/images/johnny.png"));
     setHealthPix(QPixmap(":/images/images/Mhb4.png"));
 
-    //setMoveLeft(true)
+
 
     setSize("M");
 
@@ -38,8 +37,13 @@ Boss4Left::Boss4Left()
 
     connect(game,SIGNAL(fire()),
             this,SLOT(shoot()));
+    connect(game,SIGNAL(stopFiring()),
+            this,SLOT(laserOff()));
 
     setMotion();
+
+    QTimer *timer = new QTimer();
+
 
     game->targetFollow();
 

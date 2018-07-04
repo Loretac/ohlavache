@@ -137,4 +137,7 @@ void levels::spawnBoss4()
 
     Boss4Right *enemyRight = new Boss4Right();
     game->addToScene(enemyRight);
+
+    connect(enemyLeft,SIGNAL(leftBossDeath()),
+            enemyRight,SLOT(makeCalls()));
 }

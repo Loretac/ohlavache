@@ -231,6 +231,14 @@ void Game::readyToFire()
 {
     emit fire();
     laserTargetOff();
+
+    QTimer::singleShot(500, this, SLOT(readyToStop()));
+
+}
+
+void Game::readyToStop()
+{
+    emit stopFiring();
 }
 
 void Game::laserTargetOn()

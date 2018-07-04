@@ -64,9 +64,11 @@ public slots:
     void targetFollow();
     void finalTarget();
     void readyToFire();
+    void readyToStop();
 
 signals:
     void fire();
+    void stopFiring();
 
 
 private:

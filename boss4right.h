@@ -18,6 +18,7 @@ private slots:
     void positionLaser();
     void laserOff();
     void laserOn();
+    void makeCalls();
 
 signals:
     void rightBossDeath();
@@ -28,6 +29,7 @@ private:
     double targetX;
     double targetY;
     double speed = 3;
+    bool bossLeftDead = false; // left boss calls commands unless it dies
 };
 
 #endif // BOSS4RIGHT_H

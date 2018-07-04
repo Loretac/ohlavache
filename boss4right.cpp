@@ -33,6 +33,8 @@ Boss4Right::Boss4Right()
 
     connect(game,SIGNAL(fire()),
             this,SLOT(shoot()));
+    connect(game,SIGNAL(stopFiring()),
+            this,SLOT(laserOff()));
 
     setMotion();
 }
@@ -91,21 +93,6 @@ void Boss4Right::move()
             speed = (rand() % speedCap) + speedMin; // change speed
             qDebug() << "case 8";
         }
-
-
-//        if(((y() < 600-getHeight() && !moveUp) || (y() <= 0 && moveUp))){
-//            // change direction
-//            setPos(x(),y()+6);
-//            moveUp = false;
-//        }
-//        else if(((y() > 0 && moveUp) || (y() >= 600-getHeight() && !moveUp))){
-//            // change direction
-//            setPos(x(), y()-6);
-//            // set moveLeft
-//            moveUp = true;
-//        }
-
-
 
         positionLaser();
 
@@ -172,4 +159,9 @@ void Boss4Right::laserOff()
 void Boss4Right::laserOn()
 {
     game->addToScene(laser);
+}
+
+void Boss4Right::makeCalls()
+{
+    bossLeftDead = true;
 }
