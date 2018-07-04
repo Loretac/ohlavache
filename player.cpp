@@ -21,14 +21,17 @@ Player::Player(QGraphicsItem *parent): QGraphicsPixmapItem(parent){
     height = 83;
 
     //player movement
-    QTimer *movementTimer = new QTimer();
+    movementTimer = new QTimer(this);
     QObject::connect(movementTimer,SIGNAL(timeout()),this,SLOT(movePlayer()));
     movementTimer->start(2);
 
     // player shooting
-    QTimer *shootingTimer = new QTimer();
+    shootingTimer = new QTimer(this);
     QObject::connect(shootingTimer,SIGNAL(timeout()),this,SLOT(shoot()));
     shootingTimer->start(350);
+
+    connect(game,SIGNAL(dying()),
+            this,SLOT(paralyzed()));
 }
 
 /*********************************************************************
@@ -149,6 +152,22 @@ void Player::shoot()
             scene()->addItem(bullet); // add bullet to scene
         }
     }
+}
+
+void Player::paralyzed()
+{
+    shootingTimer->stop();
+    movementTimer->stop();
+}
+
+void Player::hideImage()
+{
+    setPixmap(QPixmap(":/images/images/transparent.png"));
+}
+
+void Player::showImage()
+{
+    setPixmap(QPixmap(":/images/images/jet.png"));
 }
 
 

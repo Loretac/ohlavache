@@ -69,7 +69,7 @@ double EnemyBullet::getYTrajectory()
 
 void EnemyBullet::setMotion()
 {
-    QTimer *timer = new QTimer();
+    QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()),
             this,SLOT(move()));
 

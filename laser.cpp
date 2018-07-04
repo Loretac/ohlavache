@@ -13,7 +13,7 @@ Laser::Laser()
 {
     setPixmap(QPixmap(":/images/images/laser.png"));
 
-    QTimer *timer = new QTimer();
+    QTimer *timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),
             this,SLOT(move()));
     timer->start(5);

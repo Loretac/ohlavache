@@ -22,5 +22,6 @@
         <file>images/target.png</file>
         <file>images/laser.png</file>
         <file>images/lasertarget.png</file>
+        <file>images/transparent.png</file>
     </qresource>
 </RCC>

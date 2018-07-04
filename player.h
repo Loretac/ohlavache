@@ -22,10 +22,15 @@ public:
 public slots:
     void movePlayer();
     void shoot();
+    void paralyzed(); // animation when player dies
+    void hideImage();
+    void showImage();
 
 private:
     int width;
     int height;
+    QTimer *movementTimer;
+    QTimer *shootingTimer;
 
 
 

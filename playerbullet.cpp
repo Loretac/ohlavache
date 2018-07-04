@@ -32,7 +32,7 @@ PlayerBullet::PlayerBullet()
     // move the bullet:
 
     // connect to slot
-    QTimer *timer = new QTimer();
+    QTimer *timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this, SLOT(move()));
 
     // every 5 ms, timeout signal emitted and bullet moves

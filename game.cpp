@@ -7,6 +7,9 @@
 
 #include <QtDebug>
 
+#include <QGraphicsOpacityEffect>
+#include <QPropertyAnimation>
+
 #include <math.h> // sin, cos
 
 #include <stdlib.h> // rand
@@ -102,34 +105,22 @@ void Game::death()
 {
     //qDebug() << "Death.";
     // delete the player
-    delete(player);
+    emit dying();
+    invincibility = true;
 
-    // create a new player
-    player = new Player();
+    QGraphicsOpacityEffect *eff = new QGraphicsOpacityEffect(this);
+    //player->setGraphicsEffect();
+    player->setGraphicsEffect(eff);
+    QPropertyAnimation *a = new QPropertyAnimation(eff,"opacity");
+    a->setDuration(1350);
+    a->setStartValue(1);
+    a->setEndValue(0);
+    a->setEasingCurve(QEasingCurve::OutBack);
+    a->start(QPropertyAnimation::DeleteWhenStopped);
+    connect(a,SIGNAL(finished()),this,SLOT(resetPlayer()));
 
-    // show the player
-    player->setFlag(QGraphicsItem::ItemIsFocusable);
-    player->setFocus();
-    scene->addItem(player);
-    player->setPos(350,500);
-
-    numLives--;
 
 
-    if(numLives > 0){
-        // remove life from screen
-        scene->removeItem(lives.back());
-
-        // erase from vector
-        lives.erase(lives.end()-1);
-    }
-
-    //qDebug() << "Death. Checking lives...";
-
-    // if no more lives, game over
-    if(numLives<=0){
-        gameOver();
-    }
 }
 
 bool Game::isPaused()
@@ -239,6 +230,73 @@ void Game::readyToFire()
 void Game::readyToStop()
 {
     emit stopFiring();
+}
+
+void Game::invincibilityOff()
+{
+    invincibility = false;
+    player->showImage();
+}
+
+void Game::resetPlayer()
+{
+    delete(player);
+
+    // create a new player
+    player = new Player();
+
+    // show the player
+    player->setFlag(QGraphicsItem::ItemIsFocusable);
+    player->setFocus();
+    scene->addItem(player);
+    player->setPos(350,500);
+
+    numLives--;
+
+
+    if(numLives > 0){
+        // remove life from screen
+        scene->removeItem(lives.back());
+
+        // erase from vector
+        lives.erase(lives.end()-1);
+    }
+
+    //qDebug() << "Death. Checking lives...";
+
+    // if no more lives, game over
+    if(numLives<=0){
+        gameOver();
+    }
+
+    QTimer::singleShot(100, player, SLOT(hideImage()));
+    QTimer::singleShot(200, player, SLOT(showImage()));
+    QTimer::singleShot(300, player, SLOT(hideImage()));
+    QTimer::singleShot(400, player, SLOT(showImage()));
+    QTimer::singleShot(500, player, SLOT(hideImage()));
+    QTimer::singleShot(600, player, SLOT(showImage()));
+    QTimer::singleShot(700, player, SLOT(hideImage()));
+    QTimer::singleShot(800, player, SLOT(showImage()));
+    QTimer::singleShot(900, player, SLOT(hideImage()));
+    QTimer::singleShot(1000, player, SLOT(showImage()));
+    QTimer::singleShot(1100, player, SLOT(hideImage()));
+    QTimer::singleShot(1200, player, SLOT(showImage()));
+    QTimer::singleShot(1300, player, SLOT(hideImage()));
+    QTimer::singleShot(1400, player, SLOT(showImage()));
+    QTimer::singleShot(1500, player, SLOT(hideImage()));
+    QTimer::singleShot(1600, this, SLOT(invincibilityOff()));
+
+
+}
+
+void Game::playerShow()
+{
+    scene->removeItem(player);
+}
+
+void Game::playerHide()
+{
+    scene->addItem(player);
 }
 
 void Game::laserTargetOn()
@@ -386,6 +444,11 @@ void Game::removeFromScene(QGraphicsItem *item)
 void Game::addToScene(QGraphicsItem *item)
 {
     scene->addItem(item);
+}
+
+bool Game::isInvincible()
+{
+    return invincibility;
 }
 
 /*********************************************************************

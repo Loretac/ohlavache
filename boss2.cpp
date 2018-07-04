@@ -95,7 +95,7 @@ void Boss2::shoot()
 
 void Boss2::startShooting()
 {
-    QTimer *timer = new QTimer();
+    QTimer *timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),
             this,SLOT(shoot()));
 

@@ -81,7 +81,7 @@ void Foe3::shoot()
 
 void Foe3::startShooting()
 {
-    QTimer *timer = new QTimer();
+    QTimer *timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),
             this,SLOT(shoot()));
 

@@ -42,7 +42,7 @@ Boss4Left::Boss4Left()
 
     setMotion();
 
-    QTimer *timer = new QTimer();
+    QTimer *timer = new QTimer(this);
 
 
     game->targetFollow();
@@ -60,7 +60,7 @@ void Boss4Left::move()
 //        }
 
         int minY = 30;
-        int minX = 20;
+        int minX = 10;
 
         int maxX = 300;
         int maxY = 500;

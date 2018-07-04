@@ -45,7 +45,7 @@ void Boss4Right::move()
         int minY = 30;
         int minX = 400;
 
-        int maxX = 680;
+        int maxX = 800 - getWidth() - 10;
         int maxY = 500;
 
         int speedMin = 3;

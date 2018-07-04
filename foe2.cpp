@@ -68,7 +68,7 @@ void Foe2::shoot()
 
 void Foe2::startShooting()
 {
-    QTimer *timer = new QTimer();
+    QTimer *timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),
             this,SLOT(shoot()));
 

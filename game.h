@@ -53,6 +53,7 @@ class Game: public QGraphicsView{
     void removeFromScene(QGraphicsItem* item);
 
     void addToScene(QGraphicsItem* item);
+    bool isInvincible();
 
 
 
@@ -65,10 +66,17 @@ public slots:
     void finalTarget();
     void readyToFire();
     void readyToStop();
+    void invincibilityOff();
+    void resetPlayer();
+
+    // while player is respawning, blinks
+    void playerShow();
+    void playerHide();
 
 signals:
     void fire();
     void stopFiring();
+    void dying();
 
 
 private:
@@ -80,6 +88,7 @@ private:
 
     double targetedXCoord;
     double targetedYCoord;
+    bool invincibility = false;
 
 private slots:
 };
