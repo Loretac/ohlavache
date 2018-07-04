@@ -46,10 +46,10 @@ void Boss4Right::move()
         int minX = 400;
 
         int maxX = 680;
-        int maxY = 400;
+        int maxY = 500;
 
         int speedMin = 3;
-        int speedCap = 15;
+        int speedCap = 10;
 
         if(y() < maxY && !moveUp && y() > minY){ // continue moving down
             setPos(x(),y() + speed);

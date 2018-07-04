@@ -140,4 +140,9 @@ void levels::spawnBoss4()
 
     connect(enemyLeft,SIGNAL(leftBossDeath()),
             enemyRight,SLOT(makeCalls()));
+
+    QTimer *timer = new QTimer(this);
+    connect(timer,SIGNAL(timeout()),
+            game,SLOT(targetFollow()));
+    timer->start(10000);
 }
