@@ -27,6 +27,7 @@ private:
     Laser *laser;
     double targetX;
     double targetY;
+    double speed = 3;
 };
 
 #endif // BOSS4RIGHT_H

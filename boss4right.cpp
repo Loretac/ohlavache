@@ -40,17 +40,72 @@ Boss4Right::Boss4Right()
 void Boss4Right::move()
 {
     if(game->isPaused() == false){
-        if(((y() < 600-getHeight() && !moveUp) || (y() <= 0 && moveUp))){
-            // change direction
-            setPos(x(),y()+6);
-            moveUp = false;
+        int minY = 30;
+        int minX = 400;
+
+        int maxX = 680;
+        int maxY = 400;
+
+        int speedMin = 3;
+        int speedCap = 15;
+
+        if(y() < maxY && !moveUp && y() > minY){ // continue moving down
+            setPos(x(),y() + speed);
+            qDebug() << "case 1";
         }
-        else if(((y() > 0 && moveUp) || (y() >= 600-getHeight() && !moveUp))){
-            // change direction
-            setPos(x(), y()-6);
-            // set moveLeft
+        else if(y() >= maxY){ // change direction at bottom, move up
+            setPos(x(),y()-speed);
             moveUp = true;
+            setMoveLeft(true);
+            speed = (rand() % speedCap) + speedMin; // change speed
+            qDebug() << "case 2";
         }
+        else if(y() < maxY && y() > minY && moveUp && getMoveLeft() == true){ // keep moving up
+            setPos(x(),y()-speed);
+            qDebug() << "case 3";
+        }
+        else if(y() <= minY && getMoveLeft() == true && x() > minX){ // start moving left
+            setPos(x() - speed, y());
+            moveUp = false;
+            speed = (rand() % speedCap) + speedMin; // change speed
+            qDebug() << "case 4";
+        }
+        else if(y() <= minY && getMoveLeft() == true && x() > minX){ // continue moving left
+            setPos(x() - speed, y());
+            qDebug() << "case 5";
+        }
+        else if(y() <= minY && getMoveLeft() == true && x() <= minX){ // switch to right
+            setPos(x() + speed, y());
+            setMoveLeft(false);
+            speed = (rand() % speedCap) + speedMin; // change speed
+            qDebug() << "case 6";
+        }
+        else if(y() <= minY && getMoveLeft() == false && x() < maxX){ // keep moving right
+            setPos(x() + speed, y());
+            moveUp = false;
+            qDebug() << "case 7";
+        }
+        else if(y() <= minY && getMoveLeft() == false && x() >= maxX){ // start moving up
+            setPos(x(),minY + speed);
+            setMoveLeft(true);
+            speed = (rand() % speedCap) + speedMin; // change speed
+            qDebug() << "case 8";
+        }
+
+
+//        if(((y() < 600-getHeight() && !moveUp) || (y() <= 0 && moveUp))){
+//            // change direction
+//            setPos(x(),y()+6);
+//            moveUp = false;
+//        }
+//        else if(((y() > 0 && moveUp) || (y() >= 600-getHeight() && !moveUp))){
+//            // change direction
+//            setPos(x(), y()-6);
+//            // set moveLeft
+//            moveUp = true;
+//        }
+
+
 
         positionLaser();
 
@@ -102,7 +157,7 @@ void Boss4Right::positionLaser()
             result += 180;
         }
 
-        qDebug() << result;
+        //qDebug() << result;
         laser->setRotation(result);
     }
 }

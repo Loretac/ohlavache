@@ -49,7 +49,7 @@ void Laser::move()
         if(typeid(*(colliding_items[i])) == typeid(Player)){
 
 
-            qDebug() << "contact";
+            //qDebug() << "contact";
             //game->death();
 
             break;
