@@ -5,10 +5,13 @@
 
 extern Game *game;
 
+
+/////// shot by boss 3
+///
 BulletMineLarge::BulletMineLarge()
 {
-    setDimensions(40,40);
-    setBulletPix(QPixmap(":/images/images/enemybullet.png"));
+    setDimensions(45,45);
+    setBulletPix(QPixmap(":/images/images/mine.png"));
 
     setMotion();
 }

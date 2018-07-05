@@ -29,8 +29,9 @@ extern Game * game;
 levels::levels()
 {
     //spawnBoss4();
-    //spawnBoss3();
-    level1();
+    spawnBoss3();
+    //spawnBoss2();
+    //level1();
 
     //level2();
     //level3();

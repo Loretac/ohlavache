@@ -16,7 +16,7 @@ Boss4Right::Boss4Right()
 {
     setStartingHealth(6);
 
-    setEnemyPix(QPixmap(":/images/images/johnny.png"));
+    setEnemyPix(QPixmap(":/images/images/dax.png"));
     setHealthPix(QPixmap(":/images/images/Mhb4.png"));
 
     setSize("M");
@@ -24,7 +24,8 @@ Boss4Right::Boss4Right()
     addToGroup(getEnemyPix());
     addToGroup(getHealthPix());
 
-    setDimensions(110,114,0,-10);
+    //setDimensions(110,114,0,-10);
+    setDimensions(109,94,0,-14);
 
     positionHealth();
 

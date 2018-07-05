@@ -10,9 +10,9 @@ Boss2::Boss2()
 {
     setStartingHealth(6);
 
-    setDimensions(110,114,0,-10);
+    setDimensions(157,225,25,-14);
 
-    setEnemyPix(QPixmap(":/images/images/johnny.png"));
+    setEnemyPix(QPixmap(":/images/images/gideon.png"));
     setHealthPix(QPixmap(":/images/images/Mhb4.png"));
 
     setSize("M");
@@ -34,7 +34,7 @@ Boss2::Boss2()
 void Boss2::move()
 {
     if(game->isPaused() == false){
-        if(y() < 10){
+        if(y() < 20){
             setPos(x(),y()+2);
         }
 

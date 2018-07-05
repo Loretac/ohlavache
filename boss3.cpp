@@ -12,9 +12,9 @@ Boss3::Boss3()
 {
     setStartingHealth(6);
 
-    setDimensions(110,114,0,-10);
+    setDimensions(126,83,8,-14);
 
-    setEnemyPix(QPixmap(":/images/images/johnny.png"));
+    setEnemyPix(QPixmap(":/images/images/hannibal.png"));
     setHealthPix(QPixmap(":/images/images/Mhb4.png"));
 
     setSize("M");
@@ -38,16 +38,16 @@ Boss3::Boss3()
 void Boss3::move()
 {
     if(game->isPaused() == false){
-        if(y() < 10){
+        if(y() < 20){
             setPos(x(),y()+2);
         }
 
-        if(((x() < 700 && !getMoveLeft()) || (x() <= 0 && getMoveLeft()))){
+        if(((x() < 800 - getWidth() && !getMoveLeft()) || (x() <= 0 && getMoveLeft()))){
             // change direction
             setPos(x()+15,y());
             setMoveLeft(false);
         }
-        else if((x() >= 700 && !getMoveLeft())){
+        else if((x() >= 800-getWidth() && !getMoveLeft())){
             // change direction
             setPos(x()-15, y());
             // set moveLeft
@@ -90,20 +90,20 @@ void Boss3::shoot()
 
 void Boss3::normalFire()
 {
-    QTimer::singleShot(300, this, SLOT(shoot()));
-    QTimer::singleShot(450, this, SLOT(shoot()));
-    QTimer::singleShot(600, this, SLOT(shoot()));
-    QTimer::singleShot(750, this, SLOT(shoot()));
-    QTimer::singleShot(900, this, SLOT(shoot()));
-    QTimer::singleShot(1050, this, SLOT(shoot()));
-    QTimer::singleShot(1200, this, SLOT(shoot()));
-    QTimer::singleShot(1350, this, SLOT(shoot()));
-    QTimer::singleShot(1500, this, SLOT(shoot()));
-    QTimer::singleShot(1650, this, SLOT(shoot()));
-    QTimer::singleShot(1800, this, SLOT(shoot()));
+//    QTimer::singleShot(300, this, SLOT(shoot()));
+//    QTimer::singleShot(450, this, SLOT(shoot()));
+//    QTimer::singleShot(600, this, SLOT(shoot()));
+//    QTimer::singleShot(750, this, SLOT(shoot()));
+//    QTimer::singleShot(900, this, SLOT(shoot()));
+//    QTimer::singleShot(1050, this, SLOT(shoot()));
+//    QTimer::singleShot(1200, this, SLOT(shoot()));
+//    QTimer::singleShot(1350, this, SLOT(shoot()));
+//    QTimer::singleShot(1500, this, SLOT(shoot()));
+//    QTimer::singleShot(1650, this, SLOT(shoot()));
+//    QTimer::singleShot(1800, this, SLOT(shoot()));
 
 
-    QTimer::singleShot(2500, this, SLOT(rapidFire()));
+//    QTimer::singleShot(2500, this, SLOT(rapidFire()));
 
 
 }
@@ -111,42 +111,43 @@ void Boss3::normalFire()
 void Boss3::rapidFire()
 {
     int val = rand() % 11;
+    int mult = 68;
 
     if(val != 0){
         QTimer::singleShot(0, this, SLOT(shoot()));
     }
     if(val != 1 && val != 0){
-        QTimer::singleShot(70, this, SLOT(shoot()));
+        QTimer::singleShot(mult, this, SLOT(shoot()));
     }
     if(val != 2 && val != 1){
-        QTimer::singleShot(140, this, SLOT(shoot()));
+        QTimer::singleShot(mult*2, this, SLOT(shoot()));
     }
     if(val != 3 && val != 2){
-        QTimer::singleShot(210, this, SLOT(shoot()));
+        QTimer::singleShot(mult*3, this, SLOT(shoot()));
     }
     if(val != 4 && val != 3){
-        QTimer::singleShot(280, this, SLOT(shoot()));
+        QTimer::singleShot(mult*4, this, SLOT(shoot()));
     }
     if(val != 5 && val != 4){
-        QTimer::singleShot(350, this, SLOT(shoot()));
+        QTimer::singleShot(mult*5, this, SLOT(shoot()));
     }
     if(val != 6 && val != 5){
-        QTimer::singleShot(420, this, SLOT(shoot()));
+        QTimer::singleShot(mult*6, this, SLOT(shoot()));
     }
     if(val != 7 && val != 6){
-        QTimer::singleShot(490, this, SLOT(shoot()));
+        QTimer::singleShot(mult*7, this, SLOT(shoot()));
     }
     if(val != 8 && val != 7){
-        QTimer::singleShot(560, this, SLOT(shoot()));
+        QTimer::singleShot(mult*8, this, SLOT(shoot()));
     }
     if(val != 9 && val != 8){
-        QTimer::singleShot(630, this, SLOT(shoot()));
+        QTimer::singleShot(mult*9, this, SLOT(shoot()));
     }
     if(val != 10 && val != 9){
-        QTimer::singleShot(700, this, SLOT(shoot()));
+        QTimer::singleShot(mult*10, this, SLOT(shoot()));
     }
     if(val != 10){
-        QTimer::singleShot(770, this, SLOT(shoot()));
+        QTimer::singleShot(mult*11, this, SLOT(shoot()));
     }
 }
 

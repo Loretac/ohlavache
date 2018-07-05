@@ -8,8 +8,8 @@ extern Game *game;
 
 BulletMineSmall::BulletMineSmall()
 {
-    setDimensions(30,30);
-    setBulletPix(QPixmap(":/images/images/enemybullet.png"));
+    setDimensions(33,33);
+    setBulletPix(QPixmap(":/images/images/mine.png"));
 
     setMotion();
 }

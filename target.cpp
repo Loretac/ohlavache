@@ -30,6 +30,8 @@ target::target(int size)
         width = 100;
     }
 
+    setZValue(-1);
+
 
 
 

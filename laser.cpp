@@ -13,6 +13,8 @@ Laser::Laser()
 {
     setPixmap(QPixmap(":/images/images/laser.png"));
 
+    setZValue(-1); // so laser is undernearth enemy and player
+
     QTimer *timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),
             this,SLOT(move()));

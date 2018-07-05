@@ -11,8 +11,8 @@ extern Game *game;
 
 BulletTargetedLarge::BulletTargetedLarge()
 {
-    setDimensions(50,50);
-    setBulletPix(QPixmap(":/images/images/timebomb.png"));
+    setDimensions(25,62);
+    setBulletPix(QPixmap(":/images/images/missile.png"));
 
     setMotion();
 }

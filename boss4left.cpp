@@ -18,7 +18,8 @@ Boss4Left::Boss4Left()
 {
     setStartingHealth(6);
 
-    setEnemyPix(QPixmap(":/images/images/johnny.png"));
+    //setEnemyPix(QPixmap(":/images/images/johnny.png"));
+    setEnemyPix(QPixmap(":/images/images/dax.png"));
     setHealthPix(QPixmap(":/images/images/Mhb4.png"));
 
 
@@ -28,12 +29,15 @@ Boss4Left::Boss4Left()
     addToGroup(getEnemyPix());
     addToGroup(getHealthPix());
 
-    setDimensions(110,114,0,-10);
+    //setDimensions(110,114,0,-10);
+    setDimensions(109,94,0,-14);
 
     positionHealth();
 
     setPos(0,0);
     laser = new Laser();
+
+    //QWidget::lower(&laser);
 
     connect(game,SIGNAL(fire()),
             this,SLOT(shoot()));
