@@ -61,38 +61,41 @@ void Boss2::move()
 
 void Boss2::shoot()
 {
-    BulletTargetedLarge *Bullet = new BulletTargetedLarge();
+    if(game->isPaused() == false){
+        BulletTargetedLarge *Bullet = new BulletTargetedLarge();
 
-    Bullet->setSpeed(3);
+        Bullet->setSpeed(3);
 
-    // coordinates of origin of bullet
-    int xSource = x() + getWidth()/2 - Bullet->getWidth()/2;
-    int ySource = y() + getHeight()/2 - Bullet->getHeight()/2;
+        // coordinates of origin of bullet
+        int xSource = x() + getWidth()/2 - Bullet->getWidth()/2;
+        int ySource = y() + getHeight()/2 - Bullet->getHeight()/2;
 
-    // coordinates of center of player
-    int xPlayer = game->getPlayerXPos() + game->getPlayerWidth()/2 - Bullet->getWidth()/2;
-    int yPlayer = game->getPlayerYPos() + game->getPlayerHeight()/2 - Bullet->getHeight()/2;
+        // coordinates of center of player
+        int xPlayer = game->getPlayerXPos() + game->getPlayerWidth()/2 - Bullet->getWidth()/2;
+        int yPlayer = game->getPlayerYPos() + game->getPlayerHeight()/2 - Bullet->getHeight()/2;
 
-    // set the trajectory of the bullet
-    Bullet->setXTrajectory(xPlayer-xSource);
-    Bullet->setYTrajectory(yPlayer-ySource);
+        // set the trajectory of the bullet
+        Bullet->setXTrajectory(xPlayer-xSource);
+        Bullet->setYTrajectory(yPlayer-ySource);
 
-    // bullet starts at source
-    Bullet->setPos(xSource,ySource);
+        // bullet starts at source
+        Bullet->setPos(xSource,ySource);
 
-    // add a target
-    target *newTarget = new target(1);
+        // add a target
+        target *newTarget = new target(1);
 
-    game->addToScene(newTarget);
+        game->addToScene(newTarget);
 
-    // when the bullet arrives, destroy the target
-    connect(Bullet,SIGNAL(arrived()),
-            newTarget,SLOT(boom()));
+        // when the bullet arrives, destroy the target
+        connect(Bullet,SIGNAL(arrived()),
+                newTarget,SLOT(boom()));
 
-    connect(Bullet,SIGNAL(collide()),
-            newTarget,SLOT(collision()));
+        connect(Bullet,SIGNAL(collide()),
+                newTarget,SLOT(collision()));
 
-    game->addToScene(Bullet);
+        game->addToScene(Bullet);
+    }
+
 }
 
 void Boss2::startShooting()

@@ -60,12 +60,15 @@ void Boss1::move()
 
 void Boss1::shoot()
 {
-    BulletSimple *Bullet = new BulletSimple();
-    Bullet->setSpeed(1);
-    Bullet->setXTrajectory(0);
-    Bullet->setYTrajectory(1);
-    Bullet->setPos(x()+getWidth()/2,y()+getHeight()/2); // offset for character
-    game->addToScene(Bullet);
+    if(game->isPaused() == false){
+        BulletSimple *Bullet = new BulletSimple();
+        Bullet->setSpeed(1);
+        Bullet->setXTrajectory(0);
+        Bullet->setYTrajectory(1);
+        Bullet->setPos(x()+getWidth()/2,y()+getHeight()/2); // offset for character
+        game->addToScene(Bullet);
+    }
+
 }
 
 void Boss1::startShooting()

@@ -157,14 +157,17 @@ void Boss4Right::positionLaser()
 
 void Boss4Right::laserOff()
 {
-    if(laser){
+    if(laser && game->isPaused() == false){
         game->removeFromScene(laser);
     }
 }
 
 void Boss4Right::laserOn()
 {
-    game->addToScene(laser);
+    if(game->isPaused() == false){
+        game->addToScene(laser);
+    }
+
 }
 
 void Boss4Right::makeCalls()

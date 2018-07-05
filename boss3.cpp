@@ -72,20 +72,23 @@ void Boss3::move()
 
 void Boss3::shoot()
 {
-    BulletMineLarge *Bullet = new BulletMineLarge();
+    if(game->isPaused() == false){
+        BulletMineLarge *Bullet = new BulletMineLarge();
 
-    Bullet->setSpeed(3);
+        Bullet->setSpeed(3);
 
-    int xSource = x() + getWidth()/2 - Bullet->getWidth()/2;
-    int ySource = y() + getHeight()/2 - Bullet->getHeight()/2;
+        int xSource = x() + getWidth()/2 - Bullet->getWidth()/2;
+        int ySource = y() + getHeight()/2 - Bullet->getHeight()/2;
 
-    // bullet moves straight down
-    Bullet->setXTrajectory(0);
-    Bullet->setYTrajectory(1);
+        // bullet moves straight down
+        Bullet->setXTrajectory(0);
+        Bullet->setYTrajectory(1);
 
-    Bullet->setPos(xSource,ySource);
+        Bullet->setPos(xSource,ySource);
 
-    game->addToScene(Bullet);
+        game->addToScene(Bullet);
+    }
+
 }
 
 void Boss3::normalFire()

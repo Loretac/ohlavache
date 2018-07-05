@@ -175,12 +175,15 @@ void Boss4Left::positionLaser()
 
 void Boss4Left::laserOff()
 {
-    if(laser){
+    if(laser && game->isPaused() == false){
         game->removeFromScene(laser);
     }
 }
 
 void Boss4Left::laserOn()
 {
-    game->addToScene(laser);
+    if(game->isPaused() == false){
+        game->addToScene(laser);
+    }
+
 }
