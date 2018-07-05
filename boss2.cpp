@@ -4,6 +4,8 @@
 
 #include <QTimer>
 
+#include <math.h>
+
 extern Game *game;
 
 Boss2::Boss2()
@@ -35,7 +37,7 @@ void Boss2::move()
 {
     if(game->isPaused() == false){
         if(y() < 20){
-            setPos(x(),y()+2);
+            setPos(x(),y() + 2);
         }
 
         if(((x() < 700 && !getMoveLeft()) || (x() <= 0 && getMoveLeft()))){
@@ -67,12 +69,12 @@ void Boss2::shoot()
         Bullet->setSpeed(3);
 
         // coordinates of origin of bullet
-        int xSource = x() + getWidth()/2 - Bullet->getWidth()/2;
-        int ySource = y() + getHeight()/2 - Bullet->getHeight()/2;
+        double xSource = x() + getWidth()/2 - Bullet->getWidth()/2;
+        double ySource = y() + getHeight()/2 - Bullet->getHeight()/2;
 
         // coordinates of center of player
-        int xPlayer = game->getPlayerXPos() + game->getPlayerWidth()/2 - Bullet->getWidth()/2;
-        int yPlayer = game->getPlayerYPos() + game->getPlayerHeight()/2 - Bullet->getHeight()/2;
+        double xPlayer = game->getPlayerXPos() + game->getPlayerWidth()/2 - Bullet->getWidth()/2;
+        double yPlayer = game->getPlayerYPos() + game->getPlayerHeight()/2 - Bullet->getHeight()/2;
 
         // set the trajectory of the bullet
         Bullet->setXTrajectory(xPlayer-xSource);
@@ -80,6 +82,25 @@ void Boss2::shoot()
 
         // bullet starts at source
         Bullet->setPos(xSource,ySource);
+
+        // START TESTING
+        Bullet->setTransformOriginPoint(Bullet->getWidth()/2,Bullet->getHeight()/2);
+
+        double x = xPlayer - xSource;
+        double y = yPlayer - ySource;
+
+        double angle = (atan(y/x)) * 180 / M_PI;
+
+        if(x < 0){
+            angle += 90;
+        }
+        if(x > 0){
+            angle -= 90;
+        }
+
+        Bullet->setRotation(angle);
+        //END TESTING
+
 
         // add a target
         target *newTarget = new target(1);
