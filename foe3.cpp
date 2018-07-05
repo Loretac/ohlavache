@@ -5,6 +5,8 @@
 
 #include <QTimer>
 
+#include <math.h>
+
 extern Game *game;
 
 Foe3::Foe3()
@@ -75,6 +77,22 @@ void Foe3::shoot()
 
     // bullet starts at source
     Bullet->setPos(xSource,ySource);
+
+    Bullet->setTransformOriginPoint(Bullet->getWidth()/2,Bullet->getHeight()/2);
+
+    double x = xPlayer - xSource;
+    double y = yPlayer - ySource;
+
+    double angle = (atan(y/x)) * 180 / M_PI;
+
+    if(x < 0){
+        angle += 90;
+    }
+    if(x > 0){
+        angle -= 90;
+    }
+
+    Bullet->setRotation(angle);
 
     // add a target
     target *newTarget = new target(2);

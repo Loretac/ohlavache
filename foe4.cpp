@@ -6,6 +6,7 @@
 
 #include <QTimer>
 
+
 extern Game *game;
 
 Foe4::Foe4()
