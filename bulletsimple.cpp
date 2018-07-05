@@ -13,15 +13,18 @@ BulletSimple::BulletSimple()
 void BulletSimple::move()
 {
     if(game->isPaused() == false){
-        QList<QGraphicsItem*> colliding_items = collidingItems();
+        if(game->isInvincible() == false){
+            QList<QGraphicsItem*> colliding_items = collidingItems();
 
-        for(int i = 0, n = colliding_items.size(); i < n; ++i){
-            if(typeid(*(colliding_items[i])) == typeid(Player)){
-                game->death();
-                deleteLater();
-                return;
+            for(int i = 0, n = colliding_items.size(); i < n; ++i){
+                if(typeid(*(colliding_items[i])) == typeid(Player)){
+                    game->death();
+                    deleteLater();
+                    return;
+                }
             }
         }
+
 
         setPos(x(),y()+5);
 

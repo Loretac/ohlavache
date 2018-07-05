@@ -14,21 +14,24 @@ BulletTargetedSmall::BulletTargetedSmall()
 void BulletTargetedSmall::move()
 {
     if(game->isPaused() == false){
-        QList<QGraphicsItem *> colliding_items = collidingItems();
+        if(game->isInvincible() == false){
+            QList<QGraphicsItem *> colliding_items = collidingItems();
 
-        // Check if the bullet is colliding with the player
-        for(int i = 0, n = colliding_items.size(); i < n; ++i){
-            if(typeid(*(colliding_items[i])) == typeid(Player)){
+            // Check if the bullet is colliding with the player
+            for(int i = 0, n = colliding_items.size(); i < n; ++i){
+                if(typeid(*(colliding_items[i])) == typeid(Player)){
 
-                // signals to explode and destroy target
-                emit collide();
+                    // signals to explode and destroy target
+                    emit collide();
 
-                game->death();
+                    game->death();
 
-                deleteLater();
-                return;
-            }
-         }
+                    deleteLater();
+                    return;
+                }
+             }
+        }
+
 
         double pythagorean = sqrt((getXTrajectory()*getXTrajectory())+(getYTrajectory()*getYTrajectory()));
 

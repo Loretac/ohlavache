@@ -11,7 +11,20 @@ Foe3::Foe3()
 {
     setStartingHealth(2);
 
-    setEnemyPix(QPixmap(":/images/images/ufo.png"));
+//    setDimensions(100,53,10,-10);
+
+//    setEnemyPix(QPixmap(":/images/images/ufo.png"));
+
+    /// EZRA
+    setDimensions(80,63,0,-14);
+    setEnemyPix(QPixmap(":/images/images/ezra.png"));
+    // END EZRA
+
+
+
+
+
+
     setHealthPix(QPixmap(":/images/images/Shb2.png"));
 
     setSize("S");
@@ -19,7 +32,6 @@ Foe3::Foe3()
     addToGroup(getEnemyPix());
     addToGroup(getHealthPix());
 
-    setDimensions(100,53,10,-10);
 
     positionHealth();
 

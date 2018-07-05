@@ -19,15 +19,18 @@ BulletDirected::BulletDirected()
 void BulletDirected::move()
 {
     if(game->isPaused() == false){
-        QList<QGraphicsItem*> colliding_items = collidingItems();
+        if(game->isInvincible() == false){
+            QList<QGraphicsItem*> colliding_items = collidingItems();
 
-        for(int i = 0, n = colliding_items.size(); i < n; ++i){
-            if(typeid(*(colliding_items[i])) == typeid(Player)){
-                game->death();
-                deleteLater();
-                return;
+            for(int i = 0, n = colliding_items.size(); i < n; ++i){
+                if(typeid(*(colliding_items[i])) == typeid(Player)){
+                    game->death();
+                    deleteLater();
+                    return;
+                }
             }
         }
+
 
         double pythagorean = sqrt((getXTrajectory()*getXTrajectory())+(getYTrajectory()*getYTrajectory()));
 

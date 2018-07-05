@@ -9,6 +9,8 @@ Boss1::Boss1()
 {
     setStartingHealth(6);
 
+    setDimensions(110,114,0,-10);
+
     setEnemyPix(QPixmap(":/images/images/johnny.png"));
     setHealthPix(QPixmap(":/images/images/Mhb4.png"));
 
@@ -17,7 +19,7 @@ Boss1::Boss1()
     addToGroup(getEnemyPix());
     addToGroup(getHealthPix());
 
-    setDimensions(110,114,0,-10);
+
 
     positionHealth();
 

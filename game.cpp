@@ -106,7 +106,7 @@ void Game::death()
     //qDebug() << "Death.";
     // delete the player
     emit dying();
-    invincibility = true;
+    invincibility = true; // player cannot take/deal collision damage
 
     QGraphicsOpacityEffect *eff = new QGraphicsOpacityEffect(this);
     //player->setGraphicsEffect();
@@ -145,6 +145,8 @@ void Game::start()
 
     // create the player
     player = new Player();
+
+    invincibility = false;
 
     laserTarget = new target(3);
 
@@ -236,6 +238,7 @@ void Game::readyToFire()
 
 }
 
+// sends a signal linked to boss4 slots to stop firing lasers
 void Game::readyToStop()
 {
     emit stopFiring();
@@ -276,9 +279,10 @@ void Game::resetPlayer()
     // if no more lives, game over
     if(numLives<=0){
         gameOver();
+        return;
     }
 
-    if(!paused){
+
         QTimer::singleShot(100, player, SLOT(hideImage()));
         QTimer::singleShot(200, player, SLOT(showImage()));
         QTimer::singleShot(300, player, SLOT(hideImage()));
@@ -295,7 +299,7 @@ void Game::resetPlayer()
         QTimer::singleShot(1400, player, SLOT(showImage()));
         QTimer::singleShot(1500, player, SLOT(hideImage()));
         QTimer::singleShot(1600, this, SLOT(invincibilityOff()));
-    }
+
 
 
 

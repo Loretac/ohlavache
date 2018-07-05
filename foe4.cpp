@@ -12,7 +12,16 @@ Foe4::Foe4()
 {
     setStartingHealth(2);
 
-    setEnemyPix(QPixmap(":/images/images/ufo.png"));
+//    setDimensions(100,53,10,-10);
+
+//    setEnemyPix(QPixmap(":/images/images/ufo.png"));
+
+
+
+    setDimensions(80,58,0,-10);
+    setEnemyPix(QPixmap(":/images/images/fabian.png"));
+
+
     setHealthPix(QPixmap(":/images/images/Shb2.png"));
 
     setSize("S");
@@ -20,7 +29,7 @@ Foe4::Foe4()
     addToGroup(getEnemyPix());
     addToGroup(getHealthPix());
 
-    setDimensions(100,53,10,-10);
+
 
     positionHealth();
 

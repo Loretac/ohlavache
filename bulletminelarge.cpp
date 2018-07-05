@@ -16,23 +16,26 @@ BulletMineLarge::BulletMineLarge()
 void BulletMineLarge::move()
 {
     if(game->isPaused() == false){
-        QList<QGraphicsItem*> colliding_items = collidingItems();
+        if(game->isInvincible() == false){
+            QList<QGraphicsItem*> colliding_items = collidingItems();
 
-        for(int i = 0, n = colliding_items.size(); i < n; ++i){
-            if(typeid(*(colliding_items[i])) == typeid(Player)){
+            for(int i = 0, n = colliding_items.size(); i < n; ++i){
+                if(typeid(*(colliding_items[i])) == typeid(Player)){
 
-                game->explosion3(game->getPlayerXPos(), game->getPlayerYPos());
+                    game->explosion3(game->getPlayerXPos(), game->getPlayerYPos());
 
-                game->death();
-                deleteLater();
-                return;
-            }
-            else if(typeid(*(colliding_items[i])) == typeid(PlayerBullet)){
-                game->explosion3(x(), y());
-                deleteLater();
-                return;
+                    game->death();
+                    deleteLater();
+                    return;
+                }
+                else if(typeid(*(colliding_items[i])) == typeid(PlayerBullet)){
+                    game->explosion3(x(), y());
+                    deleteLater();
+                    return;
+                }
             }
         }
+
 
         setPos(x(),y()+5);
 

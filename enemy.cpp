@@ -121,31 +121,35 @@ void enemy::setMoveLeft(bool val)
 
 void enemy::checkStatus()
 {
-    QList<QGraphicsItem *> colliding_items = collidingItems();
+    if(game->isPaused() == false && game->isInvincible() == false){
+        QList<QGraphicsItem *> colliding_items = collidingItems();
 
-    for(int i = 0, n = colliding_items.size(); i<n; ++i){
-        if(typeid(*(colliding_items[i])) == typeid(Player)){
+        for(int i = 0, n = colliding_items.size(); i<n; ++i){
+            if(typeid(*(colliding_items[i])) == typeid(Player)){
 
-            damage();
+                damage();
 
-            game->death();
+                game->death();
 
-            break;
+                break;
 
-        }
-        else if(typeid(*(colliding_items[i])) == typeid(PlayerBullet)){
+            }
+            else if(typeid(*(colliding_items[i])) == typeid(PlayerBullet)){
 
-            damage();
-            // Deleting bullet here is more convenient than in bullet
-            // since there is one type of bullet but various enemy types
+                damage();
 
-            PlayerBullet *bullet = dynamic_cast<PlayerBullet*>(colliding_items[i]);
-            bullet->deleteLater();
+                // Deleting bullet here is more convenient than in bullet class, since
+                // there is one type of bullet but various enemy types.
+                // Change the type, then delete.
+                PlayerBullet *bullet = dynamic_cast<PlayerBullet*>(colliding_items[i]);
+                bullet->deleteLater();
 
-            break;
+                break;
 
+            }
         }
     }
+
 
     if(pos().y() > 600 ||
             pos().y() + height < -10 ||

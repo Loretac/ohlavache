@@ -10,7 +10,11 @@ Foe2::Foe2()
 {
     setStartingHealth(2);
 
-    setEnemyPix(QPixmap(":/images/images/ufo.png"));
+    // BENI
+    setDimensions(113,40,16,-14);
+    setEnemyPix(QPixmap(":/images/images/beni.png"));
+    // END BENI
+
     setHealthPix(QPixmap(":/images/images/Shb2.png"));
 
     setSize("S");
@@ -18,7 +22,7 @@ Foe2::Foe2()
     addToGroup(getEnemyPix());
     addToGroup(getHealthPix());
 
-    setDimensions(100,53,10,-10);
+
 
     positionHealth();
 

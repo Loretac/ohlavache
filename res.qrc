@@ -23,5 +23,10 @@
         <file>images/laser.png</file>
         <file>images/lasertarget.png</file>
         <file>images/transparent.png</file>
+        <file>images/alfred.png</file>
+        <file>images/beni.png</file>
+        <file>images/dax.png</file>
+        <file>images/ezra.png</file>
+        <file>images/fabian.png</file>
     </qresource>
 </RCC>

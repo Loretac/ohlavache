@@ -28,9 +28,9 @@ extern Game * game;
 
 levels::levels()
 {
-    spawnBoss4();
+    //spawnBoss4();
     //spawnBoss3();
-    //level1();
+    level1();
 
     //level2();
     //level3();
@@ -93,13 +93,15 @@ void levels::level2()
 void levels::level3()
 {
     QTimer::singleShot(400, this, SLOT(spawnFoe3()));
+    QTimer::singleShot(1400, this, SLOT(spawnFoe3()));
+    QTimer::singleShot(8400, this, SLOT(spawnBoss3()));
 }
 
 void levels::level4()
 {
     QTimer::singleShot(400, this, SLOT(spawnFoe4()));
     QTimer::singleShot(2400, this, SLOT(spawnFoe4()));
-    QTimer::singleShot(4400, this, SLOT(spawnFoe4()));
+    QTimer::singleShot(7400, this, SLOT(spawnBoss4()));
 }
 
 void levels::spawnBoss1()
