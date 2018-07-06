@@ -15,10 +15,13 @@ extern Game * game;
  ** to movement timer.
  *********************************************************************/
 Player::Player(QGraphicsItem *parent): QGraphicsPixmapItem(parent){
-    setPixmap(QPixmap(":/images/images/jet.png"));
+    //setPixmap(QPixmap(":/images/images/rocket.png"));
 
+    setPixmap(playerPix);
+
+    //setPixmap();
     width = 60;
-    height = 83;
+    height = 82;
 
     //player movement
     movementTimer = new QTimer(this);
@@ -167,7 +170,7 @@ void Player::hideImage()
 
 void Player::showImage()
 {
-    setPixmap(QPixmap(":/images/images/jet.png"));
+    setPixmap(playerPix);
 }
 
 

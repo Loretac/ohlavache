@@ -5,8 +5,10 @@
 #include <QGraphicsRectItem>
 #include <QGraphicsSceneMouseEvent>
 
+#include <QIcon>
 
-class Button:public QObject, public QGraphicsRectItem{
+
+class Button:public QObject, public QGraphicsPixmapItem{
     Q_OBJECT
 public:
     // constructor
@@ -17,6 +19,9 @@ public:
     void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
 
+    int width = 200;
+    int height = 75;
+
 
 signals:
     void clicked();
@@ -24,6 +29,8 @@ signals:
 
 private:
     QGraphicsTextItem *text;
+    QPixmap buttonPix;
+    QPixmap hoverPix;
 };
 
 #endif // BUTTON_H

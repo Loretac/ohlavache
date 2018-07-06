@@ -3,28 +3,48 @@
 #include <QGraphicsRectItem>
 #include <QBrush>
 
+#include <QDebug>
+
 
 /*********************************************************************
  ** Button constructor.
  *********************************************************************/
-Button::Button(QString name, QGraphicsItem *parent):QGraphicsRectItem(parent)
+Button::Button(QString name, QGraphicsItem *parent):QGraphicsPixmapItem(parent)
 {
+    if(name == "Play"){
+        //buttonPix = new QPixmap;
+        buttonPix = QPixmap(":/images/images/playbutton.png");
+        hoverPix = QPixmap(":/images/images/playbuttonhover.png");
+        //QPixmap pixmap(":/images/images/playbutton.png");
+        setPixmap(buttonPix);
+
+        //QIcon ButtonIcon(pixmap);
+
+    }
+    if(name == "Play Again"){
+        buttonPix = QPixmap(":/images/images/replaybutton.png");
+        hoverPix = QPixmap(":/images/images/replaybuttonhover.png");
+
+        setPixmap(buttonPix);
+    }
+
     // draw the rectangle
-    setRect(0,0,200,50);
+    //setRect(0,0,2000,75);
+    //setRect();
 
     // change the color
-    QBrush brush;
-    brush.setStyle(Qt::SolidPattern);
-    brush.setColor(Qt::darkCyan);
-    setBrush(brush);
+//    QBrush brush;
+//    brush.setStyle(Qt::SolidPattern);
+//    brush.setColor(Qt::darkCyan);
+//    setBrush(brush);
 
     //draw the text
-    text = new QGraphicsTextItem(name,this);
+    //text = new QGraphicsTextItem(name,this);
 
-    int xPos = rect().width()/2 - text->boundingRect().width()/2;
-    int yPos = rect().height()/2 - text->boundingRect().height()/2;
+    //int xPos = rect().width()/2 - text->boundingRect().width()/2;
+    //int yPos = rect().height()/2 - text->boundingRect().height()/2;
 
-    text->setPos(xPos,yPos);
+    //text->setPos(xPos,yPos);
 
     // allow responding to hover events
     setAcceptHoverEvents(true);
@@ -44,11 +64,7 @@ void Button::mousePressEvent(QGraphicsSceneMouseEvent *event)
  *********************************************************************/
 void Button::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
-    // change color when hovered
-    QBrush brush;
-    brush.setStyle(Qt::SolidPattern);
-    brush.setColor(Qt::cyan);
-    setBrush(brush);
+    setPixmap(hoverPix);
 }
 
 /*********************************************************************
@@ -56,10 +72,6 @@ void Button::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
  *********************************************************************/
 void Button::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 {
-    // change the color back to default
-    QBrush brush;
-    brush.setStyle(Qt::SolidPattern);
-    brush.setColor(Qt::darkCyan);
-    setBrush(brush);
+    setPixmap(buttonPix);
 }
 

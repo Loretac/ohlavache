@@ -30,7 +30,7 @@ class Game: public QGraphicsView{
     levels *myLevels;
 
     std::vector<QGraphicsPixmapItem *> lives;
-    int numLives = 3; // begin game with 3 lives
+    int numLives;
 
     bool isPaused();
 
@@ -89,6 +89,7 @@ private:
     double targetedXCoord;
     double targetedYCoord;
     bool invincibility = false;
+    const int startingLives = 4;
 
 private slots:
 };

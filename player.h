@@ -31,6 +31,7 @@ private:
     int height;
     QTimer *movementTimer;
     QTimer *shootingTimer;
+    QPixmap playerPix = QPixmap(":/images/images/rocket.png");
 
 
 

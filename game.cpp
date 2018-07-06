@@ -73,24 +73,29 @@ Game::Game(QWidget *parent){
 void Game::displayMainMenu()
 {
     // create the title
-    QGraphicsTextItem *titleText = new QGraphicsTextItem(QString("Shooter Game"));
+    //QGraphicsTextItem *titleText = new QGraphicsTextItem(QString("Shooter Game"));
 
     // make font bigger
-    QFont titleFont("times",50);
-    titleText->setFont(titleFont);
+    //QFont titleFont("times",50);
+    //titleText->setFont(titleFont);
 
     // set position... center on x-axis
-    int txPos = this->width()/2 - titleText->boundingRect().width()/2;
-    int tyPos = 150;
+    //int txPos = this->width()/2 - titleText->boundingRect().width()/2;
+    //int tyPos = 150;
 
-    titleText->setPos(txPos,tyPos);
-    scene->addItem(titleText);
+    //titleText->setPos(txPos,tyPos);
+    //scene->addItem(titleText);
+
+    QGraphicsPixmapItem *banner = new QGraphicsPixmapItem;
+    banner->setPixmap(QPixmap(":/images/images/banner.png"));
+    banner->setPos(0,200);
+    scene->addItem(banner);
 
     // create the play button
     Button *playButton = new Button(QString("Play"));
-    int bxPos = this->width()/2 - titleText->boundingRect().width()/2;
-    int byPos = 400;
-    playButton->setPos(bxPos,byPos);
+    //int bxPos = this->width()/2 - titleText->boundingRect().width()/2;
+    //int byPos = 400;
+    playButton->setPos(scene->width()/2 - playButton->width/2,400);
 
     scene->addItem(playButton);
 
@@ -158,7 +163,7 @@ void Game::start()
     scene->addItem(player);
 
     // initialize the player at the bottom
-    player->setPos(350,500); // TODO generalize to always be in the middle bottom of screen
+    player->setPos(scene->width()/2 - player->getwidth()/2,500); // TODO generalize to always be in the middle bottom of screen
 
     // create the score
     score = new Score();
@@ -166,14 +171,14 @@ void Game::start()
     // add the score to the scene
     //scene->addItem(score);
 
-    numLives = 3; // initialize lives to 3
+    numLives = startingLives; // initialize lives to 3
 
     for(int i = 0; i < numLives-1; i++){
         QGraphicsPixmapItem *life = new QGraphicsPixmapItem();
-        life->setPixmap(QPixmap(":/images/images/life.png"));
+        life->setPixmap(QPixmap(":/images/images/cow.png"));
         lives.push_back(life);
 
-        lives[i]->setPos(lives[i]->x()+40*i + 10, lives[i]->y()+550);
+        lives[i]->setPos(lives[i]->x()+40*i + 10, lives[i]->y()+560);
         scene->addItem(lives[i]);
     }
 
@@ -254,19 +259,21 @@ void Game::resetPlayer()
 {
     delete(player);
 
+    numLives--;
+
     // create a new player
     player = new Player();
 
     // show the player
     player->setFlag(QGraphicsItem::ItemIsFocusable);
     player->setFocus();
-    scene->addItem(player);
-    player->setPos(350,500);
-
-    numLives--;
+    player->setPos(scene->width()/2 - player->getwidth()/2,500);
 
 
     if(numLives > 0){
+
+        scene->addItem(player);
+
         // remove life from screen
         scene->removeItem(lives.back());
 
@@ -354,11 +361,11 @@ void Game::gameOver()
  *********************************************************************/
 void Game::displayGameOverWindow(QString textToDisplay)
 {
-    drawPanel(0,0,800,600,Qt::black,0.65);
+    //drawPanel(0,0,800,600,Qt::black,0.65);
 
     // create play again button
     Button *playAgain = new Button(QString("Play Again"));
-    playAgain->setPos(410,500);
+    playAgain->setPos(scene->width()/2 - playAgain->width/2,400);
     scene->addItem(playAgain);
     connect(playAgain,SIGNAL(clicked()),this,SLOT(restartGame()));
 }

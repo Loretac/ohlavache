@@ -32,5 +32,13 @@
         <file>images/mine.png</file>
         <file>images/hannibal.png</file>
         <file>images/paris.png</file>
+        <file>images/rocket.png</file>
+        <file>images/cow.png</file>
+        <file>images/baguette.png</file>
+        <file>images/banner.png</file>
+        <file>images/playbutton.png</file>
+        <file>images/playbuttonhover.png</file>
+        <file>images/replaybuttonhover.png</file>
+        <file>images/replaybutton.png</file>
     </qresource>
 </RCC>
