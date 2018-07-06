@@ -28,6 +28,7 @@ private:
     double targetX;
     double targetY;
     double speed = 3;
+    bool spawning = true;
 };
 
 #endif // BOSS4LEFT_H

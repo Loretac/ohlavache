@@ -30,6 +30,7 @@ private:
     double targetY;
     double speed = 3;
     bool bossLeftDead = false; // left boss calls commands unless it dies
+    bool spawning = true;
 };
 
 #endif // BOSS4RIGHT_H

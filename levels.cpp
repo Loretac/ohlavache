@@ -28,10 +28,11 @@ extern Game * game;
 
 levels::levels()
 {
+    //QTimer::singleShot(1000, this, SLOT(spawnBoss4()));
     //spawnBoss4();
     //spawnBoss3();
-    spawnBoss2();
-    //level1();
+    //spawnBoss2();
+    level1();
 
     //level2();
     //level3();

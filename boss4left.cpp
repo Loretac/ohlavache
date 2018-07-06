@@ -22,7 +22,7 @@ Boss4Left::Boss4Left()
     setEnemyPix(QPixmap(":/images/images/dax.png"));
     setHealthPix(QPixmap(":/images/images/Mhb4.png"));
 
-
+    setZValue(1);
 
     setSize("M");
 
@@ -34,7 +34,7 @@ Boss4Left::Boss4Left()
 
     positionHealth();
 
-    setPos(0,0);
+    setPos(200,-getHeight());
     laser = new Laser();
 
     //QWidget::lower(&laser);
@@ -72,58 +72,70 @@ void Boss4Left::move()
         int speedMin = 3;
         int speedCap = 10;
 
-        if(y() < maxY && y() > minY && !moveUp){ //continue moving down
-            setPos(x(),y()+speed);
-            //qDebug() << "case 1";
+        if(spawning){
+            setPos(minX,y() + 2);
+            if(y() > minY){
+                spawning = false;
+            }
         }
-        else if(y() >= maxY){ // change direction at bottom, move up
-            setPos(x(),y()-speed);
-            moveUp = true;
-            speed = (rand() % speedCap) + speedMin; // change speed
-            //qDebug() << "case 2";
-        }
-        else if(y() < maxY && y() > minY && moveUp && getMoveLeft() == false){ // keep moving up
-            setPos(x(),y()-speed);
-            //qDebug() << "case 3";
-        }
-        else if(y() <= minY && getMoveLeft() == false && x() < minX){ // start moving right
-            setPos(x() + speed, y());
-            moveUp = false;
-            speed = (rand() % speedCap) + speedMin; // change speed
-            //qDebug() << "case 4";
-        }
-        else if(y() <= minY && getMoveLeft() == false && x() < maxX){ // continue moving right
-            setPos(x() + speed, y());
-            //qDebug() << "case 5";
-        }
-        else if(y() <= minY && getMoveLeft() == false && x() >= maxX){ // switch to left
-            setPos(x() - speed, y());
-            setMoveLeft(true);
-            speed = (rand() % speedCap) + speedMin; // change speed
-            //qDebug() << "case 6";
-        }
-        else if(y() <= minY && getMoveLeft() == true && x() > minX){ // keep moving left
-            setPos(x() - speed, y());
-            setMoveLeft(true);
-            moveUp = false;
-            //qDebug() << "case 7";
-        }
-        else if(y() <= minY && getMoveLeft() == true && x() <= minX){ // start moving up
-            setPos(x(),minY + speed);
-            setMoveLeft(false);
-            speed = (rand() % speedCap) + speedMin; // change speed
-            //qDebug() << "case 8";
+        else{
+
+
+            if(y() < maxY && y() > minY && !moveUp){ //continue moving down
+                setPos(x(),y()+speed);
+                //qDebug() << "case 1";
+            }
+            else if(y() >= maxY){ // change direction at bottom, move up
+                setPos(x(),y()-speed);
+                moveUp = true;
+                speed = (rand() % speedCap) + speedMin; // change speed
+                //qDebug() << "case 2";
+            }
+            else if(y() < maxY && y() > minY && moveUp && getMoveLeft() == false){ // keep moving up
+                setPos(x(),y()-speed);
+                //qDebug() << "case 3";
+            }
+            else if(y() <= minY && getMoveLeft() == false && x() < minX){ // start moving right
+                setPos(x() + speed, y());
+                moveUp = false;
+                speed = (rand() % speedCap) + speedMin; // change speed
+                //qDebug() << "case 4";
+            }
+            else if(y() <= minY && getMoveLeft() == false && x() < maxX){ // continue moving right
+                setPos(x() + speed, y());
+                //qDebug() << "case 5";
+            }
+            else if(y() <= minY && getMoveLeft() == false && x() >= maxX){ // switch to left
+                setPos(x() - speed, y());
+                setMoveLeft(true);
+                speed = (rand() % speedCap) + speedMin; // change speed
+                //qDebug() << "case 6";
+            }
+            else if(y() <= minY && getMoveLeft() == true && x() > minX){ // keep moving left
+                setPos(x() - speed, y());
+                setMoveLeft(true);
+                moveUp = false;
+                //qDebug() << "case 7";
+            }
+            else if(y() <= minY && getMoveLeft() == true && x() <= minX){ // start moving up
+                setPos(x(),minY + speed);
+                setMoveLeft(false);
+                speed = (rand() % speedCap) + speedMin; // change speed
+                //qDebug() << "case 8";
+            }
+
+            positionLaser();
+
+            checkStatus();
+
+            if(isDead()){
+                emit leftBossDeath();
+                laser->deleteLater();
+                deleteLater();
+            }
         }
 
-        positionLaser();
 
-        checkStatus();
-
-        if(isDead()){
-            emit leftBossDeath();
-            laser->deleteLater();
-            deleteLater();
-        }
     }
 }
 

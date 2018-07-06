@@ -31,5 +31,6 @@
         <file>images/missile.png</file>
         <file>images/mine.png</file>
         <file>images/hannibal.png</file>
+        <file>images/paris.png</file>
     </qresource>
 </RCC>
