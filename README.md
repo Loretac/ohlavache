@@ -1,6 +1,6 @@
 # Oh La Vache!
 
-Help La Vache protect his city from the evil aliens. Move with the arrow keys and shoot with the spacebar. 
+Help La Vache protect his city from the aliens. Move with the arrow keys and shoot with the spacebar. 
 
 See a demo [here.](https://www.youtube.com/watch?v=NpaKdOW1ymc)
 
@@ -11,13 +11,11 @@ See a demo [here.](https://www.youtube.com/watch?v=NpaKdOW1ymc)
 * Adobe Photoshop
 * Adobe Illustrator
 
-## Author
+## About
 
-* **Chris Loreta** - [Loretac](https://github.com/Loretac)
-
-[Attributions](ATTRIBUTIONS.md)
-
-[License](LICENSE)
+* **Author:** *Chris Loreta* - [Loretac](https://github.com/Loretac)
+* **Attributions:** See a the [ATTRIBUTIONS.md](ATTRIBUTIONS.md) file.
+* **License:** This project is licensed under the MIT License. See the [License](LICENSE) file.
 
 ## Acknowledgments
 
