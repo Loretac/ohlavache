@@ -6,6 +6,10 @@
 
 #include<forward_list> // more efficient than vector for erasing
 
+/*********************************************************************
+ **
+ *********************************************************************/
+
 class levels : public QObject
 {
     Q_OBJECT

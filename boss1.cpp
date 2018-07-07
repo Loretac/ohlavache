@@ -5,6 +5,10 @@
 #include <QTimer>
 extern Game * game;
 
+/*********************************************************************
+ **
+ *********************************************************************/
+
 Boss1::Boss1()
 {
     setStartingHealth(6);
@@ -33,7 +37,7 @@ Boss1::Boss1()
 void Boss1::move()
 {
     if(game->isPaused() == false){
-        if(y() < 10){
+        if(y() < 20){
             setPos(x(),y()+2);
         }
 

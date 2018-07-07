@@ -4,6 +4,10 @@
 #include <QGraphicsPixmapItem>
 #include <QObject>
 
+/*********************************************************************
+ **
+ *********************************************************************/
+
 class PlayerBullet: public QObject, public QGraphicsPixmapItem{
     Q_OBJECT
 public:

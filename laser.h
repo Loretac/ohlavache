@@ -4,6 +4,10 @@
 #include <QObject>
 #include <QGraphicsPixmapItem>
 
+/*********************************************************************
+ **
+ *********************************************************************/
+
 class Laser : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT

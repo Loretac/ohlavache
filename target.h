@@ -4,6 +4,10 @@
 #include <QObject>
 #include <QGraphicsPixmapItem>
 
+/*********************************************************************
+ **
+ *********************************************************************/
+
 class target : public QObject, public QGraphicsPixmapItem{
     Q_OBJECT
 public:

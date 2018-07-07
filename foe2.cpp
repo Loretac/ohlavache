@@ -6,6 +6,10 @@
 
 extern Game *game;
 
+/*********************************************************************
+ **
+ *********************************************************************/
+
 Foe2::Foe2()
 {
     setStartingHealth(2);
@@ -30,6 +34,8 @@ Foe2::Foe2()
 
     setMotion();
 
+    shoot();
+
     startShooting();
 }
 
@@ -37,7 +43,7 @@ void Foe2::move()
 {
     if(game->isPaused() == false){
 
-        setPos(x(),y()+1.3);
+        setPos(x(),y()+1);
 
         checkStatus();
 
@@ -49,25 +55,28 @@ void Foe2::move()
 
 void Foe2::shoot()
 {
-   BulletDirected *Bullet = new BulletDirected();
-   Bullet->setSpeed(5);
+    if(game->isPaused() == false){
+        BulletDirected *Bullet = new BulletDirected();
+        Bullet->setSpeed(5);
 
-   // coordinates of origin of bullet
-   int xSource = x() + getWidth()/2 - Bullet->getWidth()/2;
-   int ySource = y() + getHeight()/2 - Bullet->getHeight()/2;
+        // coordinates of origin of bullet
+        int xSource = x() + getWidth()/2 - Bullet->getWidth()/2;
+        int ySource = y() + getHeight()/2 - Bullet->getHeight()/2;
 
-   // coordinates of center of player (offset for center of bullet)
-   int xPlayer = game->getPlayerXPos() + game->getPlayerWidth()/2 - Bullet->getWidth()/2;
-   int yPlayer = game->getPlayerYPos() + game->getPlayerHeight()/2 - Bullet->getHeight()/2;
+        // coordinates of center of player (offset for center of bullet)
+        int xPlayer = game->getPlayerXPos() + game->getPlayerWidth()/2 - Bullet->getWidth()/2;
+        int yPlayer = game->getPlayerYPos() + game->getPlayerHeight()/2 - Bullet->getHeight()/2;
 
-   // set the trajectory of the bullet
-   Bullet->setXTrajectory(xPlayer-xSource);
-   Bullet->setYTrajectory(yPlayer-ySource);
+        // set the trajectory of the bullet
+        Bullet->setXTrajectory(xPlayer-xSource);
+        Bullet->setYTrajectory(yPlayer-ySource);
 
-   // bullet starts at source
-   Bullet->setPos(xSource,ySource);
+        // bullet starts at source
+        Bullet->setPos(xSource,ySource);
 
-   game->addToScene(Bullet);
+        game->addToScene(Bullet);
+    }
+
 }
 
 void Foe2::startShooting()
@@ -76,5 +85,5 @@ void Foe2::startShooting()
     connect(timer,SIGNAL(timeout()),
             this,SLOT(shoot()));
 
-    timer->start(1500);
+    timer->start(2000);
 }

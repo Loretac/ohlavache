@@ -6,6 +6,10 @@
 
 #include "game.h"
 
+/*********************************************************************
+ **
+ *********************************************************************/
+
 class EnemyBullet : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT

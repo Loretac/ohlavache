@@ -13,6 +13,9 @@
 #include <iostream>
 #include <vector>
 
+/*********************************************************************
+ **
+ *********************************************************************/
 
 class Game: public QGraphicsView{
     Q_OBJECT
@@ -92,6 +95,7 @@ private:
     const int startingLives = 4;
 
 private slots:
+    void refreshScene();
 };
 
 #endif // GAME_H

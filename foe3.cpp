@@ -9,9 +9,13 @@
 
 extern Game *game;
 
+/*********************************************************************
+ **
+ *********************************************************************/
+
 Foe3::Foe3()
 {
-    setStartingHealth(2);
+    setStartingHealth(4);
 
 //    setDimensions(100,53,10,-10);
 
@@ -41,13 +45,15 @@ Foe3::Foe3()
 
     setMotion();
 
+    shoot();
+
     startShooting();
 }
 
 void Foe3::move()
 {
     if(game->isPaused() == false){
-        setPos(x(),y()+1.3);
+        setPos(x(),y()+1);
 
         checkStatus();
 
@@ -59,54 +65,57 @@ void Foe3::move()
 
 void Foe3::shoot()
 {
-    BulletTargetedSmall *Bullet = new BulletTargetedSmall();
+    if(game->isPaused() == false){
+        BulletTargetedSmall *Bullet = new BulletTargetedSmall();
 
-    Bullet->setSpeed(5);
+        Bullet->setSpeed(5);
 
-    // coordinates of origin of bullet
-    int xSource = x() + getWidth()/2 - Bullet->getWidth()/2;
-    int ySource = y() + getHeight()/2 - Bullet->getHeight()/2;
+        // coordinates of origin of bullet
+        int xSource = x() + getWidth()/2 - Bullet->getWidth()/2;
+        int ySource = y() + getHeight()/2 - Bullet->getHeight()/2;
 
-    // coordinates of center of player
-    int xPlayer = game->getPlayerXPos() + game->getPlayerWidth()/2 - Bullet->getWidth()/2;
-    int yPlayer = game->getPlayerYPos() + game->getPlayerHeight()/2 - Bullet->getHeight()/2;
+        // coordinates of center of player
+        int xPlayer = game->getPlayerXPos() + game->getPlayerWidth()/2 - Bullet->getWidth()/2;
+        int yPlayer = game->getPlayerYPos() + game->getPlayerHeight()/2 - Bullet->getHeight()/2;
 
-    // set the trajectory of the bullet
-    Bullet->setXTrajectory(xPlayer-xSource);
-    Bullet->setYTrajectory(yPlayer-ySource);
+        // set the trajectory of the bullet
+        Bullet->setXTrajectory(xPlayer-xSource);
+        Bullet->setYTrajectory(yPlayer-ySource);
 
-    // bullet starts at source
-    Bullet->setPos(xSource,ySource);
+        // bullet starts at source
+        Bullet->setPos(xSource,ySource);
 
-    Bullet->setTransformOriginPoint(Bullet->getWidth()/2,Bullet->getHeight()/2);
+        Bullet->setTransformOriginPoint(Bullet->getWidth()/2,Bullet->getHeight()/2);
 
-    double x = xPlayer - xSource;
-    double y = yPlayer - ySource;
+        double x = xPlayer - xSource;
+        double y = yPlayer - ySource;
 
-    double angle = (atan(y/x)) * 180 / M_PI;
+        double angle = (atan(y/x)) * 180 / M_PI;
 
-    if(x < 0){
-        angle += 90;
+        if(x < 0){
+            angle += 90;
+        }
+        if(x > 0){
+            angle -= 90;
+        }
+
+        Bullet->setRotation(angle);
+
+        // add a target
+        target *newTarget = new target(2);
+
+        game->addToScene(newTarget);
+
+        // when the bullet arrives, destroy the target
+        connect(Bullet,SIGNAL(arrived()),
+                newTarget,SLOT(smallBoom()));
+
+        connect(Bullet,SIGNAL(collide()),
+                newTarget,SLOT(smallCollision()));
+
+        game->addToScene(Bullet);
     }
-    if(x > 0){
-        angle -= 90;
-    }
 
-    Bullet->setRotation(angle);
-
-    // add a target
-    target *newTarget = new target(2);
-
-    game->addToScene(newTarget);
-
-    // when the bullet arrives, destroy the target
-    connect(Bullet,SIGNAL(arrived()),
-            newTarget,SLOT(smallBoom()));
-
-    connect(Bullet,SIGNAL(collide()),
-            newTarget,SLOT(smallCollision()));
-
-    game->addToScene(Bullet);
 }
 
 void Foe3::startShooting()
@@ -116,5 +125,5 @@ void Foe3::startShooting()
             this,SLOT(shoot()));
 
 
-    timer->start(1875);
+    timer->start(3575);
 }

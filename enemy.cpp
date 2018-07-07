@@ -7,6 +7,10 @@
 
 extern Game * game;
 
+/*********************************************************************
+ **
+ *********************************************************************/
+
 void enemy::setEnemyPix(QPixmap map)
 {
     enemyPix = new QGraphicsPixmapItem();

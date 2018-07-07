@@ -2,6 +2,10 @@
 
 #include <QTimer>
 
+/*********************************************************************
+ **
+ *********************************************************************/
+
 void EnemyBullet::setBulletPix(QPixmap map)
 {
     QPixmap scaled = map.scaled(getWidth(),getHeight());
@@ -79,7 +83,7 @@ void EnemyBullet::setMotion()
 void EnemyBullet::checkStatus()
 {
     if(pos().y() > 600 ||
-            pos().y()+height < -10 ||
+            pos().y()+height < -100 ||
             pos().x() > 800 ||
             pos().x() + width < 0){
         deleteLater();

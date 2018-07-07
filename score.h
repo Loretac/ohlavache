@@ -3,6 +3,10 @@
 
 #include <QGraphicsTextItem>
 
+/*********************************************************************
+ **
+ *********************************************************************/
+
 class Score: public QGraphicsTextItem{
 public:
     // by default no parent for QGraphicsItem...here we choose to pass a parent

@@ -24,6 +24,10 @@
 
 extern Game * game;
 
+/*********************************************************************
+ **
+ *********************************************************************/
+
 // the levels class contains all of the logic for each level
 
 levels::levels()
@@ -32,6 +36,7 @@ levels::levels()
     //spawnBoss4();
     //spawnBoss3();
     //spawnBoss2();
+    //spawnBoss3();
     level1();
 
     //level2();
@@ -84,26 +89,48 @@ void levels::level2()
 {
     QTimer::singleShot(400, this, SLOT(spawnFoe2()));
     QTimer::singleShot(1400, this, SLOT(spawnFoe2()));
-    QTimer::singleShot(2400, this, SLOT(spawnFoe2()));
+    QTimer::singleShot(2400, this, SLOT(spawnFoe1()));
     QTimer::singleShot(3400, this, SLOT(spawnFoe2()));
     QTimer::singleShot(4400, this, SLOT(spawnFoe2()));
-    QTimer::singleShot(5400, this, SLOT(spawnFoe2()));
+    QTimer::singleShot(5400, this, SLOT(spawnFoe1()));
+    QTimer::singleShot(6700, this, SLOT(spawnFoe2()));
 
-    QTimer::singleShot(7400, this, SLOT(spawnBoss2()));
+    QTimer::singleShot(11400, this, SLOT(spawnBoss2()));
 }
 
 void levels::level3()
 {
     QTimer::singleShot(400, this, SLOT(spawnFoe3()));
-    QTimer::singleShot(1400, this, SLOT(spawnFoe3()));
-    QTimer::singleShot(8400, this, SLOT(spawnBoss3()));
+    QTimer::singleShot(1400, this, SLOT(spawnFoe2()));
+    QTimer::singleShot(2400, this, SLOT(spawnFoe1()));
+    QTimer::singleShot(4000, this, SLOT(spawnFoe1()));
+    QTimer::singleShot(5400, this, SLOT(spawnFoe1()));
+
+    QTimer::singleShot(6400, this, SLOT(spawnFoe2()));
+    QTimer::singleShot(8400, this, SLOT(spawnFoe2()));
+    QTimer::singleShot(10400, this, SLOT(spawnFoe1()));
+    QTimer::singleShot(12400, this, SLOT(spawnFoe1()));
+    QTimer::singleShot(14400, this, SLOT(spawnFoe2()));
+    QTimer::singleShot(15000, this, SLOT(spawnFoe1()));
+    QTimer::singleShot(19400, this, SLOT(spawnFoe3()));
+    QTimer::singleShot(21400, this, SLOT(spawnFoe1()));
+
+
+
+    QTimer::singleShot(24400, this, SLOT(spawnBoss3()));
 }
 
 void levels::level4()
 {
     QTimer::singleShot(400, this, SLOT(spawnFoe4()));
     QTimer::singleShot(2400, this, SLOT(spawnFoe4()));
-    QTimer::singleShot(7400, this, SLOT(spawnBoss4()));
+    QTimer::singleShot(3400, this, SLOT(spawnFoe1()));
+    QTimer::singleShot(4400, this, SLOT(spawnFoe2()));
+    QTimer::singleShot(5400, this, SLOT(spawnFoe1()));
+    QTimer::singleShot(6400, this, SLOT(spawnFoe3()));
+    QTimer::singleShot(9400, this, SLOT(spawnFoe4()));
+
+    QTimer::singleShot(15400, this, SLOT(spawnBoss4()));
 }
 
 void levels::spawnBoss1()

@@ -6,6 +6,9 @@
 // to help handle signals and slots
 #include <QObject>
 
+/*********************************************************************
+ **
+ *********************************************************************/
 
 class Player:public QObject, public QGraphicsPixmapItem{
     Q_OBJECT

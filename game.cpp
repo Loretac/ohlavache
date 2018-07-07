@@ -54,6 +54,11 @@ Game::Game(QWidget *parent){
     // make the background an image
     setBackgroundBrush(QBrush(QImage(":/images/images/paris.png")));
 
+    QTimer *refresh = new QTimer(this);
+    connect(refresh,SIGNAL(timeout()),
+            this,SLOT(refreshScene()));
+    refresh->start(1000);
+
     // make the newly created scene the scene to visualize (since Game is a QGraphicsView Widget,
     // it can be used to visualize scenes)
     setScene(scene);
@@ -324,16 +329,18 @@ void Game::playerHide()
 
 void Game::laserTargetOn()
 {
-    laserTarget->setPos(player->x() + player->getwidth()/2 - laserTarget->getWidth()/2, player->y() + player->getheight()/2 - laserTarget->getHeight()/2);
+    if(paused == false){
+        laserTarget->setPos(player->x() + player->getwidth()/2 - laserTarget->getWidth()/2, player->y() + player->getheight()/2 - laserTarget->getHeight()/2);
+        scene->addItem(laserTarget);
+    }
 
-    //myTarget->setPos(player->x() + game->getPlayerWidth()/2 - playerTarget->getWidth()/2, game->getPlayerYPos() + game->getPlayerHeight()/2 - playerTarget->getHeight()/2);
-    scene->addItem(laserTarget);
-    //qDebug() << "laser target turned on";
 }
 
 void Game::laserTargetOff()
 {
-    scene->removeItem(laserTarget);
+    if(paused == false){
+        scene->removeItem(laserTarget);
+    }
 }
 
 
@@ -489,6 +496,11 @@ void Game::drawPanel(int x, int y, int width, int height, QColor color, double o
     panel->setOpacity(opacity);
 
     scene->addItem(panel);
+}
+
+void Game::refreshScene()
+{
+    setBackgroundBrush(QBrush(QImage(":/images/images/paris.png")));
 }
 
 
