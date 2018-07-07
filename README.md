@@ -1,10 +1,14 @@
 # Oh La Vache!
 
-Help La Vache protect his city from the evil aliens. Move with the arrow keys and shoot with the spacebar.
+Help La Vache protect his city from the evil aliens. Move with the arrow keys and shoot with the spacebar. 
+See a [Demo](https://www.youtube.com/watch?v=NpaKdOW1ymc)
 
 ## Built With
 
 * [Qt](https://www.qt.io)
+C++
+Adobe Photoshop
+Adobe Illustrator
 
 ## Author
 
