@@ -1,23 +1,21 @@
-# A Shooter Game
+# Oh La Vache!
 
-An outer space adventure. Move with the arrow keys and shoot with the spacebar.
+Help La Vache protect his city from the aliens. Move with the arrow keys and shoot with the spacebar. 
+
+See a demo [here.](https://www.youtube.com/watch?v=NpaKdOW1ymc)
 
 ## Built With
 
 * [Qt](https://www.qt.io)
+* C++
+* Adobe Photoshop
+* Adobe Illustrator
 
-## Author
+## About
 
-* **Chris Loreta** - [Loretac](https://github.com/Loretac)
-
-## License
-
-* photos taken from:
-
-* http://clipartmag.com/fighter-jet-clipart
-* http://icons.iconarchive.com/icons/elegantthemes/beautiful-flat-one-color/128/ufo-icon.png
-* https://www.onlinewebfonts.com/icon/562751
-* https://clipartpng.com/?2164,saturn-png-clip-art
+* **Author:** *Chris Loreta* - [Loretac](https://github.com/Loretac)
+* **Attributions:** See a the [ATTRIBUTIONS.md](ATTRIBUTIONS.md) file.
+* **License:** This project is licensed under the MIT License. See the [License](LICENSE) file.
 
 ## Acknowledgments
 
