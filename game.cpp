@@ -260,6 +260,11 @@ void Game::invincibilityOff()
     player->showImage();
 }
 
+void Game::invincibilityOn()
+{
+    invincibility = true;
+}
+
 void Game::resetPlayer()
 {
     delete(player);

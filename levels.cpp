@@ -122,6 +122,8 @@ void levels::level3()
 
 void levels::level4()
 {
+    //game->invincibilityOn(); // modify!
+    //QTimer::singleShot(400, this, SLOT(spawnBoss4()));
     QTimer::singleShot(400, this, SLOT(spawnFoe4()));
     QTimer::singleShot(2400, this, SLOT(spawnFoe4()));
     QTimer::singleShot(3400, this, SLOT(spawnFoe1()));

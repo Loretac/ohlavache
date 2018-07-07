@@ -70,6 +70,7 @@ public slots:
     void readyToFire();
     void readyToStop();
     void invincibilityOff();
+    void invincibilityOn();
     void resetPlayer();
 
     // while player is respawning, blinks
