@@ -2,6 +2,7 @@
 
 #include "bullettargetedsmall.h"
 #include "target.h"
+#include "game.h"
 
 #include <QTimer>
 

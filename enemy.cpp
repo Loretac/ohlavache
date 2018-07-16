@@ -1,9 +1,8 @@
 #include "enemy.h"
 #include <QTimer>
 
-#include <QDebug>
-
 #include "playerbullet.h"
+#include "game.h"
 
 extern Game * game;
 
@@ -172,12 +171,8 @@ void enemy::damage()
     currXCoord = x();
     currYCoord = y();
 
-
-
     // hp is rounded to hearest int. Add 0.5 to account for truncating
     double rawHP = (((float)barsize / startingHealth) * health) + 0.5;
-
-    qDebug() << barsize << " " << startingHealth << " " << health;
 
     // roundedHP is amount shown in health bar
     int roundedHP = (int)rawHP;

@@ -1,6 +1,7 @@
 #include "boss3.h"
 
 #include "bulletminelarge.h"
+#include "game.h"
 
 #include <QTimer>
 

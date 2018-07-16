@@ -1,14 +1,11 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 
-
 #include <QGraphicsRectItem>
 #include <QGraphicsSceneMouseEvent>
 
-#include <QIcon>
-
 /*********************************************************************
- **
+ ** Buttons for menus
  *********************************************************************/
 
 class Button:public QObject, public QGraphicsPixmapItem{
@@ -31,7 +28,6 @@ signals:
 
 
 private:
-    QGraphicsTextItem *text;
     QPixmap buttonPix;
     QPixmap hoverPix;
 };

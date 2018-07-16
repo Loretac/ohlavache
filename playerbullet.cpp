@@ -1,20 +1,16 @@
 #include "playerbullet.h"
 #include <QTimer>
-#include <QGraphicsScene>
 #include <QList>
-//#include "enemytemp.h"
+
 #include "game.h"
 
 #include "enemy.h"
 
-#include "foe1.h"
 
 #include <QDebug>
 
 #include <QGraphicsPixmapItem>
 
-// there is an external global object called game, so we can increase score
-// score is part of the game class.
 extern Game * game;
 
 /*********************************************************************
@@ -57,33 +53,8 @@ int PlayerBullet::getheight()
 void PlayerBullet::move()
 {
     if(game->isPaused() == false){
-
-//        QList<QGraphicsItem *> colliding_items = collidingItems();
-//        // collidingItems() member function returns list of pointers to all the QGraphics items
-//        // that the bullet is colliding with
-
-//        //traverse to see if bullet is colliding with enemy
-//        for(int i = 0, n = colliding_items.size(); i < n; ++i){
-//            if(typeid(*(colliding_items[i])) == typeid(Foe1)){
-//                //qDebug() << "bullet";
-//               // increase the score
-//               //game->score->increase();
-
-//               // typecast from QGraphicsItem* to Enemy*
-//               Foe1 *enemy = dynamic_cast<Foe1 *>(colliding_items[i]);
-//               enemy->damage(); // Call damage function on enemy
-
-//                // remove the bullet from the scene
-//               deleteLater();
-//                //scene()->removeItem(this);
-
-//                //then, delete the bullet
-//                //delete this;
-
-//                // exit
-//                return;
-//            }
-//        }
+        // Bullet deletion upon collision with enemy occurs in enemy class.
+        // If it occurred here instead, we'd have to check each type of enemy.
 
         // move the bullet up
         setPos(x(),y()-10);

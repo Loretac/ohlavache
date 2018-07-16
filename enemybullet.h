@@ -4,32 +4,32 @@
 #include <QObject>
 #include <QGraphicsPixmapItem>
 
-#include "game.h"
-
 /*********************************************************************
- **
+ ** Virtual class for enemy bullet types.
  *********************************************************************/
 
 class EnemyBullet : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:
-    void setBulletPix(QPixmap);
+    void setBulletPix(QPixmap); // set the image
 
-    void setDimensions(int width, int height);
-
+    // getter/setter for counter
     int getCounter();
     void setCounter(int);
 
+    // getter/setter for dimensions
     int getWidth();
     int getHeight();
+    void setDimensions(int width, int height);
 
+    // getter/setter for speed
     void setSpeed(double);
     int getSpeed();
 
+    // getter/setter for trajectory
     void setXTrajectory(double);
     void setYTrajectory(double);
-
     double getXTrajectory();
     double getYTrajectory();
 
@@ -38,7 +38,7 @@ public:
     void checkStatus();
 
 private:
-    int counter = 0;
+    int counter = 0; // pythagorean counter for directed targeted bullets
 
     double speed = 10;
 

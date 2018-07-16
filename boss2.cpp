@@ -2,9 +2,11 @@
 #include "target.h"
 #include "bullettargetedlarge.h"
 
-#include <QTimer>
+#include "game.h"
 
-#include <math.h>
+#include <QTimer>
+#include <stdlib.h> // rand
+#include <math.h> // atan
 
 extern Game *game;
 

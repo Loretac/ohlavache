@@ -25,10 +25,8 @@
 extern Game * game;
 
 /*********************************************************************
- **
+ ** Levels class - manages all spawns and level advances
  *********************************************************************/
-
-// the levels class contains all of the logic for each level
 
 levels::levels()
 {
@@ -47,7 +45,7 @@ levels::levels()
 void levels::spawnFoe1()
 {
     Foe1 *enemy = new Foe1();
-    //activeItems.push_back(enemy);
+
     game->addToScene(enemy);
 }
 
@@ -122,8 +120,6 @@ void levels::level3()
 
 void levels::level4()
 {
-    //game->invincibilityOn(); // modify!
-    //QTimer::singleShot(400, this, SLOT(spawnBoss4()));
     QTimer::singleShot(400, this, SLOT(spawnFoe4()));
     QTimer::singleShot(2400, this, SLOT(spawnFoe4()));
     QTimer::singleShot(3400, this, SLOT(spawnFoe1()));
@@ -171,9 +167,7 @@ void levels::spawnBoss4()
     Boss4Right *enemyRight = new Boss4Right();
     game->addToScene(enemyRight);
 
-    connect(enemyLeft,SIGNAL(leftBossDeath()),
-            enemyRight,SLOT(makeCalls()));
-
+    // manage following of target
     QTimer *timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),
             game,SLOT(targetFollow()));

@@ -1,4 +1,6 @@
 #include "bullettargetedlarge.h"
+#include "game.h"
+
 #include <math.h>
 
 #include <QDebug>

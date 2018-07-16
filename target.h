@@ -5,7 +5,7 @@
 #include <QGraphicsPixmapItem>
 
 /*********************************************************************
- **
+ ** Target class for targeted bombs
  *********************************************************************/
 
 class target : public QObject, public QGraphicsPixmapItem{
@@ -16,7 +16,6 @@ public:
     double yCoord;
     int getWidth();
     int getHeight();
-
 
 public slots:
     void boom();

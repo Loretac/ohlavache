@@ -2,12 +2,10 @@
 #define MYRECT_H
 
 #include <QGraphicsPixmapItem>
-
-// to help handle signals and slots
 #include <QObject>
 
 /*********************************************************************
- **
+ ** Player class
  *********************************************************************/
 
 class Player:public QObject, public QGraphicsPixmapItem{

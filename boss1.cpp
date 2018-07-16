@@ -1,12 +1,15 @@
 #include "boss1.h"
 #include "bulletsimple.h"
 
-#include <stdlib.h>
+#include <stdlib.h> // rand
 #include <QTimer>
+
+#include "game.h"
+
 extern Game * game;
 
 /*********************************************************************
- **
+ ** Level 1 boss
  *********************************************************************/
 
 Boss1::Boss1()

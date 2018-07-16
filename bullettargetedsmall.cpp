@@ -1,4 +1,6 @@
 #include "bullettargetedsmall.h"
+#include "game.h"
+
 #include <math.h>
 
 extern Game *game;

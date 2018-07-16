@@ -1,13 +1,14 @@
 #include "bulletminesmall.h"
 
 #include "playerbullet.h"
+#include "game.h"
 
 #include <math.h>
 
 extern Game *game;
 
 /*********************************************************************
- **
+ ** Small mine (bomb that explodes on contact) shot by Level 4 foe
  *********************************************************************/
 
 BulletMineSmall::BulletMineSmall()

@@ -2,12 +2,9 @@
 #define LEVELS_H
 
 #include <QObject>
-//#include <vector>
-
-#include<forward_list> // more efficient than vector for erasing
 
 /*********************************************************************
- **
+ ** Levels class - manages all spawns and level advances
  *********************************************************************/
 
 class levels : public QObject
@@ -16,8 +13,6 @@ class levels : public QObject
 
 public:
     levels();
-    //void level1();
-
 
 public slots:
     void spawnFoe1();
@@ -29,8 +24,6 @@ public slots:
     void spawnBoss2();
     void spawnBoss3();
     void spawnBoss4();
-
-
 
     void level1();
     void level2();

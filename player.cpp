@@ -1,8 +1,6 @@
 #include "player.h"
-#include <QGraphicsScene>
 #include <QKeyEvent>
 #include "playerbullet.h"
-//#include "enemytemp.h"
 #include "game.h"
 
 #include <QDebug>
@@ -15,11 +13,9 @@ extern Game * game;
  ** to movement timer.
  *********************************************************************/
 Player::Player(QGraphicsItem *parent): QGraphicsPixmapItem(parent){
-    //setPixmap(QPixmap(":/images/images/rocket.png"));
 
     setPixmap(playerPix);
 
-    //setPixmap();
     width = 60;
     height = 82;
 
@@ -60,12 +56,7 @@ void Player::keyPressEvent(QKeyEvent *event){
         break;
     case Qt::Key_Space:
     {
-//        if ( !event->isAutoRepeat() ){
-//            Bullet * bullet = new Bullet();
-//            bullet->setPos(x()+22,y()); // offset for character
-//            scene()->addItem(bullet); // add bullet to scene
-//        // play bulletsound?
-//        }
+        // implement bullet sound?
     }
         keySpace = true;
         break;

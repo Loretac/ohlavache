@@ -20,7 +20,7 @@ signals:
     void bossDeath(); // received by levels::spawnBoss1() to begin Level 2
 
 private:
-    void startShooting(); // member function to continuously shoot() on a timer
+    void startShooting(); // continuously shoot bullets on a timer
 };
 
 #endif // BOSS1_H

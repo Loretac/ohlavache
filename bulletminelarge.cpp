@@ -1,14 +1,13 @@
 #include "bulletminelarge.h"
-
-
 #include "playerbullet.h"
+#include "game.h"
 
 extern Game *game;
 
 
 
 /*********************************************************************
- ** Fired by boss 3
+ ** Large mine (bomb that explodes on contact) shot by Level 3 boss
  *********************************************************************/
 
 BulletMineLarge::BulletMineLarge()

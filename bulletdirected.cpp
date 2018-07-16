@@ -1,4 +1,5 @@
 #include "bulletdirected.h"
+#include "game.h"
 
 #include <math.h>
 

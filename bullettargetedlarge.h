@@ -4,7 +4,8 @@
 #include "enemybullet.h"
 
 /*********************************************************************
- **
+ ** Large bomb that explodes either upon reaching its destination or
+ ** colliding with player. Shot by Level 2 boss
  *********************************************************************/
 
 class BulletTargetedLarge : public EnemyBullet

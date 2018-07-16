@@ -5,7 +5,7 @@
 #include <QObject>
 
 /*********************************************************************
- **
+ ** Player bullet virtual class
  *********************************************************************/
 
 class PlayerBullet: public QObject, public QGraphicsPixmapItem{

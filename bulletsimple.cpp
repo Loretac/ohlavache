@@ -1,9 +1,12 @@
 #include "bulletsimple.h"
 
+#include "game.h"
+
 extern Game *game;
 
 /*********************************************************************
- **
+ ** Bullet that moves in straight downward direction, shot by Level 1
+ ** boss.
  *********************************************************************/
 
 BulletSimple::BulletSimple()

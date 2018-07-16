@@ -10,11 +10,10 @@
 #include "levels.h"
 #include "target.h"
 
-#include <iostream>
 #include <vector>
 
 /*********************************************************************
- **
+ ** Header for main game class
  *********************************************************************/
 
 class Game: public QGraphicsView{

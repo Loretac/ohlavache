@@ -4,7 +4,8 @@
 #include "enemybullet.h"
 
 /*********************************************************************
- **
+ ** Small bomb that explodes either upon reaching its destination or
+ ** colliding with player. Shot by Level 3 foe
  *********************************************************************/
 
 class BulletTargetedSmall : public EnemyBullet

@@ -4,7 +4,7 @@
 #include "enemybullet.h"
 
 /*********************************************************************
- **
+ ** Large mine (bomb that explodes on contact) shot by Level 3 boss
  *********************************************************************/
 
 class BulletMineLarge : public EnemyBullet

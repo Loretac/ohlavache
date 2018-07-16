@@ -4,46 +4,53 @@
 #include <QObject>
 #include <QGraphicsPixmapItem>
 
-#include "game.h"
-
 /*********************************************************************
- **
+ ** Virtual class for enemies
  *********************************************************************/
 
 class enemy : public QObject, public QGraphicsItemGroup
 {
     Q_OBJECT
 public:
+
+    // getter/setter for enemy and healthbar pixmaps
     void setEnemyPix(QPixmap);
     void setHealthPix(QPixmap);
-
     QGraphicsPixmapItem* getEnemyPix();
     QGraphicsPixmapItem* getHealthPix();
 
+    // getter/setter for dimensions of enemy and healthbar placement
     void setDimensions(int width, int height, int hbX, int hbY);
-
-    void setHealth(int);
-    void setStartingHealth(int);
-    int getHealth();
-    int getStartingHealth();
-
-    void positionHealth();
-
     int getWidth();
     int getHeight();
     int getHBX();
     int getHBY();
 
-    bool isDead();
-    void setMotion();
+    // getter/setter for health
+    void setHealth(int);
+    int getHealth();
 
+    // getter/setter for starting health
+    void setStartingHealth(int);
+    int getStartingHealth();
+
+    // positions healthbar based on hbX and hbY
+    void positionHealth();
+
+    // getter for dead
+    bool isDead();
+
+    // setter for size
     void setSize(std::string);
 
+    // setter/getter for moveLeft (whether enemy is currentlty moving left)
     bool getMoveLeft();
     void setMoveLeft(bool);
 
+    void setMotion();
+
 signals:
-    //virtual void enemyDeath() = 0;
+
 
 private:
 

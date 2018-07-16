@@ -1,4 +1,5 @@
 #include "foe4.h"
+#include "game.h"
 
 #include "bulletdirected.h"
 

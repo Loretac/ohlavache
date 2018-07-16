@@ -4,7 +4,7 @@
 #include "enemy.h"
 
 /*********************************************************************
- **
+ ** Standard enemy for Level 3; shoots small targeted bullets
  *********************************************************************/
 
 class Foe3 : public enemy

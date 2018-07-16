@@ -21,22 +21,16 @@
 #include <QTimer>
 
 #include "game.h"
-//#include "enemytemp.h"
 #include "player.h"
-#include "button.h"
+
+
+#include "button.h" // buttons on main/game over menus
+
 #include "levels.h"
 #include "target.h"
 
 #include "bulletdirected.h"
 
-
-//#include <stdlib.h>     /* srand, rand */
-//#include <time.h>       /* time */
-
-
-
-
-//#include "enemybullettemp.h"
 
 /*********************************************************************
  ** Game constructor. This function runs only once, as each time

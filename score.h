@@ -4,7 +4,8 @@
 #include <QGraphicsTextItem>
 
 /*********************************************************************
- **
+ ** Keeps track of the score. Hidden for now, may be used in later
+ ** additions...
  *********************************************************************/
 
 class Score: public QGraphicsTextItem{

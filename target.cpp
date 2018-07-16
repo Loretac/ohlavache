@@ -30,10 +30,7 @@ target::target(int size)
         width = 100;
     }
 
-    setZValue(-1);
-
-
-
+    setZValue(-1); // so it is below the player
 
     this->setPos(xCoord,yCoord);
 
@@ -49,6 +46,10 @@ int target::getHeight()
     return height;
 }
 
+// The explosion/collision functions actually happen in the game class
+// because the target is deleted right when the explosion happens.
+
+// large bomb reaching destination
 void target::boom()
 {
     game->explosion1(xCoord, yCoord );
@@ -56,6 +57,7 @@ void target::boom()
     return;
 }
 
+// small bomb reaching destination
 void target::smallBoom()
 {
     game->explosion2(xCoord,yCoord);
@@ -63,6 +65,7 @@ void target::smallBoom()
     return;
 }
 
+// large bomb colliding with player
 void target::collision()
 {
     game->explosion1(game->getPlayerXPos(), game->getPlayerYPos());
@@ -70,6 +73,7 @@ void target::collision()
     return;
 }
 
+// small bomb colliding with player
 void target::smallCollision()
 {
     game->explosion2(game->getPlayerXPos(),game->getPlayerYPos());

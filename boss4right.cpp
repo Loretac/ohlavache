@@ -2,13 +2,13 @@
 
 #include "laser.h"
 
-#include "target.h"
-
 #include <QTimer>
 
-#include <QDebug>
-
 #include "math.h"
+
+#include <stdlib.h> // rand
+
+#include "game.h"
 
 extern Game *game;
 
@@ -32,7 +32,6 @@ Boss4Right::Boss4Right()
     addToGroup(getEnemyPix());
     addToGroup(getHealthPix());
 
-    //setDimensions(110,114,0,-10);
     setDimensions(109,94,0,-14);
 
     positionHealth();
@@ -69,45 +68,37 @@ void Boss4Right::move()
         else{
             if(y() < maxY && !moveUp && y() > minY){ // continue moving down
                 setPos(x(),y() + speed);
-                qDebug() << "case 1";
             }
             else if(y() >= maxY){ // change direction at bottom, move up
                 setPos(x(),y()-speed);
                 moveUp = true;
                 setMoveLeft(true);
                 speed = (rand() % speedCap) + speedMin; // change speed
-                qDebug() << "case 2";
             }
             else if(y() < maxY && y() > minY && moveUp && getMoveLeft() == true){ // keep moving up
                 setPos(x(),y()-speed);
-                qDebug() << "case 3";
             }
             else if(y() <= minY && getMoveLeft() == true && x() > minX){ // start moving left
                 setPos(x() - speed, y());
                 moveUp = false;
                 speed = (rand() % speedCap) + speedMin; // change speed
-                qDebug() << "case 4";
             }
             else if(y() <= minY && getMoveLeft() == true && x() > minX){ // continue moving left
                 setPos(x() - speed, y());
-                qDebug() << "case 5";
             }
             else if(y() <= minY && getMoveLeft() == true && x() <= minX){ // switch to right
                 setPos(x() + speed, y());
                 setMoveLeft(false);
                 speed = (rand() % speedCap) + speedMin; // change speed
-                qDebug() << "case 6";
             }
             else if(y() <= minY && getMoveLeft() == false && x() < maxX){ // keep moving right
                 setPos(x() + speed, y());
                 moveUp = false;
-                qDebug() << "case 7";
             }
             else if(y() <= minY && getMoveLeft() == false && x() >= maxX){ // start moving up
                 setPos(x(),minY + speed);
                 setMoveLeft(true);
                 speed = (rand() % speedCap) + speedMin; // change speed
-                qDebug() << "case 8";
             }
 
             positionLaser();
@@ -120,11 +111,7 @@ void Boss4Right::move()
                 deleteLater();
             }
         }
-
-
     }
-
-
 }
 
 void Boss4Right::shoot()
@@ -180,6 +167,5 @@ void Boss4Right::laserOn()
     if(game->isPaused() == false){
         game->addToScene(laser);
     }
-
 }
 

@@ -19,17 +19,6 @@ Foe1::Foe1()
     setDimensions(100,53,10,-10); // for ufo 1
     setEnemyPix(QPixmap(":/images/images/ufo.png"));
 
-
-    //setDimensions(105,112,16,-14);
-    //setEnemyPix(QPixmap(":/images/images/dax.png"));
-
-
-    //setDimensions(80,58,0,-10);
-    //setEnemyPix(QPixmap(":/images/images/fabian.png"));
-
-   // end testing
-
-
     setHealthPix(QPixmap(":/images/images/Shb2.png"));
 
     setSize("S");
@@ -44,8 +33,6 @@ Foe1::Foe1()
     setPos(rand()% (800-getWidth()),-getHeight());
 
     setMotion();
-
-
 
 }
 

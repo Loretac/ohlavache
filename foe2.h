@@ -4,7 +4,7 @@
 #include "enemy.h"
 
 /*********************************************************************
- **
+ ** Standard enemy for Level 2; shoots directed bullets
  *********************************************************************/
 
 class Foe2 : public enemy

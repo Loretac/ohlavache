@@ -10,14 +10,13 @@
 extern Game *game;
 
 /*********************************************************************
- **
+ ** Laser shot by Level 4 boss(es)
  *********************************************************************/
 
 Laser::Laser()
 {
     setPixmap(QPixmap(":/images/images/laser.png"));
 
-    //setZValue(-1); // so laser is undernearth enemy and player
 
     QTimer *timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),
@@ -27,26 +26,6 @@ Laser::Laser()
     setTransformOriginPoint(0,5);
 }
 
-//void Laser::setSourceX(double val)
-//{
-//    sourceX = val;
-//}
-
-//void Laser::setSourceY(double val)
-//{
-//    sourceY = val;
-//}
-
-//void Laser::setTargetX(double val)
-//{
-//    targetX = val;
-//}
-
-//void Laser::setTargetY(double val)
-//{
-//    targetY = val;
-//}
-
 void Laser::move()
 {
     if(game->isPaused() == false){
@@ -55,15 +34,11 @@ void Laser::move()
         for(int i = 0, n = colliding_items.size(); i<n; ++i){
             if(typeid(*(colliding_items[i])) == typeid(Player)){
 
-
-                //qDebug() << "contact";
+                // contact with player
                 game->death();
-
                 break;
 
             }
         }
     }
-
-
 }

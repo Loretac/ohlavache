@@ -4,7 +4,7 @@
 #include "enemybullet.h"
 
 /*********************************************************************
- **
+ ** Small mine (bomb that explodes on contact) shot by Level 4 foe
  *********************************************************************/
 
 class BulletMineSmall : public EnemyBullet

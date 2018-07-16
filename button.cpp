@@ -1,5 +1,5 @@
 #include "button.h"
-#include <QGraphicsTextItem>
+//#include <QGraphicsTextItem>
 #include <QGraphicsRectItem>
 #include <QBrush>
 
