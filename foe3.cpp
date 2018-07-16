@@ -95,7 +95,7 @@ void Foe3::shoot()
         if(x < 0){
             angle += 90;
         }
-        if(x > 0){
+        if(x >= 0){
             angle -= 90;
         }
 

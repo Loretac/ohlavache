@@ -66,12 +66,8 @@ public slots:
     void laserTargetOn();
     void laserTargetOff();
     void targetFollow();
-    void finalTarget();
-    void readyToFire();
-    void readyToStop();
     void invincibilityOff();
     void invincibilityOn();
-    void resetPlayer();
 
     // while player is respawning, blinks
     void playerShow();

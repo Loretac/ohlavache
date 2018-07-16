@@ -4,7 +4,7 @@
 #include "enemy.h"
 
 /*********************************************************************
- **
+ ** Level 3 boss
  *********************************************************************/
 
 class Boss3 : public enemy
@@ -15,16 +15,14 @@ public:
 
 private slots:
     virtual void move();
-    void shoot();
-    void normalFire();
-    void rapidFire();
+    void shoot(); // fires a single bomb
+    void rapidFire(); // shoots a stream of explode-on-contact bombs
 
 signals:
-    void bossDeath();
+    void bossDeath(); // received by levels::spawnBoss2() to begin Level 3
 
 private:
-    void startShooting();
-    int fireCounter = 0;
+    int fireCounter = 0; // incrementer for rapidFire()
 };
 
 #endif // BOSS3_H

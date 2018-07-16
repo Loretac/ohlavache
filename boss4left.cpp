@@ -153,10 +153,7 @@ void Boss4Left::shoot()
     }
 }
 
-void Boss4Left::setTarget()
-{
-    game->targetFollow();
-}
+
 
 void Boss4Left::positionLaser()
 {

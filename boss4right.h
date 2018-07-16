@@ -3,10 +3,9 @@
 
 #include "enemy.h"
 #include "laser.h"
-#include "target.h"
 
 /*********************************************************************
- **
+ ** Level 4 boss (right side)
  *********************************************************************/
 
 class Boss4Right : public enemy
@@ -18,11 +17,10 @@ public:
 private slots:
     virtual void move();
     void shoot();
-    void setTarget();
+
     void positionLaser();
     void laserOff();
     void laserOn();
-    void makeCalls();
 
 signals:
     void rightBossDeath();
@@ -33,7 +31,6 @@ private:
     double targetX;
     double targetY;
     double speed = 3;
-    bool bossLeftDead = false; // left boss calls commands unless it dies
     bool spawning = true;
 };
 

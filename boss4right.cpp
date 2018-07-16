@@ -13,7 +13,9 @@
 extern Game *game;
 
 /*********************************************************************
- **
+ ** Level 4 boss (right side)
+ ** Setting of target and shooting operates in levels - independent of
+ ** either boss, as long as at least one is not dead.
  *********************************************************************/
 
 Boss4Right::Boss4Right()
@@ -135,10 +137,6 @@ void Boss4Right::shoot()
     }
 }
 
-void Boss4Right::setTarget()
-{
-    game->targetFollow();
-}
 
 void Boss4Right::positionLaser()
 {
@@ -164,7 +162,6 @@ void Boss4Right::positionLaser()
                 result += 180;
             }
 
-            //qDebug() << result;
             laser->setRotation(result);
         }
     }
@@ -186,7 +183,3 @@ void Boss4Right::laserOn()
 
 }
 
-void Boss4Right::makeCalls()
-{
-    bossLeftDead = true;
-}

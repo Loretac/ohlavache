@@ -4,7 +4,7 @@
 #include "enemybullet.h"
 
 /*********************************************************************
- **
+ ** Bullet directed to a specific x-y location
  *********************************************************************/
 
 class BulletDirected : public EnemyBullet

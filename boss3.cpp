@@ -26,19 +26,17 @@ Boss3::Boss3()
     addToGroup(getEnemyPix());
     addToGroup(getHealthPix());
 
-
-
     positionHealth();
 
     setPos(rand()% (800-getWidth()),-getHeight());
 
     setMotion();
 
-    startShooting();
-
-
 }
 
+/*********************************************************************
+ ** Simple side-to-side movement at the top of the screen
+ *********************************************************************/
 void Boss3::move()
 {
     if(game->isPaused() == false){
@@ -56,6 +54,7 @@ void Boss3::move()
             setPos(x()-15, y());
             // set moveLeft
             setMoveLeft(true);
+
             if(fireCounter%2 == 0){
                 rapidFire();
             }
@@ -74,6 +73,9 @@ void Boss3::move()
     }
 }
 
+/*********************************************************************
+ ** Slot function that shoots a single bullet
+ *********************************************************************/
 void Boss3::shoot()
 {
     if(game->isPaused() == false){
@@ -95,26 +97,11 @@ void Boss3::shoot()
 
 }
 
-void Boss3::normalFire()
-{
-//    QTimer::singleShot(300, this, SLOT(shoot()));
-//    QTimer::singleShot(450, this, SLOT(shoot()));
-//    QTimer::singleShot(600, this, SLOT(shoot()));
-//    QTimer::singleShot(750, this, SLOT(shoot()));
-//    QTimer::singleShot(900, this, SLOT(shoot()));
-//    QTimer::singleShot(1050, this, SLOT(shoot()));
-//    QTimer::singleShot(1200, this, SLOT(shoot()));
-//    QTimer::singleShot(1350, this, SLOT(shoot()));
-//    QTimer::singleShot(1500, this, SLOT(shoot()));
-//    QTimer::singleShot(1650, this, SLOT(shoot()));
-//    QTimer::singleShot(1800, this, SLOT(shoot()));
-
-
-//    QTimer::singleShot(2500, this, SLOT(rapidFire()));
-
-
-}
-
+/*********************************************************************
+ ** Slot function that fires a succession of bullets by calling
+ ** shoot() multiple times. Fucntion is called every other time enemy
+ ** reaches right side of the screen.
+ *********************************************************************/
 void Boss3::rapidFire()
 {
     int val = rand() % 11;
@@ -156,19 +143,4 @@ void Boss3::rapidFire()
     if(val != 10){
         QTimer::singleShot(mult*11, this, SLOT(shoot()));
     }
-}
-
-void Boss3::startShooting()
-{
-//    QTimer *timer = new QTimer();
-//    connect(timer,SIGNAL(timeout()),
-//            this,SLOT(shoot()));
-
-//    timer->start(2475);
-
-    //normalFire();
-
-
-
-
 }

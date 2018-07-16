@@ -127,7 +127,65 @@ void Game::death()
     a->setEndValue(0);
     a->setEasingCurve(QEasingCurve::OutBack);
     a->start(QPropertyAnimation::DeleteWhenStopped);
-    connect(a,SIGNAL(finished()),this,SLOT(resetPlayer()));
+    //connect(a,SIGNAL(finished()),this,SLOT(resetPlayer()));
+
+    connect(a,&QPropertyAnimation::finished,[this](){
+
+        delete(player);
+
+        numLives--;
+
+        // create a new player
+        player = new Player();
+
+        // show the player
+        player->setFlag(QGraphicsItem::ItemIsFocusable);
+        player->setFocus();
+        player->setPos(scene->width()/2 - player->getwidth()/2,500);
+
+
+        if(numLives > 0){
+
+            scene->addItem(player);
+
+            // remove life from screen
+            scene->removeItem(lives.back());
+
+            // erase from vector
+            lives.erase(lives.end()-1);
+        }
+
+        //qDebug() << "Death. Checking lives...";
+
+        // if no more lives, game over
+        if(numLives<=0){
+            gameOver();
+            return;
+        }
+
+
+            QTimer::singleShot(100, player, SLOT(hideImage()));
+            QTimer::singleShot(200, player, SLOT(showImage()));
+            QTimer::singleShot(300, player, SLOT(hideImage()));
+            QTimer::singleShot(400, player, SLOT(showImage()));
+            QTimer::singleShot(500, player, SLOT(hideImage()));
+            QTimer::singleShot(600, player, SLOT(showImage()));
+            QTimer::singleShot(700, player, SLOT(hideImage()));
+            QTimer::singleShot(800, player, SLOT(showImage()));
+            QTimer::singleShot(900, player, SLOT(hideImage()));
+            QTimer::singleShot(1000, player, SLOT(showImage()));
+            QTimer::singleShot(1100, player, SLOT(hideImage()));
+            QTimer::singleShot(1200, player, SLOT(showImage()));
+            QTimer::singleShot(1300, player, SLOT(hideImage()));
+            QTimer::singleShot(1400, player, SLOT(showImage()));
+            QTimer::singleShot(1500, player, SLOT(hideImage()));
+            QTimer::singleShot(1600, this, SLOT(invincibilityOff()));
+
+
+
+
+
+    });
 
 
 
@@ -210,6 +268,7 @@ void Game::restartGame()
     start();
 }
 
+// sets the target for level 4 boss
 void Game::targetFollow()
 {
     if(!paused){
@@ -217,41 +276,30 @@ void Game::targetFollow()
         QTimer::singleShot(250, this, SLOT(laserTargetOff()));
         QTimer::singleShot(1250, this, SLOT(laserTargetOn()));
         QTimer::singleShot(1500, this, SLOT(laserTargetOff()));
-        QTimer::singleShot(2500, this, SLOT(finalTarget()));
-        QTimer::singleShot(3500, this, SLOT(readyToFire()));
+
+        // last blink
+        QTimer::singleShot(2500, [this](){
+            if(!paused){ // save player's coordinates
+                targetedXCoord = player->x() + player->getwidth()/2 - laserTarget->getWidth()/2;
+                targetedYCoord = player->y() + player->getheight()/2 - laserTarget->getHeight()/2;
+
+                laserTargetOn();
+            }
+        });
+
+        // signal for boss(es) to fire
+        QTimer::singleShot(3500, [this](){
+            if(!paused){
+                emit fire();
+                laserTargetOff();
+
+                // signal to stop firing
+                QTimer::singleShot(500, [this](){
+                    emit stopFiring();
+                });
+            }
+        });
     }
-
-
-
-}
-
-void Game::finalTarget()
-{
-    if(!paused){
-        targetedXCoord = player->x() + player->getwidth()/2 - laserTarget->getWidth()/2;
-        targetedYCoord = player->y() + player->getheight()/2 - laserTarget->getHeight()/2;
-
-        laserTargetOn();
-    }
-
-}
-
-void Game::readyToFire()
-{
-    if(!paused){
-        emit fire();
-        laserTargetOff();
-
-        QTimer::singleShot(500, this, SLOT(readyToStop()));
-    }
-
-
-}
-
-// sends a signal linked to boss4 slots to stop firing lasers
-void Game::readyToStop()
-{
-    emit stopFiring();
 }
 
 void Game::invincibilityOff()
@@ -265,62 +313,7 @@ void Game::invincibilityOn()
     invincibility = true;
 }
 
-void Game::resetPlayer()
-{
-    delete(player);
 
-    numLives--;
-
-    // create a new player
-    player = new Player();
-
-    // show the player
-    player->setFlag(QGraphicsItem::ItemIsFocusable);
-    player->setFocus();
-    player->setPos(scene->width()/2 - player->getwidth()/2,500);
-
-
-    if(numLives > 0){
-
-        scene->addItem(player);
-
-        // remove life from screen
-        scene->removeItem(lives.back());
-
-        // erase from vector
-        lives.erase(lives.end()-1);
-    }
-
-    //qDebug() << "Death. Checking lives...";
-
-    // if no more lives, game over
-    if(numLives<=0){
-        gameOver();
-        return;
-    }
-
-
-        QTimer::singleShot(100, player, SLOT(hideImage()));
-        QTimer::singleShot(200, player, SLOT(showImage()));
-        QTimer::singleShot(300, player, SLOT(hideImage()));
-        QTimer::singleShot(400, player, SLOT(showImage()));
-        QTimer::singleShot(500, player, SLOT(hideImage()));
-        QTimer::singleShot(600, player, SLOT(showImage()));
-        QTimer::singleShot(700, player, SLOT(hideImage()));
-        QTimer::singleShot(800, player, SLOT(showImage()));
-        QTimer::singleShot(900, player, SLOT(hideImage()));
-        QTimer::singleShot(1000, player, SLOT(showImage()));
-        QTimer::singleShot(1100, player, SLOT(hideImage()));
-        QTimer::singleShot(1200, player, SLOT(showImage()));
-        QTimer::singleShot(1300, player, SLOT(hideImage()));
-        QTimer::singleShot(1400, player, SLOT(showImage()));
-        QTimer::singleShot(1500, player, SLOT(hideImage()));
-        QTimer::singleShot(1600, this, SLOT(invincibilityOff()));
-
-
-
-
-}
 
 void Game::playerShow()
 {

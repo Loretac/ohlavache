@@ -3,10 +3,9 @@
 
 #include "enemy.h"
 #include "laser.h"
-#include "target.h"
 
 /*********************************************************************
- **
+ ** Level 4 boss (left side)
  *********************************************************************/
 
 class Boss4Left : public enemy
@@ -18,7 +17,7 @@ public:
 private slots:
     virtual void move();
     void shoot();
-    void setTarget();
+
     void positionLaser();
     void laserOff();
     void laserOn();

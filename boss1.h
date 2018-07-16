@@ -4,7 +4,7 @@
 #include "enemy.h"
 
 /*********************************************************************
- **
+ ** Level 1 boss
  *********************************************************************/
 
 class Boss1 : public enemy
@@ -15,13 +15,13 @@ public:
 
 private slots:
     virtual void move();
-    void shoot();
+//    void shoot(); // fires a single bullet
 
 signals:
-    void bossDeath();
+    void bossDeath(); // received by levels::spawnBoss1() to begin Level 2
 
 private:
-    void startShooting();
+    void startShooting(); // member function to continuously shoot() on a timer
 };
 
 #endif // BOSS1_H
