@@ -62,24 +62,9 @@ void Boss1::move()
     }
 }
 
-//void Boss1::shoot()
-//{
-//    if(game->isPaused() == false){
-//        BulletSimple *Bullet = new BulletSimple();
-//        Bullet->setSpeed(1);
-//        Bullet->setXTrajectory(0);
-//        Bullet->setYTrajectory(1);
-//        Bullet->setPos(x()+getWidth()/2,y()+getHeight()/2); // offset for character
-//        game->addToScene(Bullet);
-//    }
-
-//}
-
 void Boss1::startShooting()
 {
     QTimer *timer = new QTimer(this);
-//    connect(timer,SIGNAL(timeout()),
-//            this,SLOT(shoot()));
     connect(timer,&QTimer::timeout,[this](){
         if(game->isPaused() == false){
             BulletSimple *Bullet = new BulletSimple();

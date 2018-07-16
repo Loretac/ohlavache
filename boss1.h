@@ -15,7 +15,6 @@ public:
 
 private slots:
     virtual void move();
-//    void shoot(); // fires a single bullet
 
 signals:
     void bossDeath(); // received by levels::spawnBoss1() to begin Level 2
